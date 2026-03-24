@@ -19,3 +19,4 @@
 /frontend/.env.local
 /frontend/dist/
 /frontend/node_modules/
+/infra/nginx/.htpasswd

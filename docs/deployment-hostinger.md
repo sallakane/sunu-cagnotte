@@ -118,6 +118,26 @@ Pour passer en production publique, il faut ajouter une terminaison TLS :
 - soit avec un reverse proxy TLS en amont
 - soit avec un proxy gere par le fournisseur
 
+## Protection temporaire par mot de passe HTTP
+
+La stack de production supporte une protection `Basic Auth` au niveau Nginx.
+
+Creer le fichier de mot de passe sur le VPS :
+
+```bash
+cd /var/www/sunu-cagnotte
+printf "admin:$(openssl passwd -apr1 'CHANGE_ME_MAINTENANT')\n" > infra/nginx/.htpasswd
+chmod 600 infra/nginx/.htpasswd
+```
+
+Puis rebuild le proxy :
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build proxy
+```
+
+Pour retirer plus tard la protection, supprimer le volume `.htpasswd` dans `docker-compose.prod.yml`, retirer `auth_basic` de `infra/nginx/prod.conf`, puis rebuild le proxy.
+
 ## Points sensibles avant push GitHub
 
 - ne pas commit `backend/config/jwt/private.pem`
