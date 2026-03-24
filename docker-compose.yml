@@ -1,0 +1,97 @@
+services:
+  proxy:
+    image: nginx:1.27-alpine
+    depends_on:
+      - php
+      - frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./backend/public:/srv/backend/public:ro
+    networks:
+      - cagnotte
+
+  php:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: sh -lc "mkdir -p /app/public/uploads/fundraisers /srv/backend/public/uploads/fundraisers /app/var/cache /app/var/log && chmod -R 0777 /app/public/uploads /srv/backend/public/uploads /app/var && if [ ! -d vendor ]; then composer install; fi && php-fpm"
+    env_file:
+      - .env
+    environment:
+      APP_ENV: ${APP_ENV}
+      APP_SECRET: ${APP_SECRET}
+      APP_BASE_URL: ${APP_BASE_URL}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL}
+      DATABASE_URL: postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}?serverVersion=16&charset=utf8
+      MAILER_DSN: ${MAILER_DSN}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+      CONTACT_RECIPIENT: ${CONTACT_RECIPIENT}
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+      PAYMENT_PROVIDER: ${PAYMENT_PROVIDER}
+      PAYDUNYA_MODE: ${PAYDUNYA_MODE}
+      PAYDUNYA_MASTER_KEY: ${PAYDUNYA_MASTER_KEY}
+      PAYDUNYA_PRIVATE_KEY: ${PAYDUNYA_PRIVATE_KEY}
+      PAYDUNYA_PUBLIC_KEY: ${PAYDUNYA_PUBLIC_KEY}
+      PAYDUNYA_TOKEN: ${PAYDUNYA_TOKEN}
+      PAYDUNYA_STORE_NAME: ${PAYDUNYA_STORE_NAME}
+      PAYDUNYA_STORE_TAGLINE: ${PAYDUNYA_STORE_TAGLINE}
+    volumes:
+      - ./backend:/app
+      - ./backend:/srv/backend
+      - composer_cache:/tmp/composer
+    depends_on:
+      - db
+      - mailpit
+    networks:
+      - cagnotte
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: sh -lc "if [ ! -d node_modules ] || [ -z \"$(ls -A node_modules 2>/dev/null)\" ]; then npm install; fi && npm run dev -- --host 0.0.0.0 --port 5173"
+    env_file:
+      - .env
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+      VITE_APP_NAME: ${VITE_APP_NAME}
+    volumes:
+      - ./frontend:/app
+      - node_modules_cache:/app/node_modules
+    networks:
+      - cagnotte
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "${DATABASE_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cagnotte
+
+  mailpit:
+    image: axllent/mailpit:v1.21
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - cagnotte
+
+volumes:
+  postgres_data:
+  composer_cache:
+  node_modules_cache:
+
+networks:
+  cagnotte:
+    driver: bridge

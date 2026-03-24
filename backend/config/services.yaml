@@ -1,0 +1,45 @@
+parameters:
+  app.contact_recipient: '%env(CONTACT_RECIPIENT)%'
+  app.base_url: '%env(APP_BASE_URL)%'
+  app.frontend_base_url: '%env(FRONTEND_BASE_URL)%'
+  app.payment_provider: '%env(PAYMENT_PROVIDER)%'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  _instanceof:
+    App\Service\Payment\PaymentProviderInterface:
+      tags: ['app.payment_provider']
+
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/Entity/'
+      - '../src/Kernel.php'
+
+  App\Service\Payment\PayDunya\PayDunyaProvider:
+    arguments:
+      $mode: '%env(string:PAYDUNYA_MODE)%'
+      $masterKey: '%env(string:PAYDUNYA_MASTER_KEY)%'
+      $privateKey: '%env(string:PAYDUNYA_PRIVATE_KEY)%'
+      $publicKey: '%env(string:PAYDUNYA_PUBLIC_KEY)%'
+      $token: '%env(string:PAYDUNYA_TOKEN)%'
+      $storeName: '%env(string:PAYDUNYA_STORE_NAME)%'
+      $storeTagline: '%env(string:PAYDUNYA_STORE_TAGLINE)%'
+
+  App\Service\Payment\PaymentProviderRegistry:
+    arguments:
+      $providers: !tagged_iterator app.payment_provider
+
+  App\Controller\ContributionController:
+    arguments:
+      $paymentProvider: '%app.payment_provider%'
+      $appBaseUrl: '%app.base_url%'
+      $frontendBaseUrl: '%app.frontend_base_url%'
+
+  App\Service\Mailer\TransactionalMailer:
+    arguments:
+      $contactRecipient: '%app.contact_recipient%'
+      $frontendBaseUrl: '%app.frontend_base_url%'

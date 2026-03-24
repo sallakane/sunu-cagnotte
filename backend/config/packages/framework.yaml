@@ -1,0 +1,19 @@
+framework:
+  secret: '%env(APP_SECRET)%'
+  http_method_override: false
+  handle_all_throwables: true
+  validation:
+    email_validation_mode: html5
+  uid:
+    default_uuid_version: 7
+  serializer:
+    enabled: true
+  mailer:
+    dsn: '%env(MAILER_DSN)%'
+
+when@test:
+  framework:
+    test: true
+    session:
+      storage_factory_id: session.storage.factory.mock_file
+

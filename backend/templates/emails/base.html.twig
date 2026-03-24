@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <body style="margin:0;padding:0;background:#f3f7f6;font-family:Arial,sans-serif;color:{{ brandTextColor }};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f7f6;padding:24px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;border-radius:24px;overflow:hidden;border:1px solid #dbe7e5;">
+            <tr>
+              <td style="padding:20px 24px;background:linear-gradient(135deg, {{ brandPrimaryColor }} 0%, #134e4a 100%);">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td valign="middle" style="width:56px;">
+                      <img src="{{ brandLogoUrl }}" alt="{{ brandName }}" width="48" height="48" style="display:block;width:48px;height:48px;border-radius:14px;background:#ffffff;padding:6px;" />
+                    </td>
+                    <td valign="middle" style="padding-left:14px;">
+                      <div style="font-size:12px;line-height:1.4;color:#ccfbf1;text-transform:uppercase;letter-spacing:0.08em;">
+                        Notification
+                      </div>
+                      <div style="font-size:22px;line-height:1.2;color:#ffffff;font-weight:700;">
+                        {{ brandName }}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:32px 24px 8px;">
+                {% if eyebrow is defined and eyebrow %}
+                  <div style="font-size:12px;line-height:1.4;color:{{ brandPrimaryColor }};text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:10px;">
+                    {{ eyebrow }}
+                  </div>
+                {% endif %}
+                <h1 style="margin:0 0 14px;font-size:30px;line-height:1.15;color:{{ brandTextColor }};">
+                  {% block title %}{% endblock %}
+                </h1>
+                {% if intro is defined and intro %}
+                  <p style="margin:0 0 24px;font-size:16px;line-height:1.7;color:#334155;">
+                    {{ intro }}
+                  </p>
+                {% endif %}
+
+                {% block content %}{% endblock %}
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 24px 28px;">
+                <div style="margin-top:24px;padding:18px 20px;border-radius:18px;background:{{ brandSurfaceColor }};border:1px solid #dbe7e5;">
+                  <p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#475569;">
+                    Email envoye par {{ brandName }}.
+                  </p>
+                  <p style="margin:0;font-size:14px;line-height:1.6;color:#475569;">
+                    <a href="{{ homepageUrl }}" style="color:{{ brandPrimaryColor }};text-decoration:none;font-weight:700;">Acceder a la plateforme</a>
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

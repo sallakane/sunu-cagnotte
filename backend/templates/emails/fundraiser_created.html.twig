@@ -1,0 +1,29 @@
+{% extends 'emails/base.html.twig' %}
+
+{% set eyebrow = 'Nouvelle cagnotte' %}
+{% set intro = 'Votre campagne a bien ete enregistree. Vous pouvez maintenant la relire, l enrichir et la soumettre a validation.' %}
+
+{% block title %}Cagnotte creee{% endblock %}
+
+{% block content %}
+  <p style="margin:0 0 18px;font-size:16px;line-height:1.7;color:#334155;">
+    Bonjour {{ user.firstName }},
+  </p>
+
+  <div style="margin-bottom:22px;padding:18px 20px;border-radius:20px;background:#f8fafc;border:1px solid #dbe7e5;">
+    <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#0f766e;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;">
+      Cagnotte en brouillon
+    </p>
+    <p style="margin:0;font-size:22px;line-height:1.3;color:#0f172a;font-weight:700;">
+      {{ fundraiser.title }}
+    </p>
+  </div>
+
+  <p style="margin:0 0 22px;font-size:15px;line-height:1.7;color:#334155;">
+    Elle est actuellement en brouillon. Depuis votre espace createur, vous pouvez la completer, verifier les informations et lancer la soumission pour validation.
+  </p>
+
+  <a href="{{ dashboardUrl }}" style="display:inline-block;padding:14px 18px;border-radius:999px;background:{{ brandPrimaryColor }};color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;">
+    Acceder a mon espace
+  </a>
+{% endblock %}

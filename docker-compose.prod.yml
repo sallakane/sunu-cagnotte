@@ -1,0 +1,78 @@
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: infra/nginx/Dockerfile.prod
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+        VITE_APP_NAME: ${VITE_APP_NAME}
+        VITE_SITE_URL: ${FRONTEND_BASE_URL}
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    volumes:
+      - ./backend/public:/srv/backend/public:ro
+    networks:
+      - cagnotte
+
+  php:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    env_file:
+      - .env
+    environment:
+      APP_ENV: prod
+      APP_SECRET: ${APP_SECRET}
+      APP_BASE_URL: ${APP_BASE_URL}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL}
+      DATABASE_URL: postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}?serverVersion=16&charset=utf8
+      MAILER_DSN: ${MAILER_DSN}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+      CONTACT_RECIPIENT: ${CONTACT_RECIPIENT}
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+      PAYMENT_PROVIDER: ${PAYMENT_PROVIDER}
+      PAYDUNYA_MODE: ${PAYDUNYA_MODE}
+      PAYDUNYA_MASTER_KEY: ${PAYDUNYA_MASTER_KEY}
+      PAYDUNYA_PRIVATE_KEY: ${PAYDUNYA_PRIVATE_KEY}
+      PAYDUNYA_PUBLIC_KEY: ${PAYDUNYA_PUBLIC_KEY}
+      PAYDUNYA_TOKEN: ${PAYDUNYA_TOKEN}
+      PAYDUNYA_STORE_NAME: ${PAYDUNYA_STORE_NAME}
+      PAYDUNYA_STORE_TAGLINE: ${PAYDUNYA_STORE_TAGLINE}
+    volumes:
+      - ./backend/public/uploads:/app/public/uploads
+      - ./backend/var:/app/var
+      - ./backend/config/jwt:/app/config/jwt
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - cagnotte
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - cagnotte
+
+volumes:
+  postgres_data_prod:
+
+networks:
+  cagnotte:
+    driver: bridge

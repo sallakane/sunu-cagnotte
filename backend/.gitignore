@@ -1,0 +1,7 @@
+/vendor/
+/var/
+/.env.local
+/.phpunit.result.cache
+/public/uploads/*
+!/public/uploads/.gitkeep
+

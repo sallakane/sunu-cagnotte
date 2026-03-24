@@ -1,0 +1,17 @@
+monolog:
+  channels:
+    - payment
+
+  handlers:
+    main:
+      type: stream
+      path: '%kernel.logs_dir%/%kernel.environment%.log'
+      level: info
+      channels: ['!event']
+
+    payment:
+      type: stream
+      path: '%kernel.logs_dir%/payment.log'
+      level: info
+      channels: ['payment']
+

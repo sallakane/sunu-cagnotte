@@ -1,0 +1,49 @@
+import { SectionHeading } from "../components/SectionHeading";
+import { usePageSeo } from "../lib/usePageSeo";
+
+export function AboutPage() {
+  usePageSeo({
+    title: "Qui sommes-nous",
+    description:
+      "Decouvrez la mission de Sunu Cagnotte, son approche de confiance et sa vision d'une collecte plus accessible localement.",
+    canonicalPath: "/qui-sommes-nous",
+  });
+
+  return (
+    <div className="page">
+      <section className="page-section">
+        <SectionHeading
+          eyebrow="Qui sommes-nous"
+          title="Une initiative solidaire nee d'un manque local"
+          description="Le projet se positionne comme une ONG ou initiative a but non lucratif, avec une promesse de simplicite, de serieux et d'accessibilite."
+        />
+
+        <div className="content-grid">
+          <article className="panel">
+            <h2>Notre mission</h2>
+            <p>
+              Rendre les cagnottes en ligne plus accessibles au Senegal, avec
+              une interface claire, un parcours de contribution mobile-first et
+              un cadre de confiance adapte aux usages locaux.
+            </p>
+          </article>
+          <article className="panel">
+            <h2>Pourquoi maintenant</h2>
+            <p>
+              Beaucoup d'initiatives solidaires s'organisent deja, mais les
+              outils disponibles restent souvent peu accessibles, peu localises
+              ou insuffisamment rassurants.
+            </p>
+          </article>
+          <article className="panel">
+            <h2>Notre approche</h2>
+            <p>
+              Mettre en avant la transparence, la moderation et une identite
+              visuelle chaleureuse sans tomber dans le folklore ni l'effet clone.
+            </p>
+          </article>
+        </div>
+      </section>
+    </div>
+  );
+}
