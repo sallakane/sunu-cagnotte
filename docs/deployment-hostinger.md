@@ -122,6 +122,8 @@ Pour passer en production publique, il faut ajouter une terminaison TLS :
 
 La stack de production supporte une protection `Basic Auth` au niveau Nginx.
 
+Le front et l'API utilisent aussi un JWT pour l'espace connecte. Le projet envoie donc ce JWT dans l'en-tete `X-Auth-Token` afin d'eviter un conflit avec l'en-tete `Authorization` deja utilise par la `Basic Auth` Nginx.
+
 Creer le fichier de mot de passe sur le VPS :
 
 ```bash
