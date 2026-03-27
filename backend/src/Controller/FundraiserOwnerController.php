@@ -13,6 +13,7 @@ use App\Service\Fundraiser\FundraiserSlugger;
 use App\Service\Fundraiser\FundraiserViewFactory;
 use App\Service\Mailer\TransactionalMailer;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -44,6 +45,7 @@ class FundraiserOwnerController extends AbstractController
         FundraiserSlugger $fundraiserSlugger,
         FundraiserViewFactory $fundraiserViewFactory,
         TransactionalMailer $transactionalMailer,
+        LoggerInterface $logger,
     ): JsonResponse
     {
         $owner = $this->getAuthenticatedUser();
@@ -85,7 +87,17 @@ class FundraiserOwnerController extends AbstractController
 
         $entityManager->persist($fundraiser);
         $entityManager->flush();
-        $transactionalMailer->sendFundraiserCreated($owner, $fundraiser);
+
+        try {
+            $transactionalMailer->sendFundraiserCreated($owner, $fundraiser);
+        } catch (\Throwable $exception) {
+            $logger->error('Impossible d envoyer l email de creation de cagnotte.', [
+                'exception' => $exception,
+                'fundraiserId' => $fundraiser->getId()->toRfc4122(),
+                'ownerId' => $owner->getId()->toRfc4122(),
+                'ownerEmail' => $owner->getEmail(),
+            ]);
+        }
 
         return $this->json([
             'message' => 'Cagnotte creee en brouillon.',
