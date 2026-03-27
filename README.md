@@ -77,7 +77,8 @@ Une base de stack prod est prete avec :
 - [docker-compose.prod.yml](/home/salla/Projects/cagnotte/docker-compose.prod.yml)
 - [backend/Dockerfile.prod](/home/salla/Projects/cagnotte/backend/Dockerfile.prod)
 - [infra/nginx/Dockerfile.prod](/home/salla/Projects/cagnotte/infra/nginx/Dockerfile.prod)
-- [infra/nginx/prod.conf](/home/salla/Projects/cagnotte/infra/nginx/prod.conf)
+- [infra/nginx/prod-http.conf.template](/home/salla/Projects/cagnotte/infra/nginx/prod-http.conf.template)
+- [infra/nginx/prod-https.conf.template](/home/salla/Projects/cagnotte/infra/nginx/prod-https.conf.template)
 
 Cette stack remplace le front Vite par des assets statiques buildes a l image, conserve Symfony + PostgreSQL, et prepare le terrain pour le deploy sur le VPS Hostinger.
 
@@ -174,7 +175,7 @@ Le flux cible est simple :
 4. lancer `docker compose -f docker-compose.prod.yml up -d --build` ;
 5. executer les migrations ;
 6. generer les cles JWT sur le VPS ;
-7. brancher ensuite le HTTPS.
+7. activer `ENABLE_TLS=1` et monter les certificats si le site doit etre public en HTTPS.
 
 ## Points de vigilance avant push
 

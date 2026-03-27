@@ -9,7 +9,8 @@ Le socle de production prepare dans ce repo repose sur :
 - `docker-compose.prod.yml`
 - `backend/Dockerfile.prod`
 - `infra/nginx/Dockerfile.prod`
-- `infra/nginx/prod.conf`
+- `infra/nginx/prod-http.conf.template`
+- `infra/nginx/prod-https.conf.template`
 
 ## Branches recommandees
 
@@ -81,6 +82,8 @@ Variables minimales a renseigner :
 - `APP_SECRET`
 - `APP_BASE_URL=https://sunu-cagnotte.org`
 - `FRONTEND_BASE_URL=https://sunu-cagnotte.org`
+- `NGINX_SERVER_NAME="sunu-cagnotte.org www.sunu-cagnotte.org"`
+- `NGINX_CANONICAL_HOST=sunu-cagnotte.org`
 - `DATABASE_NAME`
 - `DATABASE_USER`
 - `DATABASE_PASSWORD`
@@ -110,13 +113,97 @@ docker compose -f docker-compose.prod.yml exec php php bin/console app:create-ad
 
 ## HTTPS
 
-Le fichier Nginx de production prepare ici sert la stack en HTTP sur le port `80`.
+La stack de production peut maintenant tourner dans deux modes :
 
-Pour passer en production publique, il faut ajouter une terminaison TLS :
+- `ENABLE_TLS=0` : HTTP simple sur le port `80`
+- `ENABLE_TLS=1` : redirection `HTTP -> HTTPS` et ecoute TLS sur `443`
 
-- soit avec un Nginx/Certbot sur le VPS
-- soit avec un reverse proxy TLS en amont
-- soit avec un proxy gere par le fournisseur
+### Option recommandee : certificats Let's Encrypt sur le VPS
+
+1. Installer Certbot sur le VPS :
+
+```bash
+apt update
+apt install -y certbot
+```
+
+2. Ouvrir les ports `80` et `443` dans le firewall du VPS.
+
+3. Arreter temporairement le proxy qui occupe deja le port `80` :
+
+```bash
+docker compose -f docker-compose.prod.yml stop proxy
+```
+
+4. Generer le certificat :
+
+```bash
+certbot certonly --standalone -d sunu-cagnotte.org -d www.sunu-cagnotte.org
+```
+
+5. Mettre a jour `.env` :
+
+```bash
+ENABLE_TLS=1
+NGINX_SERVER_NAME="sunu-cagnotte.org www.sunu-cagnotte.org"
+NGINX_CANONICAL_HOST=sunu-cagnotte.org
+SSL_CERTS_HOST_PATH=/etc/letsencrypt
+SSL_CERT_PATH=/etc/nginx/certs/live/sunu-cagnotte.org/fullchain.pem
+SSL_CERT_KEY_PATH=/etc/nginx/certs/live/sunu-cagnotte.org/privkey.pem
+APP_BASE_URL=https://sunu-cagnotte.org
+FRONTEND_BASE_URL=https://sunu-cagnotte.org
+VITE_SITE_URL=https://sunu-cagnotte.org
+```
+
+Avec cette configuration, les 4 variantes suivantes redirigent vers `https://sunu-cagnotte.org` :
+
+- `http://sunu-cagnotte.org`
+- `http://www.sunu-cagnotte.org`
+- `https://www.sunu-cagnotte.org`
+- `https://sunu-cagnotte.org`
+
+6. Redemarrer puis rebuild le proxy :
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build proxy
+```
+
+7. Verifier :
+
+```bash
+docker compose -f docker-compose.prod.yml logs --tail=100 proxy
+curl -I http://sunu-cagnotte.org
+curl -I https://sunu-cagnotte.org
+```
+
+Pour les renouvellements Let's Encrypt, il faudra recharger le proxy apres le renouvellement pour que Nginx relise les nouveaux fichiers de certificat :
+
+```bash
+docker compose -f docker-compose.prod.yml exec proxy nginx -s reload
+```
+
+### Option simple : certificats copies dans le repo sur le VPS
+
+Si tu ne veux pas monter `/etc/letsencrypt` dans Docker, tu peux aussi deposer les fichiers sur le VPS :
+
+```bash
+mkdir -p infra/nginx/certs
+cp /etc/letsencrypt/live/sunu-cagnotte.org/fullchain.pem infra/nginx/certs/fullchain.pem
+cp /etc/letsencrypt/live/sunu-cagnotte.org/privkey.pem infra/nginx/certs/privkey.pem
+chmod 600 infra/nginx/certs/privkey.pem
+```
+
+Puis garder :
+
+```bash
+ENABLE_TLS=1
+NGINX_CANONICAL_HOST=sunu-cagnotte.org
+SSL_CERTS_HOST_PATH=./infra/nginx/certs
+SSL_CERT_PATH=/etc/nginx/certs/fullchain.pem
+SSL_CERT_KEY_PATH=/etc/nginx/certs/privkey.pem
+```
+
+Attention : avec cette option, le renouvellement Let's Encrypt ne sera pas automatiquement pris en compte tant que les fichiers copies ne sont pas resynchronises puis que le proxy n est pas relance.
 
 ## Protection temporaire par mot de passe HTTP
 
@@ -138,7 +225,7 @@ Puis rebuild le proxy :
 docker compose -f docker-compose.prod.yml up -d --build proxy
 ```
 
-Pour retirer plus tard la protection, supprimer le volume `.htpasswd` dans `docker-compose.prod.yml`, retirer `auth_basic` de `infra/nginx/prod.conf`, puis rebuild le proxy.
+Pour retirer plus tard la protection, supprimer le volume `.htpasswd` dans `docker-compose.prod.yml`, retirer `auth_basic` des templates `infra/nginx/prod-http.conf.template` et `infra/nginx/prod-https.conf.template`, puis rebuild le proxy.
 
 ## Points sensibles avant push GitHub
 

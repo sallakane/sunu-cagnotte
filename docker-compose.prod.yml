@@ -11,9 +11,17 @@ services:
       - php
     ports:
       - "80:80"
+      - "443:443"
+    environment:
+      ENABLE_TLS: ${ENABLE_TLS:-0}
+      NGINX_SERVER_NAME: "${NGINX_SERVER_NAME:-sunu-cagnotte.org www.sunu-cagnotte.org}"
+      NGINX_CANONICAL_HOST: ${NGINX_CANONICAL_HOST:-sunu-cagnotte.org}
+      SSL_CERT_PATH: ${SSL_CERT_PATH:-/etc/nginx/certs/fullchain.pem}
+      SSL_CERT_KEY_PATH: ${SSL_CERT_KEY_PATH:-/etc/nginx/certs/privkey.pem}
     restart: unless-stopped
     volumes:
       - ./backend/public:/srv/backend/public:ro
+      - ${SSL_CERTS_HOST_PATH:-./infra/nginx/certs}:/etc/nginx/certs:ro
     networks:
       - cagnotte
 

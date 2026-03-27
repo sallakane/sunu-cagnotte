@@ -20,3 +20,5 @@
 /frontend/dist/
 /frontend/node_modules/
 /infra/nginx/.htpasswd
+/infra/nginx/certs/*
+!/infra/nginx/certs/.gitkeep
