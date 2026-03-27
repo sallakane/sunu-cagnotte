@@ -82,6 +82,12 @@ select {
   min-height: 100vh;
 }
 
+.shell__banner {
+  width: var(--container);
+  margin: 0 auto;
+  padding-top: 12px;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -134,11 +140,11 @@ select {
 .beta-banner {
   position: relative;
   display: grid;
-  gap: 18px;
-  padding: 18px;
+  gap: 14px;
+  padding: 14px;
   overflow: hidden;
   border: 1px solid rgba(200, 16, 46, 0.14);
-  border-radius: 28px;
+  border-radius: 24px;
   background:
     radial-gradient(circle at top left, rgba(251, 191, 36, 0.28), transparent 36%),
     radial-gradient(circle at 100% 10%, rgba(0, 107, 63, 0.2), transparent 34%),
@@ -163,19 +169,19 @@ select {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .beta-banner__eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   width: fit-content;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 999px;
   background: rgba(200, 16, 46, 0.1);
   color: var(--terracotta);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -183,29 +189,30 @@ select {
 
 .beta-banner__eyebrow::before {
   content: "";
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: currentColor;
-  box-shadow: 0 0 0 6px rgba(200, 16, 46, 0.14);
+  box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.14);
 }
 
 .beta-banner__text {
   display: grid;
-  gap: 6px;
+  gap: 4px;
   max-width: 54rem;
 }
 
 .beta-banner__text strong {
   font-family: "DM Serif Display", serif;
-  font-size: clamp(1.35rem, 3vw, 1.9rem);
-  line-height: 1.05;
+  font-size: clamp(1.1rem, 5vw, 1.9rem);
+  line-height: 1.08;
   letter-spacing: -0.02em;
 }
 
 .beta-banner__text p {
   margin: 0;
   color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .beta-banner__countdown {
@@ -213,28 +220,28 @@ select {
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .beta-banner__unit {
   display: grid;
-  gap: 4px;
-  padding: 14px 12px;
+  gap: 3px;
+  padding: 10px 8px;
   border: 1px solid rgba(0, 107, 63, 0.12);
-  border-radius: 20px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.66);
   text-align: center;
 }
 
 .beta-banner__unit strong {
-  font-size: clamp(1.45rem, 4vw, 2rem);
+  font-size: clamp(1.15rem, 5vw, 2rem);
   line-height: 1;
   color: var(--green-dark);
 }
 
 .beta-banner__unit span {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -2069,13 +2076,12 @@ select:focus {
 
   .panel--sticky {
     position: sticky;
-    top: 196px;
+    top: 124px;
   }
 
   .site-header {
-    gap: 18px;
     width: var(--container);
-    min-height: 170px;
+    min-height: 132px;
     padding: 24px 0;
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
@@ -2102,6 +2108,7 @@ select:focus {
     grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
     align-items: center;
     padding: 22px 24px;
+    border-radius: 28px;
   }
 
   .beta-banner__countdown {

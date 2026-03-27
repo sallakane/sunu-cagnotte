@@ -1,7 +1,6 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../app/AuthProvider";
-import { BetaLaunchBanner } from "./BetaLaunchBanner";
 import { Brand } from "./Brand";
 
 const navItems = [
@@ -53,8 +52,6 @@ export function SiteHeader() {
 
   return (
     <header className={headerClassName}>
-      <BetaLaunchBanner />
-
       <div className="site-header__content">
         <div className="site-header__bar">
           <Brand
