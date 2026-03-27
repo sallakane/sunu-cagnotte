@@ -39,9 +39,12 @@ WORKDIR /app
 
 COPY docker/php/conf.d/app.ini /usr/local/etc/php/conf.d/zz-app.ini
 COPY docker/php/php-fpm.d/zz-app.conf /usr/local/etc/php-fpm.d/zz-app.conf
+COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-app
 COPY --from=build /app /app
 
 RUN mkdir -p /app/var/cache /app/var/log /app/public/uploads/fundraisers \
-    && chown -R www-data:www-data /app/var /app/public/uploads
+    && chown -R www-data:www-data /app/var /app/public/uploads \
+    && chmod +x /usr/local/bin/docker-entrypoint-app
 
+ENTRYPOINT ["docker-entrypoint-app"]
 CMD ["php-fpm", "-F"]
