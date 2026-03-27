@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../app/AuthProvider";
+import { BetaLaunchBanner } from "./BetaLaunchBanner";
 import { Brand } from "./Brand";
 
 const navItems = [
@@ -52,76 +53,80 @@ export function SiteHeader() {
 
   return (
     <header className={headerClassName}>
-      <div className="site-header__bar">
-        <Brand
-          to="/"
-          title="Cagnotte Solidaire"
-          subtitle="Senegal"
-          className="brand--header"
-          hideText
-        />
+      <BetaLaunchBanner />
 
-        <button
-          type="button"
-          className="site-header__menu-toggle"
-          aria-expanded={isMenuOpen}
-          aria-controls="site-header-panel"
-          aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          onClick={() => setIsMenuOpen((current) => !current)}
+      <div className="site-header__content">
+        <div className="site-header__bar">
+          <Brand
+            to="/"
+            title="Cagnotte Solidaire"
+            subtitle="Senegal"
+            className="brand--header"
+            hideText
+          />
+
+          <button
+            type="button"
+            className="site-header__menu-toggle"
+            aria-expanded={isMenuOpen}
+            aria-controls="site-header-panel"
+            aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            onClick={() => setIsMenuOpen((current) => !current)}
+          >
+            <span className="site-header__menu-toggle-label">Menu</span>
+            <span className="site-header__menu-toggle-icon" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+          </button>
+        </div>
+
+        <div
+          id="site-header-panel"
+          className={isMenuOpen ? "site-header__panel site-header__panel--open" : "site-header__panel"}
         >
-          <span className="site-header__menu-toggle-label">Menu</span>
-          <span className="site-header__menu-toggle-icon" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </span>
-        </button>
-      </div>
+          <nav className="site-nav" aria-label="Navigation principale">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={handleMenuClose}
+                className={({ isActive }) =>
+                  isActive ? "site-nav__link site-nav__link--active" : "site-nav__link"
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
 
-      <div
-        id="site-header-panel"
-        className={isMenuOpen ? "site-header__panel site-header__panel--open" : "site-header__panel"}
-      >
-        <nav className="site-nav" aria-label="Navigation principale">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              onClick={handleMenuClose}
-              className={({ isActive }) =>
-                isActive ? "site-nav__link site-nav__link--active" : "site-nav__link"
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="site-header__actions">
-          {auth.isAuthenticated ? (
-            <>
-              {auth.isAdmin ? (
-                <Link to="/admin" className="button button--ghost" onClick={handleMenuClose}>
-                  Administration
+          <div className="site-header__actions">
+            {auth.isAuthenticated ? (
+              <>
+                {auth.isAdmin ? (
+                  <Link to="/admin" className="button button--ghost" onClick={handleMenuClose}>
+                    Administration
+                  </Link>
+                ) : null}
+                <Link to="/espace" className="button button--ghost" onClick={handleMenuClose}>
+                  Mon espace
                 </Link>
-              ) : null}
-              <Link to="/espace" className="button button--ghost" onClick={handleMenuClose}>
-                Mon espace
-              </Link>
-              <button type="button" className="button" onClick={handleLogout}>
-                Se deconnecter
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/connexion" className="button button--ghost" onClick={handleMenuClose}>
-                Connexion
-              </Link>
-              <Link to="/inscription" className="button" onClick={handleMenuClose}>
-                Creer une cagnotte
-              </Link>
-            </>
-          )}
+                <button type="button" className="button" onClick={handleLogout}>
+                  Se deconnecter
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/connexion" className="button button--ghost" onClick={handleMenuClose}>
+                  Connexion
+                </Link>
+                <Link to="/inscription" className="button" onClick={handleMenuClose}>
+                  Creer une cagnotte
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </header>
