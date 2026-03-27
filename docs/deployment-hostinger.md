@@ -209,7 +209,7 @@ Attention : avec cette option, le renouvellement Let's Encrypt ne sera pas autom
 
 La stack de production supporte une protection `Basic Auth` au niveau Nginx.
 
-Le front et l'API utilisent aussi un JWT pour l'espace connecte. Le projet envoie donc ce JWT dans l'en-tete `X-Auth-Token` afin d'eviter un conflit avec l'en-tete `Authorization` deja utilise par la `Basic Auth` Nginx.
+Le front envoie le JWT dans l'en-tete standard `Authorization: Bearer ...` et conserve aussi `X-Auth-Token` pour compatibilite.
 
 Creer le fichier de mot de passe sur le VPS :
 

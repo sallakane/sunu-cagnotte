@@ -1,5 +1,6 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
-const AUTH_TOKEN_HEADER = "X-Auth-Token";
+const AUTHORIZATION_HEADER = "Authorization";
+const LEGACY_AUTH_TOKEN_HEADER = "X-Auth-Token";
 
 const JSON_HEADERS = {
   Accept: "application/json",
@@ -51,7 +52,12 @@ export async function apiRequest<T>(
     headers: {
       Accept: JSON_HEADERS.Accept,
       ...(isFormData ? {} : { "Content-Type": JSON_HEADERS["Content-Type"] }),
-      ...(token ? { [AUTH_TOKEN_HEADER]: `Bearer ${token}` } : {}),
+      ...(token
+        ? {
+            [AUTHORIZATION_HEADER]: `Bearer ${token}`,
+            [LEGACY_AUTH_TOKEN_HEADER]: `Bearer ${token}`,
+          }
+        : {}),
       ...(headers ?? {}),
     },
     body:
