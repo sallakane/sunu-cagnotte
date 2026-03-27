@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-template_dir="/etc/nginx/templates"
+template_dir="/opt/cagnotte/nginx"
 output_file="/etc/nginx/conf.d/default.conf"
 
 export NGINX_SERVER_NAME="${NGINX_SERVER_NAME:-_}"
