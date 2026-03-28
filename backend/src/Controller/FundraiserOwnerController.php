@@ -249,7 +249,7 @@ class FundraiserOwnerController extends AbstractController
     }
 
     #[Route('/api/uploads/fundraiser-cover', name: 'api_owner_fundraiser_cover_upload', methods: ['POST'])]
-    public function uploadCoverImage(Request $request): JsonResponse
+    public function uploadCoverImage(Request $request, LoggerInterface $logger): JsonResponse
     {
         $owner = $this->getAuthenticatedUser();
 
@@ -290,13 +290,10 @@ class FundraiserOwnerController extends AbstractController
 
         $uploadDirectory = $this->getParameter('kernel.project_dir').'/public/uploads/fundraisers';
 
-        if (!is_dir($uploadDirectory) && !@mkdir($uploadDirectory, 0777, true) && !is_dir($uploadDirectory)) {
-            return $this->json([
-                'message' => 'Le dossier de destination n est pas accessible en ecriture.',
-                'errors' => [
-                    'file' => 'Le serveur ne peut pas enregistrer l image pour le moment.',
-                ],
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        $uploadDirectoryError = $this->ensureUploadDirectoryIsWritable($uploadDirectory, $logger);
+
+        if ($uploadDirectoryError instanceof JsonResponse) {
+            return $uploadDirectoryError;
         }
 
         $extension = $file->guessExtension();
@@ -313,7 +310,14 @@ class FundraiserOwnerController extends AbstractController
 
         try {
             $file->move($uploadDirectory, $filename);
-        } catch (FileException) {
+        } catch (FileException $exception) {
+            $logger->error('Impossible d enregistrer l image de couverture de cagnotte.', [
+                'exception' => $exception,
+                'uploadDirectory' => $uploadDirectory,
+                'ownerId' => $owner->getId()->toRfc4122(),
+                'ownerEmail' => $owner->getEmail(),
+            ]);
+
             return $this->json([
                 'message' => 'L image n a pas pu etre telechargee.',
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -407,6 +411,61 @@ class FundraiserOwnerController extends AbstractController
                 $contributionRepository->findAllByFundraiser($fundraiser),
             ),
         ]);
+    }
+
+    private function ensureUploadDirectoryIsWritable(string $uploadDirectory, LoggerInterface $logger): ?JsonResponse
+    {
+        $parentDirectory = dirname($uploadDirectory);
+
+        if (!is_dir($uploadDirectory)) {
+            if (!is_dir($parentDirectory) || !is_writable($parentDirectory)) {
+                $logger->error('Le dossier parent des uploads de cagnottes n est pas accessible.', [
+                    'uploadDirectory' => $uploadDirectory,
+                    'parentDirectory' => $parentDirectory,
+                ]);
+
+                return $this->buildUploadDirectoryErrorResponse();
+            }
+
+            try {
+                if (!mkdir($uploadDirectory, 0777, true) && !is_dir($uploadDirectory)) {
+                    $logger->error('Impossible de creer le dossier des uploads de cagnottes.', [
+                        'uploadDirectory' => $uploadDirectory,
+                        'parentDirectory' => $parentDirectory,
+                    ]);
+
+                    return $this->buildUploadDirectoryErrorResponse();
+                }
+            } catch (\Throwable $exception) {
+                $logger->error('Erreur lors de la creation du dossier des uploads de cagnottes.', [
+                    'exception' => $exception,
+                    'uploadDirectory' => $uploadDirectory,
+                    'parentDirectory' => $parentDirectory,
+                ]);
+
+                return $this->buildUploadDirectoryErrorResponse();
+            }
+        }
+
+        if (!is_writable($uploadDirectory)) {
+            $logger->error('Le dossier des uploads de cagnottes n est pas accessible en ecriture.', [
+                'uploadDirectory' => $uploadDirectory,
+            ]);
+
+            return $this->buildUploadDirectoryErrorResponse();
+        }
+
+        return null;
+    }
+
+    private function buildUploadDirectoryErrorResponse(): JsonResponse
+    {
+        return $this->json([
+            'message' => 'Le dossier de destination n est pas accessible en ecriture.',
+            'errors' => [
+                'file' => 'Le serveur ne peut pas enregistrer l image pour le moment.',
+            ],
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     private function getAuthenticatedUser(): ?User
