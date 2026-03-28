@@ -792,6 +792,15 @@ select {
   line-height: 1.2;
 }
 
+.fundraiser-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fundraiser-card h3 a:hover {
+  color: var(--green);
+}
+
 .fundraiser-card p {
   margin: 0;
 }
