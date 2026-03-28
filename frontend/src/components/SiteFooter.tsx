@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../app/AuthProvider";
 
 export function SiteFooter() {
+  const auth = useAuth();
+
   return (
     <footer className="site-footer">
       <div className="site-footer__lead">
@@ -14,7 +17,10 @@ export function SiteFooter() {
         </div>
 
         <div className="site-footer__cta">
-          <Link to="/inscription" className="button">
+          <Link
+            to={auth.isAuthenticated ? "/espace/cagnottes/nouvelle" : "/connexion"}
+            className="button"
+          >
             Lancer une cagnotte
           </Link>
           <Link to="/cagnottes" className="button button--ghost">
