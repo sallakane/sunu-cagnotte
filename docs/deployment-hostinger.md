@@ -90,7 +90,7 @@ Variables minimales a renseigner :
 - `MAILER_DSN`
 - `MAIL_FROM_ADDRESS=no-reply@sunu-cagnotte.org`
 - `MAIL_FROM_NAME="Sunu Cagnotte"`
-- `CONTACT_RECIPIENT=contact@sunu-cagnotte.org`
+- `CONTACT_RECIPIENT=ndiageze@gmail.com`
 - `JWT_PASSPHRASE`
 - `PAYDUNYA_MODE=live`
 - `PAYDUNYA_MASTER_KEY`
@@ -108,7 +108,7 @@ Variables minimales a renseigner :
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml exec php php bin/console doctrine:migrations:migrate --no-interaction
 docker compose -f docker-compose.prod.yml exec php php bin/console lexik:jwt:generate-keypair --skip-if-exists
-docker compose -f docker-compose.prod.yml exec php php bin/console app:create-admin admin@sunu-cagnotte.org Admin123! Admin Local +221700000000
+docker compose -f docker-compose.prod.yml exec php php bin/console app:create-admin ndiageze@gmail.com Admin123! Admin Local +221700000000
 ```
 
 ## HTTPS

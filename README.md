@@ -103,7 +103,7 @@ docker compose up --build
 ```bash
 docker compose exec php php bin/console doctrine:migrations:migrate
 docker compose exec php php bin/console lexik:jwt:generate-keypair --skip-if-exists
-docker compose exec php php bin/console app:create-admin admin@sunu-cagnotte.org Admin123! Admin Local +221700000000
+docker compose exec php php bin/console app:create-admin ndiageze@gmail.com Admin123! Admin Local +221700000000
 ```
 
 4. Ouvrir les services :
