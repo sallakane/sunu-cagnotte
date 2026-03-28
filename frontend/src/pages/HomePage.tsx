@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../app/AuthProvider";
 import { FundraiserCard } from "../components/FundraiserCard";
 import { SectionHeading } from "../components/SectionHeading";
 import { apiRequest } from "../lib/api";
@@ -8,6 +9,7 @@ import { usePageSeo } from "../lib/usePageSeo";
 import type { FundraiserSummary } from "../types";
 
 export function HomePage() {
+  const auth = useAuth();
   const [fundraisers, setFundraisers] = useState<FundraiserSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -76,7 +78,10 @@ export function HomePage() {
               <span>0% de commission plateforme</span>
             </div>
             <div className="home-hero__actions">
-              <Link to="/inscription" className="button">
+              <Link
+                to={auth.isAuthenticated ? "/espace/cagnottes/nouvelle" : "/connexion"}
+                className="button"
+              >
                 Creer une cagnotte
               </Link>
               <Link to="/cagnottes" className="button button--ghost">
