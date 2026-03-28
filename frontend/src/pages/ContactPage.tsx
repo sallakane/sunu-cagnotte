@@ -71,10 +71,6 @@ export function ContactPage() {
         <div className="section-heading">
           <span>Contact</span>
           <h1>Nous ecrire</h1>
-          <p>
-            Le formulaire sera relie a l'API Symfony, stocke en base et
-            notifie par email a une adresse configurable.
-          </p>
         </div>
 
         <form className="panel form-stack" onSubmit={handleSubmit}>
