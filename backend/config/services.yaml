@@ -5,6 +5,8 @@ parameters:
   app.payment_provider: '%env(PAYMENT_PROVIDER)%'
 
 services:
+  Psr\Log\LoggerInterface: '@logger'
+
   _defaults:
     autowire: true
     autoconfigure: true
