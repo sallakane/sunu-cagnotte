@@ -6,6 +6,7 @@ use App\Entity\ContactMessage;
 use App\Enum\ContactMessageStatus;
 use App\Service\Mailer\TransactionalMailer;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ class ContactController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         TransactionalMailer $transactionalMailer,
+        LoggerInterface $logger,
     ): JsonResponse
     {
         try {
@@ -69,7 +71,16 @@ class ContactController extends AbstractController
 
         $entityManager->persist($contactMessage);
         $entityManager->flush();
-        $transactionalMailer->sendContactNotification($contactMessage);
+
+        try {
+            $transactionalMailer->sendContactNotification($contactMessage);
+        } catch (\Throwable $exception) {
+            $logger->error('Impossible d envoyer l email de notification de contact.', [
+                'exception' => $exception,
+                'contactMessageId' => $contactMessage->getId()->toRfc4122(),
+                'contactEmail' => $contactMessage->getEmail(),
+            ]);
+        }
 
         return $this->json([
             'message' => 'Message envoye avec succes.',

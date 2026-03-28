@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\Mailer\TransactionalMailer;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,6 +108,7 @@ class AuthController extends AbstractController
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
         TransactionalMailer $transactionalMailer,
+        LoggerInterface $logger,
     ): JsonResponse
     {
         try {
@@ -142,10 +144,18 @@ class AuthController extends AbstractController
 
             $entityManager->flush();
 
-            $transactionalMailer->sendPasswordReset(
-                $user,
-                sprintf('%s/reinitialiser-mot-de-passe?token=%s', rtrim($this->getParameter('app.frontend_base_url'), '/'), urlencode($rawToken)),
-            );
+            try {
+                $transactionalMailer->sendPasswordReset(
+                    $user,
+                    sprintf('%s/reinitialiser-mot-de-passe?token=%s', rtrim($this->getParameter('app.frontend_base_url'), '/'), urlencode($rawToken)),
+                );
+            } catch (\Throwable $exception) {
+                $logger->error('Impossible d envoyer l email de reinitialisation du mot de passe.', [
+                    'exception' => $exception,
+                    'userId' => $user->getId()->toRfc4122(),
+                    'userEmail' => $user->getEmail(),
+                ]);
+            }
         }
 
         return $this->json([

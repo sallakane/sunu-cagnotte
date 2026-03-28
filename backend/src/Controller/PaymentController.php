@@ -10,6 +10,7 @@ use App\Service\Mailer\TransactionalMailer;
 use App\Service\Payment\ContributionPaymentUpdater;
 use App\Service\Payment\PaymentProviderRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,7 @@ class PaymentController extends AbstractController
         ContributionViewFactory $contributionViewFactory,
         TransactionalMailer $transactionalMailer,
         EntityManagerInterface $entityManager,
+        LoggerInterface $logger,
     ): JsonResponse
     {
         $payload = $this->decodePayload($request);
@@ -61,7 +63,16 @@ class PaymentController extends AbstractController
         $contributionPaymentUpdater->applyVerification($contribution, $verification);
 
         if (!$wasPaid && $contribution->getStatus()->value === 'paid') {
-            $transactionalMailer->sendContributionPaid($contribution);
+            try {
+                $transactionalMailer->sendContributionPaid($contribution);
+            } catch (\Throwable $exception) {
+                $logger->error('Impossible d envoyer l email de confirmation de contribution.', [
+                    'exception' => $exception,
+                    'contributionId' => $contribution->getId()->toRfc4122(),
+                    'fundraiserId' => $contribution->getFundraiser()->getId()->toRfc4122(),
+                    'contributorEmail' => $contribution->getEmail(),
+                ]);
+            }
         }
 
         return $this->json([
@@ -78,6 +89,7 @@ class PaymentController extends AbstractController
         ContributionPaymentUpdater $contributionPaymentUpdater,
         ContributionViewFactory $contributionViewFactory,
         TransactionalMailer $transactionalMailer,
+        LoggerInterface $logger,
     ): JsonResponse
     {
         $token = trim((string) $request->query->get('token', ''));
@@ -109,7 +121,16 @@ class PaymentController extends AbstractController
                 $contributionPaymentUpdater->applyVerification($contribution, $verification);
 
                 if (!$wasPaid && $contribution->getStatus()->value === 'paid') {
-                    $transactionalMailer->sendContributionPaid($contribution);
+                    try {
+                        $transactionalMailer->sendContributionPaid($contribution);
+                    } catch (\Throwable $exception) {
+                        $logger->error('Impossible d envoyer l email de confirmation de contribution au retour paiement.', [
+                            'exception' => $exception,
+                            'contributionId' => $contribution->getId()->toRfc4122(),
+                            'fundraiserId' => $contribution->getFundraiser()->getId()->toRfc4122(),
+                            'contributorEmail' => $contribution->getEmail(),
+                        ]);
+                    }
                 }
             } catch (\Throwable) {
                 // In local development, the browser return can still display the stored state
