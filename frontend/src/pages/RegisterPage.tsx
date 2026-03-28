@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../app/AuthProvider";
 import { apiRequest, ApiError } from "../lib/api";
 import { usePageSeo } from "../lib/usePageSeo";
 
 export function RegisterPage() {
+  const auth = useAuth();
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -19,6 +21,10 @@ export function RegisterPage() {
     canonicalPath: "/inscription",
     robots: "noindex,nofollow",
   });
+
+  if (auth.isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,11 +63,7 @@ export function RegisterPage() {
       <section className="page-section narrow">
         <div className="section-heading">
           <span>Nouveau compte</span>
-          <h1>Creer un espace porteur de cagnotte</h1>
-          <p>
-            Les champs du MVP couvrent le prenom, le nom, l'email, le telephone
-            et le mot de passe.
-          </p>
+          <h1>Creer votre espace pour creer et gerer vos cagnottes</h1>
         </div>
 
         <form className="panel form-stack" onSubmit={handleSubmit}>
