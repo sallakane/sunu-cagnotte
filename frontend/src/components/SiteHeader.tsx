@@ -109,6 +109,13 @@ export function SiteHeader() {
                 <Link to="/espace" className="button button--ghost" onClick={handleMenuClose}>
                   Mon espace
                 </Link>
+                <Link
+                  to="/espace/cagnottes/nouvelle"
+                  className="button"
+                  onClick={handleMenuClose}
+                >
+                  Creer une cagnotte
+                </Link>
                 <button type="button" className="button" onClick={handleLogout}>
                   Se deconnecter
                 </button>
@@ -118,7 +125,7 @@ export function SiteHeader() {
                 <Link to="/connexion" className="button button--ghost" onClick={handleMenuClose}>
                   Connexion
                 </Link>
-                <Link to="/inscription" className="button" onClick={handleMenuClose}>
+                <Link to="/connexion" className="button" onClick={handleMenuClose}>
                   Creer une cagnotte
                 </Link>
               </>
