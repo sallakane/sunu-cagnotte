@@ -57,7 +57,7 @@ export function SiteHeader() {
           <Brand
             to="/"
             title="Cagnotte Solidaire"
-            subtitle="Senegal"
+            subtitle="Sénégal"
             className="brand--header"
             hideText
           />
@@ -114,10 +114,10 @@ export function SiteHeader() {
                   className="button"
                   onClick={handleMenuClose}
                 >
-                  Creer une cagnotte
+                  Créer une cagnotte
                 </Link>
                 <button type="button" className="button" onClick={handleLogout}>
-                  Se deconnecter
+                  Se déconnecter
                 </button>
               </>
             ) : (
@@ -126,7 +126,7 @@ export function SiteHeader() {
                   Connexion
                 </Link>
                 <Link to="/connexion" className="button" onClick={handleMenuClose}>
-                  Creer une cagnotte
+                  Créer une cagnotte
                 </Link>
               </>
             )}

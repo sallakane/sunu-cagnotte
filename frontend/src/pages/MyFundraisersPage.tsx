@@ -47,7 +47,7 @@ export function MyFundraisersPage() {
         <span>Mes cagnottes</span>
         <h1>Suivre et administrer mes campagnes</h1>
         <p>
-          Le detail connecte affichera statut, progression, contributions et
+          Le détail connecté affichera statut, progression, contributions et
           actions disponibles par cagnotte.
         </p>
       </div>
@@ -56,7 +56,7 @@ export function MyFundraisersPage() {
       {loading ? <article className="panel">Chargement de vos cagnottes...</article> : null}
       {!loading && !error && fundraisers.length === 0 ? (
           <article className="panel">
-            Vous n'avez encore cree aucune cagnotte.
+            Vous n'avez encore créé aucune cagnotte.
           </article>
       ) : null}
       {!error && fundraisers.length > 0 ? (

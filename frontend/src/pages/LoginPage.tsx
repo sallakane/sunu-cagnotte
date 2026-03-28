@@ -13,12 +13,12 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const successMessage = location.state?.registered
-    ? "Compte cree. Vous pouvez maintenant vous connecter."
+    ? "Compte créé. Vous pouvez maintenant vous connecter."
     : null;
 
   usePageSeo({
     title: "Connexion",
-    description: "Connectez-vous a votre espace createur pour gerer vos cagnottes solidaires.",
+    description: "Connectez-vous à votre espace créateur pour gérer vos cagnottes solidaires.",
     canonicalPath: "/connexion",
     robots: "noindex,nofollow",
   });
@@ -54,7 +54,7 @@ export function LoginPage() {
     <div className="page">
       <section className="page-section narrow">
         <div className="section-heading">
-          <span>Espace createur</span>
+          <span>Espace créateur</span>
           <h1>Connexion</h1>
         </div>
 
@@ -79,10 +79,10 @@ export function LoginPage() {
             {loading ? "Connexion..." : "Se connecter"}
           </button>
           <Link to="/mot-de-passe-oublie" className="detail-inline-link">
-            Mot de passe oublie ?
+            Mot de passe oublié ?
           </Link>
           <Link to="/inscription" className="button button--ghost">
-            Creer un compte
+            Créer un compte
           </Link>
         </form>
       </section>

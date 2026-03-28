@@ -93,7 +93,7 @@ export function CreateFundraiserPage() {
         const [validationMessage] = getApiValidationMessages(requestError);
         setCoverImageUploadError(validationMessage ?? requestError.message);
       } else {
-        setCoverImageUploadError("Le telechargement de l image a echoue.");
+        setCoverImageUploadError("Le téléchargement de l’image a échoué.");
       }
     } finally {
       setUploadingCoverImage(false);
@@ -139,7 +139,7 @@ export function CreateFundraiserPage() {
         setError(requestError.message);
         setValidationErrors(getApiValidationMessages(requestError));
       } else {
-        setError("Creation impossible.");
+        setError("Création impossible.");
       }
     } finally {
       setLoading(false);
@@ -150,10 +150,10 @@ export function CreateFundraiserPage() {
     <div className="dashboard-page">
       <div className="section-heading">
         <span>{isEditMode ? "Modifier la cagnotte" : "Nouvelle cagnotte"}</span>
-        <h1>{isEditMode ? "Mettre a jour la campagne" : "Creer une campagne"}</h1>
+        <h1>{isEditMode ? "Mettre à jour la campagne" : "Créer une campagne"}</h1>
         <p>
-          Complete les informations de la cagnotte, puis enregistre-la en
-          brouillon ou soumets-la a validation.
+          Complète les informations de la cagnotte, puis enregistre-la en
+          brouillon ou soumets-la à validation.
         </p>
       </div>
 
@@ -185,7 +185,7 @@ export function CreateFundraiserPage() {
           rows={6}
           required
           minLength={20}
-          placeholder="Description complete"
+          placeholder="Description complète"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
@@ -209,7 +209,7 @@ export function CreateFundraiserPage() {
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         >
-          <option value="">Categorie (optionnel)</option>
+          <option value="">Catégorie (optionnel)</option>
           {FUNDRAISER_CATEGORIES.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -231,7 +231,7 @@ export function CreateFundraiserPage() {
             />
           </div>
           <p className="image-upload-field__hint">
-            Formats acceptes : JPG, PNG, WEBP. Taille maximale : 5 Mo.
+            Formats acceptés : JPG, PNG, WEBP. Taille maximale : 5 Mo.
           </p>
           {coverImageUploadError ? (
             <div className="alert alert--error">
@@ -240,10 +240,10 @@ export function CreateFundraiserPage() {
           ) : null}
           {coverImage ? (
             <div className="image-upload-preview">
-              <img src={coverImage} alt="Apercu de la couverture" />
+              <img src={coverImage} alt="Aperçu de la couverture" />
               <div className="image-upload-preview__actions">
                 <span className="image-upload-preview__status">
-                  {uploadingCoverImage ? "Telechargement en cours..." : "Image prete pour la cagnotte"}
+                  {uploadingCoverImage ? "Téléchargement en cours..." : "Image prête pour la cagnotte"}
                 </span>
                 <button
                   type="button"
@@ -254,7 +254,7 @@ export function CreateFundraiserPage() {
                   }}
                   disabled={uploadingCoverImage || loading}
                 >
-                  Retirer l image
+                  Retirer l’image
                 </button>
               </div>
             </div>
@@ -268,9 +268,9 @@ export function CreateFundraiserPage() {
             disabled={loading || uploadingCoverImage}
           >
             {loading
-              ? "Enregistrement..."
-              : uploadingCoverImage
-                ? "Telechargement..."
+                ? "Enregistrement..."
+                : uploadingCoverImage
+                ? "Téléchargement..."
               : isEditMode
                 ? "Enregistrer les modifications"
                 : "Enregistrer en brouillon"}
@@ -284,10 +284,10 @@ export function CreateFundraiserPage() {
             {loading
               ? "Soumission..."
               : uploadingCoverImage
-                ? "Telechargement..."
+                ? "Téléchargement..."
               : isEditMode
-                ? "Mettre a jour et soumettre"
-                : "Soumettre a validation"}
+                ? "Mettre à jour et soumettre"
+                : "Soumettre à validation"}
           </button>
         </div>
       </form>

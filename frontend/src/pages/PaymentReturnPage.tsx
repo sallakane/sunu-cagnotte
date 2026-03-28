@@ -16,7 +16,7 @@ export function PaymentReturnPage() {
 
   usePageSeo({
     title: "Retour de paiement",
-    description: "Suivi technique du statut d'une contribution apres le parcours de paiement.",
+    description: "Suivi technique du statut d'une contribution après le parcours de paiement.",
     canonicalPath: "/paiement/retour",
     robots: "noindex,nofollow",
   });
@@ -24,7 +24,7 @@ export function PaymentReturnPage() {
   useEffect(() => {
     if (!token && !reference) {
       setLoading(false);
-      setError("Le token ou la reference de paiement est manquant.");
+      setError("Le token ou la référence de paiement est manquant.");
       return;
     }
 
@@ -74,12 +74,12 @@ export function PaymentReturnPage() {
           <span>Paiement</span>
           <h1>Retour du parcours de paiement</h1>
           <p>
-            Le statut affiche ici vient du serveur. Il depend de la
-            confirmation recue et non du seul retour navigateur.
+            Le statut affiché ici vient du serveur. Il dépend de la
+            confirmation reçue et non du seul retour navigateur.
           </p>
         </div>
 
-        {loading ? <article className="panel">Verification du paiement...</article> : null}
+        {loading ? <article className="panel">Vérification du paiement...</article> : null}
         {!loading && error ? <article className="panel">{error}</article> : null}
 
         {!loading && item ? (
@@ -87,26 +87,26 @@ export function PaymentReturnPage() {
             <div className={toneClass}>
               <strong>{formatStatusLabel(item.status)}</strong>
               <p>
-                Reference {item.paymentReference} · {formatXof(item.amountGross)}
+                Référence {item.paymentReference} · {formatXof(item.amountGross)}
               </p>
             </div>
 
             <p>
-              Cagnotte concernee : <strong>{item.fundraiser.title}</strong>
+              Cagnotte concernée : <strong>{item.fundraiser.title}</strong>
             </p>
 
-            {item.paidAt ? <p>Paiement confirme le {new Date(item.paidAt).toLocaleString("fr-FR")}</p> : null}
+            {item.paidAt ? <p>Paiement confirmé le {new Date(item.paidAt).toLocaleString("fr-FR")}</p> : null}
 
             <div className="button-row">
               <Link to={`/cagnottes/${item.fundraiser.slug}`} className="button">
-                Retour a la cagnotte
+                Retour à la cagnotte
               </Link>
               {item.status !== "paid" ? (
                 <Link
                   to={`/paiement/test/${item.paymentReference}`}
                   className="button button--ghost"
                 >
-                  Revenir au simulateur test
+                  Revenir au simulateur de test
                 </Link>
               ) : null}
             </div>

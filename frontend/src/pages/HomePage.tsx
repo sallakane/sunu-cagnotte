@@ -21,7 +21,7 @@ export function HomePage() {
   usePageSeo({
     title: "Accueil",
     description:
-      "Plateforme de cagnottes solidaires au Senegal pour creer, publier et soutenir des campagnes verifiees avec paiement mobile et carte bancaire.",
+      "Plateforme de cagnottes solidaires au Sénégal pour créer, publier et soutenir des campagnes vérifiées avec paiement mobile et carte bancaire.",
     canonicalPath: "/",
     image: "/banner/banniere.png",
   });
@@ -65,11 +65,11 @@ export function HomePage() {
 
         <div className="home-hero__copy">
           <div className="home-hero__content">
-            <span className="hero__eyebrow">Solidarite locale, confiance numerique</span>
-            <h1>Des cagnottes utiles, credibles et ancrees dans le Senegal</h1>
+            <span className="hero__eyebrow">Solidarité locale, confiance numérique</span>
+            <h1>Des cagnottes utiles, crédibles et ancrées dans le Sénégal</h1>
             <p>
-              Une plateforme a but non lucratif pour financer des besoins reels,
-              mobiliser la diaspora, et donner a chacun un parcours de
+              Une plateforme à but non lucratif pour financer des besoins réels,
+              mobiliser la diaspora et offrir à chacun un parcours de
               contribution clair et rassurant.
             </p>
             <div className="home-hero__trustline">
@@ -82,7 +82,7 @@ export function HomePage() {
                 to={auth.isAuthenticated ? "/espace/cagnottes/nouvelle" : "/connexion"}
                 className="button"
               >
-                Creer une cagnotte
+                Créer une cagnotte
               </Link>
               <Link to="/cagnottes" className="button button--ghost">
                 Explorer les cagnottes
@@ -105,7 +105,7 @@ export function HomePage() {
           <article className="home-stat">
             <span className="home-stat__label">Collectes</span>
             <strong>{formatXof(totalCollected)}</strong>
-            <span className="home-stat__meta">Montants publies sur les campagnes en ligne</span>
+            <span className="home-stat__meta">Montants publiés sur les campagnes en ligne</span>
           </article>
         </div>
       </section>
@@ -118,7 +118,7 @@ export function HomePage() {
         {!loading && !error && totalPublished > 0 ? (
           <div className="home-section-bar">
             <strong>{featuredFundraisers.length} mises en avant</strong>
-            <span>sur {totalPublished} cagnottes publiees</span>
+            <span>sur {totalPublished} cagnottes publiées</span>
             <Link to="/cagnottes" className="detail-inline-link">
               Voir toutes les cagnottes
             </Link>
@@ -128,8 +128,8 @@ export function HomePage() {
         {loading ? <article className="panel">Chargement des cagnottes...</article> : null}
         {!loading && !error && featuredFundraisers.length === 0 ? (
           <article className="panel">
-            Aucune cagnotte publiee pour le moment. Les campagnes apparaitront
-            ici apres validation.
+            Aucune cagnotte publiée pour le moment. Les campagnes apparaîtront
+            ici après validation.
           </article>
         ) : null}
         {!error && featuredFundraisers.length > 0 ? (

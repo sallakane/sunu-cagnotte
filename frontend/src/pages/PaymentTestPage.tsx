@@ -54,14 +54,14 @@ export function PaymentTestPage() {
           <span>Mode test</span>
           <h1>Simulateur PayDunya local</h1>
           <p>
-            Cet ecran remplace temporairement la redirection externe pour le
-            developpement local. Il permet de simuler l&apos;IPN serveur avant le
+            Cet écran remplace temporairement la redirection externe pour le
+            développement local. Il permet de simuler l&apos;IPN serveur avant le
             retour utilisateur.
           </p>
         </div>
 
         <article className="panel form-stack">
-          <strong>Reference {reference ?? "indisponible"}</strong>
+          <strong>Référence {reference ?? "indisponible"}</strong>
 
           {error ? <div className="alert alert--error">{error}</div> : null}
 
@@ -79,7 +79,7 @@ export function PaymentTestPage() {
             disabled={submitting !== null}
             onClick={() => void simulate("failed")}
           >
-            Simuler un echec
+            Simuler un échec
           </button>
           <button
             type="button"
@@ -91,7 +91,7 @@ export function PaymentTestPage() {
           </button>
 
           <Link to={reference ? `/paiement/retour?reference=${encodeURIComponent(reference)}` : "/"}>
-            Voir l&apos;etat courant
+            Voir l&apos;état courant
           </Link>
         </article>
       </section>

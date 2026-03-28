@@ -1,22 +1,22 @@
 const statusLabels: Record<string, string> = {
   draft: "Brouillon",
   pending_review: "En attente de validation",
-  published: "Publiee",
-  rejected: "Refusee",
-  completed: "Terminee",
-  archived: "Archivee",
+  published: "Publiée",
+  rejected: "Refusée",
+  completed: "Terminée",
+  archived: "Archivée",
   pending: "En attente",
-  approved: "Approuvee",
-  initiated: "Initiee",
-  paid: "Payee",
-  failed: "Echouee",
-  cancelled: "Annulee",
-  refunded: "Remboursee",
+  approved: "Approuvée",
+  initiated: "Initiée",
+  paid: "Payée",
+  failed: "Échouée",
+  cancelled: "Annulée",
+  refunded: "Remboursée",
 };
 
 export function formatStatusLabel(status?: string | null): string {
   if (!status) {
-    return "Non defini";
+    return "Non défini";
   }
 
   return statusLabels[status] ?? status;

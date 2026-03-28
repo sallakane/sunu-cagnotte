@@ -37,10 +37,10 @@ export function DashboardHomePage() {
     <div className="dashboard-page">
       <div className="section-heading">
         <span>Tableau de bord</span>
-        <h1>Vue d'ensemble createur</h1>
+        <h1>Vue d'ensemble créateur</h1>
         <p>
-          Cette zone regroupera les indicateurs essentiels et l'etat des
-          cagnottes apres connexion.
+          Cette zone regroupera les indicateurs essentiels et l'état des
+          cagnottes après connexion.
         </p>
       </div>
 
@@ -53,7 +53,7 @@ export function DashboardHomePage() {
         </article>
         <article className="panel">
           <strong>{formatXof(totalCollected)}</strong>
-          <span>Total collecte</span>
+          <span>Total collecté</span>
         </article>
         <article className="panel">
           <strong>{pendingCount}</strong>

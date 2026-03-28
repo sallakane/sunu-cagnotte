@@ -12,7 +12,7 @@ export function SiteFooter() {
           <strong>Sunu Cagnotte</strong>
           <p>
             Une plateforme pour rendre les cagnottes plus lisibles, plus fiables
-            et plus adaptees au contexte senegalais.
+            et plus adaptées au contexte sénégalais.
           </p>
         </div>
 
@@ -43,8 +43,8 @@ export function SiteFooter() {
         <div className="site-footer__column">
           <span className="site-footer__title">Informations</span>
           <div className="site-footer__links">
-            <Link to="/mentions-legales">Mentions legales</Link>
-            <Link to="/politique-confidentialite">Politique de confidentialite</Link>
+            <Link to="/mentions-legales">Mentions légales</Link>
+            <Link to="/politique-confidentialite">Politique de confidentialité</Link>
             <Link to="/cgu">CGU</Link>
           </div>
         </div>
@@ -52,7 +52,7 @@ export function SiteFooter() {
         <div className="site-footer__column">
           <span className="site-footer__title">Paiement</span>
           <p className="site-footer__text">
-            Paiement securise via PayDunya, avec les moyens disponibles dans le
+            Paiement sécurisé via PayDunya, avec les moyens disponibles dans le
             parcours de contribution.
           </p>
         </div>
@@ -60,7 +60,7 @@ export function SiteFooter() {
 
       <div className="site-footer__bottom">
         <span>© 2026 Sunu Cagnotte</span>
-        <span>Campagnes publiees apres validation</span>
+        <span>Campagnes publiées après validation</span>
       </div>
     </footer>
   );

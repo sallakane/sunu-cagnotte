@@ -1,9 +1,9 @@
 {% extends 'emails/base.html.twig' %}
 
 {% set eyebrow = 'Nouvelle cagnotte' %}
-{% set intro = 'Votre campagne a bien ete enregistree. Vous pouvez maintenant la relire, l enrichir et la soumettre a validation.' %}
+{% set intro = 'Votre campagne a bien été enregistrée. Vous pouvez maintenant la relire, l’enrichir et la soumettre à validation.' %}
 
-{% block title %}Cagnotte creee{% endblock %}
+{% block title %}Cagnotte créée{% endblock %}
 
 {% block content %}
   <p style="margin:0 0 18px;font-size:16px;line-height:1.7;color:#334155;">
@@ -20,10 +20,10 @@
   </div>
 
   <p style="margin:0 0 22px;font-size:15px;line-height:1.7;color:#334155;">
-    Elle est actuellement en brouillon. Depuis votre espace createur, vous pouvez la completer, verifier les informations et lancer la soumission pour validation.
+    Elle est actuellement en brouillon. Depuis votre espace créateur, vous pouvez la compléter, vérifier les informations et lancer la soumission pour validation.
   </p>
 
   <a href="{{ dashboardUrl }}" style="display:inline-block;padding:14px 18px;border-radius:999px;background:{{ brandPrimaryColor }};color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;">
-    Acceder a mon espace
+    Accéder à mon espace
   </a>
 {% endblock %}

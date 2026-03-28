@@ -21,7 +21,7 @@ export function FundraiserCard({ fundraiser }: FundraiserCardProps) {
       )}
       <div className="fundraiser-card__content">
         <div className="fundraiser-card__eyebrow">
-          <span>{fundraiser.category ?? "Solidarite"}</span>
+          <span>{fundraiser.category ?? "Solidarité"}</span>
           <span>{fundraiser.contributorCount} contributeurs</span>
         </div>
         <h3>{fundraiser.title}</h3>

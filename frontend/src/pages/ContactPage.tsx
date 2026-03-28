@@ -18,7 +18,7 @@ export function ContactPage() {
   usePageSeo({
     title: "Contact",
     description:
-      "Contactez l'equipe de Sunu Cagnotte pour une question, un accompagnement ou un signalement concernant une campagne.",
+      "Contactez l'équipe de Sunu Cagnotte pour une question, un accompagnement ou un signalement concernant une campagne.",
     canonicalPath: "/contact",
   });
 
@@ -70,7 +70,7 @@ export function ContactPage() {
       <section className="page-section narrow">
         <div className="section-heading">
           <span>Contact</span>
-          <h1>Nous ecrire</h1>
+          <h1>Nous écrire</h1>
         </div>
 
         <form className="panel form-stack" onSubmit={handleSubmit}>
@@ -102,7 +102,7 @@ export function ContactPage() {
             onChange={(event) => updateField("email", event.target.value)}
           />
           <input
-            placeholder="Telephone (optionnel)"
+            placeholder="Téléphone (optionnel)"
             value={form.phone}
             onChange={(event) => updateField("phone", event.target.value)}
           />

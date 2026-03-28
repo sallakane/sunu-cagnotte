@@ -1,7 +1,7 @@
 {% extends 'emails/base.html.twig' %}
 
 {% set eyebrow = 'Contact' %}
-{% set intro = 'Un nouveau message a ete envoye depuis le formulaire public. Les informations essentielles sont recapitulees ci-dessous.' %}
+{% set intro = 'Un nouveau message a été envoyé depuis le formulaire public. Les informations essentielles sont récapitulées ci-dessous.' %}
 
 {% block title %}Nouveau message de contact{% endblock %}
 
@@ -11,7 +11,7 @@
       <td style="padding:16px 18px;border:1px solid #dbe7e5;border-radius:18px;background:#ffffff;">
         <p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#475569;"><strong style="color:#0f172a;">Nom :</strong> {{ contactMessage.name }}</p>
         <p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#475569;"><strong style="color:#0f172a;">Email :</strong> {{ contactMessage.email }}</p>
-        <p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#475569;"><strong style="color:#0f172a;">Telephone :</strong> {{ contactMessage.phone ?: 'Non renseigne' }}</p>
+        <p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#475569;"><strong style="color:#0f172a;">Téléphone :</strong> {{ contactMessage.phone ?: 'Non renseigné' }}</p>
         <p style="margin:0;font-size:14px;line-height:1.6;color:#475569;"><strong style="color:#0f172a;">Sujet :</strong> {{ contactMessage.subject }}</p>
       </td>
     </tr>

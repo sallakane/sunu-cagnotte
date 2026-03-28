@@ -17,7 +17,7 @@ export function RegisterPage() {
 
   usePageSeo({
     title: "Inscription",
-    description: "Creez un espace porteur de cagnotte pour proposer, suivre et administrer vos campagnes.",
+    description: "Créez un espace porteur de cagnotte pour proposer, suivre et administrer vos campagnes.",
     canonicalPath: "/inscription",
     robots: "noindex,nofollow",
   });
@@ -63,14 +63,14 @@ export function RegisterPage() {
       <section className="page-section narrow">
         <div className="section-heading">
           <span>Nouveau compte</span>
-          <h1>Creer votre espace pour creer et gerer vos cagnottes</h1>
+          <h1>Créer votre espace pour créer et gérer vos cagnottes</h1>
         </div>
 
         <form className="panel form-stack" onSubmit={handleSubmit}>
           {error ? <div className="alert alert--error">{error}</div> : null}
           <div className="two-columns">
             <input
-              placeholder="Prenom"
+              placeholder="Prénom"
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
             />
@@ -87,7 +87,7 @@ export function RegisterPage() {
             onChange={(event) => setEmail(event.target.value)}
           />
           <input
-            placeholder="Telephone"
+            placeholder="Téléphone"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
           />
@@ -98,7 +98,7 @@ export function RegisterPage() {
             onChange={(event) => setPassword(event.target.value)}
           />
           <button type="submit" className="button" disabled={loading}>
-            {loading ? "Creation..." : "Creer mon compte"}
+            {loading ? "Création..." : "Créer mon compte"}
           </button>
         </form>
       </section>

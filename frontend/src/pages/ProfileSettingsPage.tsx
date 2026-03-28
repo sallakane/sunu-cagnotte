@@ -102,7 +102,7 @@ export function ProfileSettingsPage() {
         setError(requestError.message);
         setValidationErrors(getApiValidationMessages(requestError));
       } else {
-        setError("Mise a jour impossible.");
+        setError("Mise à jour impossible.");
       }
     } finally {
       setSaving(false);
@@ -113,9 +113,9 @@ export function ProfileSettingsPage() {
     <div className="dashboard-page">
       <div className="section-heading">
         <span>Profil</span>
-        <h1>Parametres du compte</h1>
+        <h1>Paramètres du compte</h1>
         <p>
-          Le createur pourra modifier ses informations de base et son mot de
+          Le créateur pourra modifier ses informations de base et son mot de
           passe.
         </p>
       </div>
@@ -142,7 +142,7 @@ export function ProfileSettingsPage() {
           <div className="two-columns">
             <input
               required
-              placeholder="Prenom"
+              placeholder="Prénom"
               value={form.firstName}
               onChange={(event) => updateField("firstName", event.target.value)}
             />
@@ -162,12 +162,12 @@ export function ProfileSettingsPage() {
           <input
             required
             type="tel"
-            placeholder="Telephone"
+            placeholder="Téléphone"
             value={form.phone}
             onChange={(event) => updateField("phone", event.target.value)}
           />
           <button type="submit" className="button" disabled={saving}>
-            {saving ? "Mise a jour..." : "Mettre a jour le profil"}
+            {saving ? "Mise à jour..." : "Mettre à jour le profil"}
           </button>
         </form>
       ) : null}

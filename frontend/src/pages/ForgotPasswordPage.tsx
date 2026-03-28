@@ -11,8 +11,8 @@ export function ForgotPasswordPage() {
   const [success, setSuccess] = useState<string | null>(null);
 
   usePageSeo({
-    title: "Mot de passe oublie",
-    description: "Demandez un lien de reinitialisation pour acceder de nouveau a votre espace createur.",
+    title: "Mot de passe oublié",
+    description: "Demandez un lien de réinitialisation pour accéder de nouveau à votre espace créateur.",
     canonicalPath: "/mot-de-passe-oublie",
     robots: "noindex,nofollow",
   });
@@ -47,9 +47,9 @@ export function ForgotPasswordPage() {
     <div className="page">
       <section className="page-section narrow">
         <div className="section-heading">
-          <span>Acces au compte</span>
-          <h1>Mot de passe oublie</h1>
-          <p>Saisis ton email pour recevoir un lien de reinitialisation.</p>
+          <span>Accès au compte</span>
+          <h1>Mot de passe oublié</h1>
+          <p>Saisis ton email pour recevoir un lien de réinitialisation.</p>
         </div>
 
         <form className="panel form-stack" onSubmit={handleSubmit}>
@@ -80,7 +80,7 @@ export function ForgotPasswordPage() {
           </button>
 
           <Link to="/connexion" className="detail-inline-link">
-            Retour a la connexion
+            Retour à la connexion
           </Link>
         </form>
       </section>

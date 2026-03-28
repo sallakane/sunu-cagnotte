@@ -82,15 +82,15 @@ export async function apiRequest<T>(
         : typeof parsedBody === "string" && parsedBody.trim() !== ""
           ? parsedBody
           : response.status === 401
-            ? "Votre session a expire. Reconnectez-vous puis reessayez."
+            ? "Votre session a expiré. Reconnectez-vous puis réessayez."
             : response.status === 403
-              ? "Vous n avez pas les droits pour effectuer cette action."
+              ? "Vous n'avez pas les droits pour effectuer cette action."
               : response.status === 404
-                ? "La ressource demandee est introuvable."
+                ? "La ressource demandée est introuvable."
                 : response.status === 413
-                  ? "Le fichier est trop volumineux pour etre telecharge."
+                  ? "Le fichier est trop volumineux pour être téléversé."
                   : response.status >= 500
-                    ? "Le serveur a rencontre une erreur. Reessayez dans quelques instants."
+                    ? "Le serveur a rencontré une erreur. Réessayez dans quelques instants."
                     : "Une erreur est survenue.";
 
     throw new ApiError(message, response.status, parsedBody);

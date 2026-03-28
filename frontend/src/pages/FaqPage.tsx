@@ -9,37 +9,37 @@ const FAQ_SECTIONS = [
       {
         question: "Qu'est-ce qu'une campagne sur la plateforme ?",
         answer:
-          "Une campagne est une cagnotte solidaire publiee pour financer un besoin precis. Chaque page affiche son objectif, son echeance, sa progression et les dons publics recents quand le donateur choisit de les rendre visibles.",
+          "Une campagne est une cagnotte solidaire publiée pour financer un besoin précis. Chaque page affiche son objectif, son échéance, sa progression et les dons publics récents quand le donateur choisit de les rendre visibles.",
       },
       {
         question: "Que se passe-t-il avant la publication ?",
         answer:
-          "La campagne est d'abord enregistree puis relue avant publication. Cette verification permet d'ecarter les contenus incomplets, trompeurs ou non conformes au cadre de la plateforme.",
+          "La campagne est d'abord enregistrée puis relue avant publication. Cette vérification permet d'écarter les contenus incomplets, trompeurs ou non conformes au cadre de la plateforme.",
       },
       {
-        question: "Que voit le public une fois la campagne publiee ?",
+        question: "Que voit le public une fois la campagne publiée ?",
         answer:
-          "Les visiteurs voient uniquement les campagnes publiees. Ils peuvent consulter le titre, le contexte, la categorie, la date de fin, le montant collecte, l'objectif et, selon les choix des contributeurs, les derniers dons publics.",
+          "Les visiteurs voient uniquement les campagnes publiées. Ils peuvent consulter le titre, le contexte, la catégorie, la date de fin, le montant collecté, l'objectif et, selon les choix des contributeurs, les derniers dons publics.",
       },
     ],
   },
   {
-    title: "Comment creer une cagnotte ?",
+    title: "Comment créer une cagnotte ?",
     items: [
       {
         question: "Quelles informations faut-il renseigner ?",
         answer:
-          "Pour creer une cagnotte, il faut au minimum un titre clair, une description suffisamment detaillee, un montant cible et une date de fin. Une categorie et une image de couverture peuvent aussi etre ajoutees.",
+          "Pour créer une cagnotte, il faut au minimum un titre clair, une description suffisamment détaillée, un montant cible et une date de fin. Une catégorie et une image de couverture peuvent aussi être ajoutées.",
       },
       {
         question: "Peut-on enregistrer sans publier tout de suite ?",
         answer:
-          "Oui. La creation permet d'enregistrer une campagne avant de la soumettre. Cela laisse le temps de relire le contenu, d'ajuster le montant cible ou d'ameliorer la presentation avant validation.",
+          "Oui. La création permet d'enregistrer une campagne avant de la soumettre. Cela laisse le temps de relire le contenu, d'ajuster le montant cible ou d'améliorer la présentation avant validation.",
       },
       {
         question: "Quand la campagne devient-elle visible ?",
         answer:
-          "Elle devient visible uniquement apres validation et publication. Tant que cette etape n'est pas terminee, elle n'apparait pas dans la liste publique des cagnottes.",
+          "Elle devient visible uniquement après validation et publication. Tant que cette étape n'est pas terminée, elle n'apparaît pas dans la liste publique des cagnottes.",
       },
     ],
   },
@@ -49,17 +49,17 @@ const FAQ_SECTIONS = [
       {
         question: "Faut-il un compte pour faire un don ?",
         answer:
-          "Non. Le parcours de participation est concu pour rester simple. Le donateur renseigne ses informations utiles, son montant, un message s'il le souhaite, puis continue vers le paiement securise.",
+          "Non. Le parcours de participation est conçu pour rester simple. Le donateur renseigne ses informations utiles, son montant, un message s'il le souhaite, puis continue vers le paiement sécurisé.",
       },
       {
-        question: "Quels moyens de paiement sont proposes ?",
+        question: "Quels moyens de paiement sont proposés ?",
         answer:
-          "Le paiement passe par PayDunya avec les moyens actuellement affiches dans le parcours: Orange Money, Wave, carte bancaire et Free Money selon les disponibilites proposees par le prestataire.",
+          "Le paiement passe par PayDunya avec les moyens actuellement affichés dans le parcours : Orange Money, Wave, carte bancaire et Free Money selon les disponibilités proposées par le prestataire.",
       },
       {
         question: "Peut-on participer anonymement ?",
         answer:
-          "Oui. Le donateur peut choisir de masquer publiquement son nom sur la liste des dons. Les informations necessaires au traitement du paiement restent toutefois utilisees pour la transaction.",
+          "Oui. Le donateur peut choisir de masquer publiquement son nom sur la liste des dons. Les informations nécessaires au traitement du paiement restent toutefois utilisées pour la transaction.",
       },
     ],
   },
@@ -69,17 +69,17 @@ const FAQ_SECTIONS = [
       {
         question: "La plateforme prend-elle une commission sur les dons ?",
         answer:
-          "La promesse actuelle de la plateforme est de ne pas ajouter de commission propre au service sur le montant du don. Le donateur paie donc le montant qu'il choisit, hors frais eventuels lies au prestataire de paiement.",
+          "La promesse actuelle de la plateforme est de ne pas ajouter de commission propre au service sur le montant du don. Le donateur paie donc le montant qu'il choisit, hors frais éventuels liés au prestataire de paiement.",
       },
       {
         question: "Y a-t-il des frais de paiement ?",
         answer:
-          "Des frais peuvent exister du cote du prestataire de paiement selon le moyen utilise. Ces frais ne correspondent pas a une commission plateforme, mais aux couts techniques du traitement du paiement.",
+          "Des frais peuvent exister du côté du prestataire de paiement selon le moyen utilisé. Ces frais ne correspondent pas à une commission plateforme, mais aux coûts techniques du traitement du paiement.",
       },
       {
-        question: "Comment cette information est-elle presentee ?",
+        question: "Comment cette information est-elle présentée ?",
         answer:
-          "La page de campagne et le parcours de participation doivent rester explicites sur ce point: ce qui releve du don, ce qui releve du paiement, et l'absence de marge cachee prelevee par la plateforme.",
+          "La page de campagne et le parcours de participation doivent rester explicites sur ce point : ce qui relève du don, ce qui relève du paiement, et l'absence de marge cachée prélevée par la plateforme.",
       },
     ],
   },
@@ -89,7 +89,7 @@ export function FaqPage() {
   usePageSeo({
     title: "FAQ",
     description:
-      "Questions frequentes sur le fonctionnement d'une campagne, sa creation, la participation, les moyens de paiement et les commissions.",
+      "Questions fréquentes sur le fonctionnement d'une campagne, sa création, la participation, les moyens de paiement et les commissions.",
     canonicalPath: "/faq",
     structuredData: {
       "@context": "https://schema.org",
@@ -112,21 +112,21 @@ export function FaqPage() {
       <section className="page-section">
         <SectionHeading
           eyebrow="FAQ"
-          title="Questions frequentes"
-          description="Le fonctionnement d'une campagne, sa creation, la participation, les moyens de paiement et la question des commissions."
+          title="Questions fréquentes"
+          description="Le fonctionnement d'une campagne, sa création, la participation, les moyens de paiement et la question des commissions."
         />
 
         <div className="faq-intro panel">
           <div className="faq-intro__copy">
             <strong>Tout ce qu'il faut comprendre avant de lancer ou soutenir une cagnotte.</strong>
             <p>
-              Cette page rassemble les reponses essentielles pour expliquer
-              clairement le parcours d'une campagne, de sa creation jusqu'au don.
+              Cette page rassemble les réponses essentielles pour expliquer
+              clairement le parcours d'une campagne, de sa création jusqu'au don.
             </p>
           </div>
           <div className="faq-intro__actions">
             <Link to="/inscription" className="button">
-              Creer une cagnotte
+              Créer une cagnotte
             </Link>
             <Link to="/cagnottes" className="button button--ghost">
               Voir les cagnottes
@@ -138,7 +138,7 @@ export function FaqPage() {
           {FAQ_SECTIONS.map((section, sectionIndex) => (
             <section className="faq-section" key={section.title}>
               <div className="faq-section__header">
-                <span className="tag">Theme {sectionIndex + 1}</span>
+                <span className="tag">Thème {sectionIndex + 1}</span>
                 <h2>{section.title}</h2>
               </div>
 

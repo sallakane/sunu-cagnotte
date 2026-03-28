@@ -33,10 +33,10 @@ export function FundraiserDetailPage() {
   const seoDescription =
     seoDescriptionSource.length > 158
       ? `${seoDescriptionSource.slice(0, 155).trim()}...`
-      : seoDescriptionSource || "Consultez le detail de cette cagnotte solidaire et participez en ligne.";
+      : seoDescriptionSource || "Consultez le détail de cette cagnotte solidaire et participez en ligne.";
 
   usePageSeo({
-    title: fundraiser?.title || "Detail de la cagnotte",
+    title: fundraiser?.title || "Détail de la cagnotte",
     description: seoDescription,
     canonicalPath: slug ? `/cagnottes/${slug}` : "/cagnottes",
     image: fundraiser?.coverImage || "/banner/banniere.png",
@@ -127,7 +127,7 @@ export function FundraiserDetailPage() {
       setContributionError(
         requestError instanceof ApiError
           ? requestError.message
-          : "Le paiement n'a pas pu etre initialise.",
+          : "Le paiement n'a pas pu être initialisé.",
       );
       setSubmitting(false);
     }
@@ -176,8 +176,8 @@ export function FundraiserDetailPage() {
 
         <div className="detail-hero__content">
           <div className="detail-hero__meta">
-            <span className="tag">{fundraiser.category ?? "Solidarite"}</span>
-            <span className="detail-chip">Cloture le {formattedEndDate}</span>
+            <span className="tag">{fundraiser.category ?? "Solidarité"}</span>
+            <span className="detail-chip">Clôture le {formattedEndDate}</span>
           </div>
           <h1>{fundraiser.title}</h1>
           {hasSeparateExcerpt ? <p className="detail-hero__excerpt">{fundraiser.excerpt}</p> : null}
@@ -187,7 +187,7 @@ export function FundraiserDetailPage() {
               Participer maintenant
             </a>
             <a className="detail-inline-link" href="#story-panel">
-              Lire l'histoire
+              Lire l’histoire
             </a>
           </div>
 
@@ -200,7 +200,7 @@ export function FundraiserDetailPage() {
                   {formatXof(fundraiser.collectedAmount)}
                 </strong>
                 <p>
-                  deja collectes sur un objectif de {formatXof(fundraiser.targetAmount)}.
+                  déjà collectés sur un objectif de {formatXof(fundraiser.targetAmount)}.
                 </p>
                 <div className="detail-progress-card__footer">
                   <span>{formatXof(remainingAmount)} restants</span>
@@ -215,7 +215,7 @@ export function FundraiserDetailPage() {
                 <strong>{fundraiser.contributorCount}</strong>
               </article>
               <article className="detail-stat">
-                <span className="detail-stat__label">Cloture</span>
+                <span className="detail-stat__label">Clôture</span>
                 <strong className="detail-stat__text">{formattedEndDate}</strong>
               </article>
               <article className="detail-stat">
@@ -264,7 +264,7 @@ export function FundraiserDetailPage() {
           </div>
           <h2>Faire un don</h2>
           <p className="panel__intro">
-            Paiement mobile simple, rapide et securise via PayDunya.
+            Paiement mobile simple, rapide et sécurisé via PayDunya.
           </p>
           <form className="form-stack" onSubmit={handleContributionSubmit}>
             {contributionError ? (
@@ -281,7 +281,7 @@ export function FundraiserDetailPage() {
             ) : null}
 
             <div className="payment-methods">
-              <span className="payment-methods__label">Paiement securise via PayDunya</span>
+              <span className="payment-methods__label">Paiement sécurisé via PayDunya</span>
               <div className="payment-methods__list">
                 {PAYMENT_METHODS.map((method) => (
                   <span key={method} className="payment-method-chip">
@@ -293,7 +293,7 @@ export function FundraiserDetailPage() {
 
             <input
               required
-              placeholder="Prenom"
+              placeholder="Prénom"
               value={form.firstName}
               onChange={(event) => updateField("firstName", event.target.value)}
             />
@@ -319,7 +319,7 @@ export function FundraiserDetailPage() {
             </div>
             <div className="form-field">
               <label className="form-label" htmlFor="contribution-phone">
-                Telephone
+                Téléphone
                 <span className="form-label__optional">Optionnel</span>
               </label>
               <input
@@ -361,7 +361,7 @@ export function FundraiserDetailPage() {
                 checked={form.acceptLegal}
                 onChange={(event) => updateField("acceptLegal", event.target.checked)}
               />
-              <span>J'accepte les CGU et la politique de confidentialite</span>
+              <span>J'accepte les CGU et la politique de confidentialité</span>
             </label>
             <button
               type="submit"
@@ -369,7 +369,7 @@ export function FundraiserDetailPage() {
               disabled={submitting}
             >
               <span className="button__eyebrow">Orange Money, Wave, carte bancaire</span>
-              <strong>{submitting ? "Redirection securisee..." : "Continuer vers le paiement securise"}</strong>
+              <strong>{submitting ? "Redirection sécurisée..." : "Continuer vers le paiement sécurisé"}</strong>
             </button>
           </form>
         </aside>

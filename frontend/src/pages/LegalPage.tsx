@@ -18,191 +18,191 @@ type LegalContent = {
 
 const LEGAL_CONTENT: Record<LegalPageKind, LegalContent> = {
   mentions: {
-    eyebrow: "Cadre legal",
-    title: "Mentions legales",
+    eyebrow: "Cadre légal",
+    title: "Mentions légales",
     intro:
-      "Informations generales relatives a l'editeur de la plateforme, a son hebergement et aux conditions generales de mise a disposition du site.",
+      "Informations générales relatives à l'éditeur de la plateforme, à son hébergement et aux conditions générales de mise à disposition du site.",
     note:
-      "Cette base doit etre completee avant mise en production avec l'identite legale exacte de l'editeur, son adresse, ses contacts et les informations d'hebergement definitives.",
+      "Cette base doit être complétée avant mise en production avec l'identité légale exacte de l'éditeur, son adresse, ses contacts et les informations d'hébergement définitives.",
     sections: [
       {
-        title: "Editeur de la plateforme",
+        title: "Éditeur de la plateforme",
         paragraphs: [
-          "La plateforme Sunu Cagnotte est exploitee par une structure a but non lucratif ou un porteur de projet solidaire, dont les informations d'identification completes doivent etre precisees avant ouverture publique du service.",
-          "Doivent notamment etre indiques sur cette page: la denomination de la structure, sa forme juridique, son siege social, une adresse email de contact, ainsi que toute reference administrative ou d'immatriculation applicable.",
+          "La plateforme Sunu Cagnotte est exploitée par une structure à but non lucratif ou un porteur de projet solidaire, dont les informations d'identification complètes doivent être précisées avant ouverture publique du service.",
+          "Doivent notamment être indiqués sur cette page : la dénomination de la structure, sa forme juridique, son siège social, une adresse email de contact, ainsi que toute référence administrative ou d'immatriculation applicable.",
         ],
       },
       {
-        title: "Hebergement et infrastructure technique",
+        title: "Hébergement et infrastructure technique",
         paragraphs: [
-          "Le site et ses donnees sont heberges par un prestataire technique distinct de l'editeur. Les references completes de l'hebergeur, son adresse et ses moyens de contact doivent etre ajoutes dans la version definitive.",
-          "L'editeur s'efforce de maintenir un niveau de disponibilite raisonnable du service, sans pouvoir garantir une accessibilite continue en cas de maintenance, d'incident technique ou d'indisponibilite du reseau.",
+          "Le site et ses données sont hébergés par un prestataire technique distinct de l'éditeur. Les références complètes de l'hébergeur, son adresse et ses moyens de contact doivent être ajoutés dans la version définitive.",
+          "L'éditeur s'efforce de maintenir un niveau de disponibilité raisonnable du service, sans pouvoir garantir une accessibilité continue en cas de maintenance, d'incident technique ou d'indisponibilité du réseau.",
         ],
       },
       {
         title: "Objet du service",
         paragraphs: [
-          "La plateforme permet la creation, la publication et la consultation de cagnottes solidaires, ainsi que la participation financiere a ces campagnes via un prestataire de paiement tiers.",
-          "Le site a pour finalite de faciliter la presentation de besoins, la collecte de contributions et la mise en relation entre organisateurs de campagnes et donateurs, dans un cadre modere et lisible.",
+          "La plateforme permet la création, la publication et la consultation de cagnottes solidaires, ainsi que la participation financière à ces campagnes via un prestataire de paiement tiers.",
+          "Le site a pour finalité de faciliter la présentation de besoins, la collecte de contributions et la mise en relation entre organisateurs de campagnes et donateurs, dans un cadre modéré et lisible.",
         ],
       },
       {
-        title: "Propriete intellectuelle",
+        title: "Propriété intellectuelle",
         paragraphs: [
-          "Les elements visuels, textuels, graphiques, logiciels et plus largement les contenus composant la plateforme sont proteges par les regles applicables a la propriete intellectuelle.",
-          "Sauf autorisation expresse, toute reproduction, adaptation, diffusion ou reutilisation substantielle des contenus du site est interdite.",
+          "Les éléments visuels, textuels, graphiques, logiciels et plus largement les contenus composant la plateforme sont protégés par les règles applicables à la propriété intellectuelle.",
+          "Sauf autorisation expresse, toute reproduction, adaptation, diffusion ou réutilisation substantielle des contenus du site est interdite.",
         ],
       },
       {
-        title: "Responsabilite editoriale et contenus publies",
+        title: "Responsabilité éditoriale et contenus publiés",
         paragraphs: [
-          "L'editeur met en place une moderation avant publication afin de renforcer la qualite et la fiabilite des campagnes rendues publiques. Cette moderation ne vaut toutefois pas garantie absolue sur l'exactitude, l'exhaustivite ou l'evolution ulterieure des informations fournies par les organisateurs.",
-          "Les createurs de campagnes demeurent responsables des contenus, descriptions, images et informations qu'ils soumettent via la plateforme.",
+          "L'éditeur met en place une modération avant publication afin de renforcer la qualité et la fiabilité des campagnes rendues publiques. Cette modération ne vaut toutefois pas garantie absolue sur l'exactitude, l'exhaustivité ou l'évolution ultérieure des informations fournies par les organisateurs.",
+          "Les créateurs de campagnes demeurent responsables des contenus, descriptions, images et informations qu'ils soumettent via la plateforme.",
         ],
       },
       {
         title: "Contact",
         paragraphs: [
-          "Toute question relative au fonctionnement du site, a son contenu ou a l'exercice d'un droit peut etre adressee a l'editeur via la page de contact ou a l'adresse officielle qui devra etre mentionnee ici.",
+          "Toute question relative au fonctionnement du site, à son contenu ou à l'exercice d'un droit peut être adressée à l'éditeur via la page de contact ou à l'adresse officielle qui devra être mentionnée ici.",
         ],
       },
     ],
   },
   privacy: {
-    eyebrow: "Donnees personnelles",
-    title: "Politique de confidentialite",
+    eyebrow: "Données personnelles",
+    title: "Politique de confidentialité",
     intro:
-      "Cette page explique quelles donnees sont collecte es, dans quel but, comment elles sont utilisees et quels droits peuvent etre exerces par les utilisateurs et les contributeurs.",
+      "Cette page explique quelles données sont collectées, dans quel but, comment elles sont utilisées et quels droits peuvent être exercés par les utilisateurs et les contributeurs.",
     note:
-      "Le contenu ci-dessous constitue une base serieuse mais reste a ajuster selon la structure juridique exacte du projet, sa politique cookies et ses obligations locales ou internationales applicables.",
+      "Le contenu ci-dessous constitue une base sérieuse mais reste à ajuster selon la structure juridique exacte du projet, sa politique cookies et ses obligations locales ou internationales applicables.",
     sections: [
       {
-        title: "Donnees collecte es",
+        title: "Données collectées",
         paragraphs: [
-          "La plateforme peut collecter des donnees d'identification et de contact lors de la creation d'un compte, de la creation d'une campagne, de l'envoi d'un message ou d'une participation a une cagnotte.",
-          "Selon les cas, cela peut inclure le nom, le prenom, l'email, le numero de telephone, le contenu d'une campagne, le montant d'une participation, ainsi que certaines informations liees au paiement ou au suivi administratif de la transaction.",
+          "La plateforme peut collecter des données d'identification et de contact lors de la création d'un compte, de la création d'une campagne, de l'envoi d'un message ou d'une participation à une cagnotte.",
+          "Selon les cas, cela peut inclure le nom, le prénom, l'email, le numéro de téléphone, le contenu d'une campagne, le montant d'une participation, ainsi que certaines informations liées au paiement ou au suivi administratif de la transaction.",
         ],
       },
       {
-        title: "Finalites du traitement",
+        title: "Finalités du traitement",
         paragraphs: [
-          "Les donnees sont traitees pour permettre la gestion des comptes, la moderation et la publication des campagnes, le traitement des contributions, le suivi des transactions, la prevention des usages abusifs et la reponse aux demandes de contact.",
-          "Certaines donnees peuvent egalement etre conservees pour satisfaire aux obligations legales, comptables, de securite ou de preuve.",
+          "Les données sont traitées pour permettre la gestion des comptes, la modération et la publication des campagnes, le traitement des contributions, le suivi des transactions, la prévention des usages abusifs et la réponse aux demandes de contact.",
+          "Certaines données peuvent également être conservées pour satisfaire aux obligations légales, comptables, de sécurité ou de preuve.",
         ],
         bullets: [
-          "creer et administrer un compte utilisateur",
-          "publier et moderer une campagne",
+          "créer et administrer un compte utilisateur",
+          "publier et modérer une campagne",
           "traiter une participation et son suivi",
-          "repondre aux demandes de support ou de contact",
-          "assurer la securite et la tracabilite du service",
+          "répondre aux demandes de support ou de contact",
+          "assurer la sécurité et la traçabilité du service",
         ],
       },
       {
         title: "Base juridique",
         paragraphs: [
-          "Les traitements peuvent reposer, selon les cas, sur l'execution du service demande, le respect d'obligations legales, l'interet legitime de l'editeur a securiser la plateforme ou, lorsque cela est requis, le consentement de la personne concernee.",
+          "Les traitements peuvent reposer, selon les cas, sur l'exécution du service demandé, le respect d'obligations légales, l'intérêt légitime de l'éditeur à sécuriser la plateforme ou, lorsque cela est requis, le consentement de la personne concernée.",
         ],
       },
       {
         title: "Affichage public et anonymat",
         paragraphs: [
-          "Lors d'une contribution, le donateur peut choisir un affichage public anonyme de son don. Ce choix agit sur la visibilite publique du nom, mais ne supprime pas les informations necessaires au traitement du paiement, au suivi administratif ou a la prevention de la fraude.",
+          "Lors d'une contribution, le donateur peut choisir un affichage public anonyme de son don. Ce choix agit sur la visibilité publique du nom, mais ne supprime pas les informations nécessaires au traitement du paiement, au suivi administratif ou à la prévention de la fraude.",
         ],
       },
       {
-        title: "Destinataires des donnees",
+        title: "Destinataires des données",
         paragraphs: [
-          "Les donnees sont accessibles, dans la limite de ce qui est necessaire, a l'editeur de la plateforme, a ses prestataires techniques et au prestataire de paiement utilise pour finaliser les transactions.",
-          "Les donnees ne doivent pas etre communiquees a des tiers non autorises, sauf obligation legale, demande legitime d'une autorite competente ou necessite strictement liee a l'exploitation du service.",
+          "Les données sont accessibles, dans la limite de ce qui est nécessaire, à l'éditeur de la plateforme, à ses prestataires techniques et au prestataire de paiement utilisé pour finaliser les transactions.",
+          "Les données ne doivent pas être communiquées à des tiers non autorisés, sauf obligation légale, demande légitime d'une autorité compétente ou nécessité strictement liée à l'exploitation du service.",
         ],
       },
       {
-        title: "Conservation des donnees",
+        title: "Conservation des données",
         paragraphs: [
-          "Les donnees sont conservees pendant une duree proportionnee aux finalites du service, puis archivees ou supprimees selon leur nature, les contraintes techniques et les obligations legales applicables.",
-          "Les informations relatives aux paiements et a la preuve des transactions peuvent etre conservees plus longtemps que les simples donnees de navigation ou de contact.",
+          "Les données sont conservées pendant une durée proportionnée aux finalités du service, puis archivées ou supprimées selon leur nature, les contraintes techniques et les obligations légales applicables.",
+          "Les informations relatives aux paiements et à la preuve des transactions peuvent être conservées plus longtemps que les simples données de navigation ou de contact.",
         ],
       },
       {
-        title: "Securite",
+        title: "Sécurité",
         paragraphs: [
-          "L'editeur met en oeuvre des mesures raisonnables de securite pour proteger les donnees contre l'acces non autorise, la perte, l'alteration ou la divulgation illicite.",
-          "Malgre ces efforts, aucun service en ligne ne peut garantir une securite absolue. Les utilisateurs sont invites a proteger leurs identifiants et a signaler tout incident suspect.",
+          "L'éditeur met en oeuvre des mesures raisonnables de sécurité pour protéger les données contre l'accès non autorisé, la perte, l'altération ou la divulgation illicite.",
+          "Malgré ces efforts, aucun service en ligne ne peut garantir une sécurité absolue. Les utilisateurs sont invités à protéger leurs identifiants et à signaler tout incident suspect.",
         ],
       },
       {
         title: "Droits des personnes",
         paragraphs: [
-          "Sous reserve du cadre juridique applicable, chaque personne peut demander l'acces a ses donnees, leur rectification, leur suppression, la limitation de certains traitements ou, lorsque cela est possible, s'opposer a leur utilisation.",
-          "Les demandes peuvent etre adressees via les moyens de contact mentionnes sur le site. Une preuve d'identite peut etre demandee lorsque cela est necessaire pour securiser la reponse.",
+          "Sous réserve du cadre juridique applicable, chaque personne peut demander l'accès à ses données, leur rectification, leur suppression, la limitation de certains traitements ou, lorsque cela est possible, s'opposer à leur utilisation.",
+          "Les demandes peuvent être adressées via les moyens de contact mentionnés sur le site. Une preuve d'identité peut être demandée lorsque cela est nécessaire pour sécuriser la réponse.",
         ],
       },
     ],
   },
   terms: {
-    eyebrow: "Regles d'utilisation",
-    title: "Conditions generales d'utilisation",
+    eyebrow: "Règles d'utilisation",
+    title: "Conditions générales d'utilisation",
     intro:
-      "Les presentes conditions definissent les regles d'acces et d'utilisation de la plateforme, ainsi que les responsabilites respectives des organisateurs, contributeurs et administrateurs du service.",
+      "Les présentes conditions définissent les règles d'accès et d'utilisation de la plateforme, ainsi que les responsabilités respectives des organisateurs, contributeurs et administrateurs du service.",
     note:
-      "Cette version constitue une base d'encadrement pour le service. Elle doit etre relue et validee avant production, en particulier sur les volets paiements, responsabilites et droit applicable.",
+      "Cette version constitue une base d'encadrement pour le service. Elle doit être relue et validée avant production, en particulier sur les volets paiements, responsabilités et droit applicable.",
     sections: [
       {
         title: "Objet des CGU",
         paragraphs: [
-          "Les presentes conditions ont pour objet d'encadrer l'utilisation de la plateforme Sunu Cagnotte, la creation de campagnes, la consultation des cagnottes publiees et la participation financiere via le service.",
+          "Les présentes conditions ont pour objet d'encadrer l'utilisation de la plateforme Sunu Cagnotte, la création de campagnes, la consultation des cagnottes publiées et la participation financière via le service.",
         ],
       },
       {
-        title: "Acces au service",
+        title: "Accès au service",
         paragraphs: [
-          "Le site est accessible aux visiteurs pour la consultation des campagnes publiees. Certaines fonctionnalites, notamment la creation et l'administration d'une cagnotte, peuvent necessiter la creation d'un compte.",
-          "L'utilisateur s'engage a fournir des informations exactes, actuelles et sinceres lors de son inscription ou de l'utilisation des formulaires proposes.",
+          "Le site est accessible aux visiteurs pour la consultation des campagnes publiées. Certaines fonctionnalités, notamment la création et l'administration d'une cagnotte, peuvent nécessiter la création d'un compte.",
+          "L'utilisateur s'engage à fournir des informations exactes, actuelles et sincères lors de son inscription ou de l'utilisation des formulaires proposés.",
         ],
       },
       {
-        title: "Creation et publication d'une campagne",
+        title: "Création et publication d'une campagne",
         paragraphs: [
-          "L'organisateur d'une campagne est responsable des informations qu'il publie ou soumet a validation: titre, description, image, categorie, montant cible et toute information relative a la cause presentee.",
-          "La plateforme peut refuser, suspendre ou retirer une campagne contraire a son cadre editorial, trompeuse, incomplete, illicite ou incompatible avec les objectifs du service.",
+          "L'organisateur d'une campagne est responsable des informations qu'il publie ou soumet à validation : titre, description, image, catégorie, montant cible et toute information relative à la cause présentée.",
+          "La plateforme peut refuser, suspendre ou retirer une campagne contraire à son cadre éditorial, trompeuse, incomplète, illicite ou incompatible avec les objectifs du service.",
         ],
         bullets: [
-          "la campagne doit reposer sur une presentation loyale et intelligible",
-          "les informations essentielles ne doivent pas etre mensongeres ou trompeuses",
-          "la plateforme peut demander des precisions avant publication",
+          "la campagne doit reposer sur une présentation loyale et intelligible",
+          "les informations essentielles ne doivent pas être mensongères ou trompeuses",
+          "la plateforme peut demander des précisions avant publication",
         ],
       },
       {
         title: "Participation et paiement",
         paragraphs: [
-          "Le donateur peut participer a une campagne publiee via le prestataire de paiement integre au service. Le paiement est traite via PayDunya et les moyens de paiement effectivement proposes dans le parcours au moment de la transaction.",
-          "Le donateur doit verifier le montant saisi, les informations communiquees et, le cas echeant, son choix d'affichage public anonyme avant validation du paiement.",
+          "Le donateur peut participer à une campagne publiée via le prestataire de paiement intégré au service. Le paiement est traité via PayDunya et les moyens de paiement effectivement proposés dans le parcours au moment de la transaction.",
+          "Le donateur doit vérifier le montant saisi, les informations communiquées et, le cas échéant, son choix d'affichage public anonyme avant validation du paiement.",
         ],
       },
       {
         title: "Commissions et frais",
         paragraphs: [
-          "La plateforme n'a pas vocation a prelever une commission propre sur les dons si cette absence de commission est affichee dans le parcours. En revanche, des frais techniques ou frais de traitement peuvent etre appliques par le prestataire de paiement selon le moyen utilise.",
-          "L'utilisateur reconnait que les frais lies au paiement relevent du cadre operationnel du prestataire et non d'une marge cachee de la plateforme, sauf indication contraire explicite.",
+          "La plateforme n'a pas vocation à prélever une commission propre sur les dons si cette absence de commission est affichée dans le parcours. En revanche, des frais techniques ou frais de traitement peuvent être appliqués par le prestataire de paiement selon le moyen utilisé.",
+          "L'utilisateur reconnaît que les frais liés au paiement relèvent du cadre opérationnel du prestataire et non d'une marge cachée de la plateforme, sauf indication contraire explicite.",
         ],
       },
       {
-        title: "Responsabilites",
+        title: "Responsabilités",
         paragraphs: [
-          "La plateforme agit comme un service de mise a disposition, d'edition et de moderation. Elle ne garantit pas l'aboutissement d'une collecte, ni la reussite de l'objectif financier d'une campagne.",
-          "L'organisateur reste responsable de l'usage des fonds collectes, des engagements qu'il prend envers les contributeurs et de la conformite des informations diffusees.",
+          "La plateforme agit comme un service de mise à disposition, d'édition et de modération. Elle ne garantit pas l'aboutissement d'une collecte, ni la réussite de l'objectif financier d'une campagne.",
+          "L'organisateur reste responsable de l'usage des fonds collectés, des engagements qu'il prend envers les contributeurs et de la conformité des informations diffusées.",
         ],
       },
       {
         title: "Suspension, limitation et suppression",
         paragraphs: [
-          "L'editeur peut suspendre ou limiter l'acces a tout ou partie du service en cas de manquement aux presentes conditions, de comportement abusif, de suspicion de fraude, de risque pour la securite du service ou de demande emanant d'une autorite competente.",
+          "L'éditeur peut suspendre ou limiter l'accès à tout ou partie du service en cas de manquement aux présentes conditions, de comportement abusif, de suspicion de fraude, de risque pour la sécurité du service ou de demande émanant d'une autorité compétente.",
         ],
       },
       {
-        title: "Evolution des conditions",
+        title: "Évolution des conditions",
         paragraphs: [
-          "Les presentes conditions peuvent evoluer pour tenir compte de l'evolution du service, du cadre juridique, des moyens de paiement ou des regles internes de moderation. La version en vigueur est celle publiee sur le site au moment de la consultation.",
+          "Les présentes conditions peuvent évoluer pour tenir compte de l'évolution du service, du cadre juridique, des moyens de paiement ou des règles internes de modération. La version en vigueur est celle publiée sur le site au moment de la consultation.",
         ],
       },
     ],

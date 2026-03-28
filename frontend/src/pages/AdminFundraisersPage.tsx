@@ -121,7 +121,7 @@ export function AdminFundraisersPage() {
         <span>Moderation</span>
         <h1>Validation et publication des cagnottes</h1>
         <p>
-          Une cagnotte approuvee passe en statut publie et devient visible sur
+          Une cagnotte approuvée passe en statut publié et devient visible sur
           les pages publiques.
         </p>
       </div>
@@ -130,10 +130,10 @@ export function AdminFundraisersPage() {
         <select value={filter} onChange={(event) => setFilter(event.target.value)}>
           <option value="">Toutes</option>
           <option value="pending_review">En attente</option>
-          <option value="published">Publiees</option>
-          <option value="rejected">Refusees</option>
+          <option value="published">Publiées</option>
+          <option value="rejected">Refusées</option>
           <option value="draft">Brouillons</option>
-          <option value="archived">Archivees</option>
+          <option value="archived">Archivées</option>
         </select>
       </div>
 

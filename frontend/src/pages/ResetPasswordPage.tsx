@@ -15,8 +15,8 @@ export function ResetPasswordPage() {
   const [success, setSuccess] = useState<string | null>(null);
 
   usePageSeo({
-    title: "Reinitialiser le mot de passe",
-    description: "Definissez un nouveau mot de passe pour retrouver l acces a votre espace createur.",
+    title: "Réinitialiser le mot de passe",
+    description: "Définissez un nouveau mot de passe pour retrouver l'accès à votre espace créateur.",
     canonicalPath: "/reinitialiser-mot-de-passe",
     robots: "noindex,nofollow",
   });
@@ -47,7 +47,7 @@ export function ResetPasswordPage() {
         setError(requestError.message);
         setValidationErrors(getApiValidationMessages(requestError));
       } else {
-        setError("Reinitialisation impossible.");
+        setError("Réinitialisation impossible.");
       }
     } finally {
       setLoading(false);
@@ -58,16 +58,16 @@ export function ResetPasswordPage() {
     <div className="page">
       <section className="page-section narrow">
         <div className="section-heading">
-          <span>Securite</span>
-          <h1>Reinitialiser le mot de passe</h1>
-          <p>Choisis un nouveau mot de passe pour ton espace createur.</p>
+          <span>Sécurité</span>
+          <h1>Réinitialiser le mot de passe</h1>
+          <p>Choisis un nouveau mot de passe pour ton espace créateur.</p>
         </div>
 
         <form className="panel form-stack" onSubmit={handleSubmit}>
           {!token ? (
             <div className="alert alert--error">
-              <strong>Le lien de reinitialisation est incomplet.</strong>
-              <p>Demande un nouveau lien depuis la page mot de passe oublie.</p>
+              <strong>Le lien de réinitialisation est incomplet.</strong>
+              <p>Demande un nouveau lien depuis la page mot de passe oublié.</p>
             </div>
           ) : null}
 
@@ -104,7 +104,7 @@ export function ResetPasswordPage() {
           </button>
 
           <Link to="/connexion" className="detail-inline-link">
-            Retour a la connexion
+            Retour à la connexion
           </Link>
         </form>
       </section>

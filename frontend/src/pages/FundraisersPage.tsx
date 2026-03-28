@@ -18,7 +18,7 @@ export function FundraisersPage() {
   usePageSeo({
     title: "Toutes les cagnottes",
     description:
-      "Consultez les cagnottes publiees, filtrez par categorie et recherchez une campagne par son titre ou sa description.",
+      "Consultez les cagnottes publiées, filtrez par catégorie et recherchez une campagne par son titre ou sa description.",
     canonicalPath: "/cagnottes",
     image: "/banner/banniere.png",
   });
@@ -83,7 +83,7 @@ export function FundraisersPage() {
         <SectionHeading
           eyebrow="Toutes les campagnes"
           title="Liste des cagnottes"
-          description="Recherche par titre ou description, filtre par categorie, et affichage des plus recentes."
+          description="Recherche par titre ou description, filtre par catégorie, et affichage des plus récentes."
         />
 
         <div className="catalog-toolbar panel">
@@ -102,10 +102,10 @@ export function FundraisersPage() {
 
           <div className="catalog-toolbar__filters">
             <div className="catalog-toolbar__filters-head">
-              <span className="form-label">Categories</span>
-              <span className="catalog-toolbar__hint">Triees des plus recentes</span>
+              <span className="form-label">Catégories</span>
+              <span className="catalog-toolbar__hint">Triées des plus récentes</span>
             </div>
-            <div className="catalog-category-list" aria-label="Filtrer par categorie">
+            <div className="catalog-category-list" aria-label="Filtrer par catégorie">
               <button
                 type="button"
                 aria-pressed={selectedCategory === "all"}
@@ -146,7 +146,7 @@ export function FundraisersPage() {
                 setSelectedCategory("all");
               }}
             >
-              Reinitialiser les filtres
+              Réinitialiser les filtres
             </button>
           ) : null}
         </div>
@@ -155,7 +155,7 @@ export function FundraisersPage() {
           <div className="catalog-results-bar">
             <strong>{total} cagnotte{total > 1 ? "s" : ""}</strong>
             <span>
-              {selectedCategory === "all" ? "Toutes categories" : selectedCategory}
+              {selectedCategory === "all" ? "Toutes catégories" : selectedCategory}
             </span>
           </div>
         ) : null}
@@ -166,13 +166,13 @@ export function FundraisersPage() {
           <article className="panel catalog-empty">
             <strong>
               {hasActiveFilters
-                ? "Aucune cagnotte ne correspond a cette recherche."
-                : "Aucune cagnotte publiee n'est encore disponible."}
+                ? "Aucune cagnotte ne correspond à cette recherche."
+                : "Aucune cagnotte publiée n'est encore disponible."}
             </strong>
             <p>
               {hasActiveFilters
-                ? "Essaie une autre categorie ou une recherche plus large dans le titre et la description."
-                : "Les prochaines campagnes apparaitront ici, triees des plus recentes aux plus anciennes."}
+                ? "Essaie une autre catégorie ou une recherche plus large dans le titre et la description."
+                : "Les prochaines campagnes apparaîtront ici, triées des plus récentes aux plus anciennes."}
             </p>
             {hasActiveFilters ? (
               <button
