@@ -264,7 +264,7 @@ export function FundraiserDetailPage() {
           </div>
           <h2>Faire un don</h2>
           <p className="panel__intro">
-            Paiement mobile simple, rapide et sécurisé via PayDunya.
+            Paiement mobile simple, rapide et sécurisé via PayTech.
           </p>
           <form className="form-stack" onSubmit={handleContributionSubmit}>
             {contributionError ? (
@@ -281,7 +281,7 @@ export function FundraiserDetailPage() {
             ) : null}
 
             <div className="payment-methods">
-              <span className="payment-methods__label">Paiement sécurisé via PayDunya</span>
+              <span className="payment-methods__label">Paiement sécurisé via PayTech</span>
               <div className="payment-methods__list">
                 {PAYMENT_METHODS.map((method) => (
                   <span key={method} className="payment-method-chip">
@@ -365,7 +365,7 @@ export function FundraiserDetailPage() {
             </label>
             <button
               type="submit"
-              className="button button--paydunya"
+              className="button button--payment"
               disabled={submitting}
             >
               <span className="button__eyebrow">Orange Money, Wave, carte bancaire</span>

@@ -37,7 +37,7 @@ export function PaymentReturnPage() {
       : `reference=${encodeURIComponent(reference ?? "")}`;
 
     apiRequest<{ item: PaymentContributionStatus }>(
-      `/payments/paydunya/return?${query}`,
+      `/payments/return?${query}`,
     )
       .then((response) => {
         if (active) {
@@ -106,7 +106,7 @@ export function PaymentReturnPage() {
                   to={`/paiement/test/${item.paymentReference}`}
                   className="button button--ghost"
                 >
-                  Revenir au simulateur de test
+                  Revenir au simulateur local
                 </Link>
               ) : null}
             </div>

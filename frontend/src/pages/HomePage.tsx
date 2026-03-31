@@ -74,7 +74,7 @@ export function HomePage() {
             </p>
             <div className="home-hero__trustline">
               <span>Validation humaine avant publication</span>
-              <span>PayDunya, Orange Money, Wave, carte</span>
+              <span>PayTech, Orange Money, Wave, carte</span>
               <span>0% de commission plateforme</span>
             </div>
             <div className="home-hero__actions">

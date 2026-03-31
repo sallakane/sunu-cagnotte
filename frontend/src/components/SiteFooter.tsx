@@ -52,7 +52,7 @@ export function SiteFooter() {
         <div className="site-footer__column">
           <span className="site-footer__title">Paiement</span>
           <p className="site-footer__text">
-            Paiement sécurisé via PayDunya, avec les moyens disponibles dans le
+            Paiement sécurisé via PayTech, avec les moyens disponibles dans le
             parcours de contribution.
           </p>
         </div>

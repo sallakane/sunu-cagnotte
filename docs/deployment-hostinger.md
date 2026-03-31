@@ -45,7 +45,7 @@ git pull --ff-only origin main
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml exec php php bin/console doctrine:migrations:migrate --no-interaction
 docker compose -f docker-compose.prod.yml exec php php bin/console lexik:jwt:generate-keypair --skip-if-exists
-docker compose -f docker-compose.prod.yml exec php php bin/console cache:clear
+docker compose -f docker-compose.prod.yml exec -u www-data php php bin/console cache:clear --env=prod
 ```
 
 ## Preparation du VPS Hostinger
@@ -92,13 +92,11 @@ Variables minimales a renseigner :
 - `MAIL_FROM_NAME="Sunu Cagnotte"`
 - `CONTACT_RECIPIENT=ndiageze@gmail.com`
 - `JWT_PASSPHRASE`
-- `PAYDUNYA_MODE=live`
-- `PAYDUNYA_MASTER_KEY`
-- `PAYDUNYA_PRIVATE_KEY`
-- `PAYDUNYA_PUBLIC_KEY`
-- `PAYDUNYA_TOKEN`
-- `PAYDUNYA_STORE_NAME="Sunu Cagnotte"`
-- `PAYDUNYA_STORE_TAGLINE`
+- `PAYMENT_PROVIDER=paytech`
+- `PAYTECH_MODE=prod`
+- `PAYTECH_API_KEY`
+- `PAYTECH_API_SECRET`
+- `PAYTECH_TARGET_PAYMENT="Orange Money, Wave, Free Money, Carte Bancaire"`
 - `VITE_API_BASE_URL=/api`
 - `VITE_APP_NAME="Sunu Cagnotte"`
 

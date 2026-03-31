@@ -81,7 +81,7 @@ Le paiement est encapsule derriere une interface fournisseur :
 
 - `PaymentProviderInterface`
 - `PaymentProviderRegistry`
-- `PayDunyaProvider`
+- `PayTechProvider`
 
 Ce choix permet :
 
@@ -94,7 +94,7 @@ Ce choix permet :
 1. Le visiteur soumet une contribution.
 2. Le backend cree une `Contribution` avec statut `initiated`.
 3. Le backend demande au provider un lien ou token de paiement.
-4. Le front redirige vers PayDunya.
+4. Le front redirige vers PayTech.
 5. Au retour utilisateur et surtout a l'IPN serveur, le backend verifie la transaction.
 6. La contribution passe a `paid`, `failed`, `cancelled` ou `pending`.
 7. Le montant collecte de la cagnotte n'est mis a jour qu'apres confirmation serveur fiable.
@@ -135,7 +135,7 @@ Choix de modelisation :
 
 ## 7. Risques et points a cadrer
 
-- Details contractuels de PayDunya a confirmer avant implementation finale.
+- Validation du compte PayTech prod a confirmer avant ouverture publique.
 - Politique de modération des cagnottes a preciser.
 - Gestion RGPD locale / Senegal a faire valider.
 - Strategie anti-spam pour contact et contribution a renforcer avant production.

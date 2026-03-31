@@ -175,7 +175,7 @@ const LEGAL_CONTENT: Record<LegalPageKind, LegalContent> = {
       {
         title: "Participation et paiement",
         paragraphs: [
-          "Le donateur peut participer à une campagne publiée via le prestataire de paiement intégré au service. Le paiement est traité via PayDunya et les moyens de paiement effectivement proposés dans le parcours au moment de la transaction.",
+          "Le donateur peut participer à une campagne publiée via le prestataire de paiement intégré au service. Le paiement est traité via PayTech et les moyens de paiement effectivement proposés dans le parcours au moment de la transaction.",
           "Le donateur doit vérifier le montant saisi, les informations communiquées et, le cas échéant, son choix d'affichage public anonyme avant validation du paiement.",
         ],
       },

@@ -10,8 +10,8 @@ export function PaymentTestPage() {
   const [error, setError] = useState<string | null>(null);
 
   usePageSeo({
-    title: "Simulateur PayDunya",
-    description: "Simulateur technique local pour tester les retours de paiement PayDunya.",
+    title: "Simulateur paiement",
+    description: "Simulateur technique local pour tester les retours de paiement.",
     canonicalPath: reference ? `/paiement/test/${reference}` : "/paiement/test",
     robots: "noindex,nofollow",
   });
@@ -25,7 +25,7 @@ export function PaymentTestPage() {
     setError(null);
 
     try {
-      await apiRequest("/payments/paydunya/ipn", {
+      await apiRequest("/payments/ipn", {
         method: "POST",
         body: {
           event: "simulated_ipn",
@@ -52,7 +52,7 @@ export function PaymentTestPage() {
       <section className="page-section narrow">
         <div className="section-heading">
           <span>Mode test</span>
-          <h1>Simulateur PayDunya local</h1>
+          <h1>Simulateur paiement local</h1>
           <p>
             Cet écran remplace temporairement la redirection externe pour le
             développement local. Il permet de simuler l&apos;IPN serveur avant le

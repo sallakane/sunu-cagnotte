@@ -1,6 +1,6 @@
 # Sunu Cagnotte
 
-Plateforme de cagnottes solidaires pour le Senegal, concue comme un monorepo `Symfony + React + PostgreSQL`, avec paiement `PayDunya`, emails transactionnels, espace createur, moderation admin et parcours public.
+Plateforme de cagnottes solidaires pour le Senegal, concue comme un monorepo `Symfony + React + PostgreSQL`, avec paiement `PayTech`, emails transactionnels, espace createur, moderation admin et parcours public.
 
 ## Etat actuel du projet
 
@@ -12,7 +12,7 @@ Le socle en place couvre deja :
 - upload d image de couverture pour les cagnottes ;
 - moderation admin avec approbation ou refus ;
 - liste publique et page detail des cagnottes publiees ;
-- contribution invitee sans compte avec parcours de paiement PayDunya ;
+- contribution invitee sans compte avec parcours de paiement PayTech ;
 - pages institutionnelles, FAQ, mentions legales, CGU et politique de confidentialite ;
 - emails transactionnels habilles a l image du site ;
 - SEO de base sur les pages publiques ;
@@ -132,11 +132,10 @@ docker compose exec php php bin/console app:create-admin ndiageze@gmail.com Admi
 - `CONTACT_RECIPIENT`
 - `JWT_PASSPHRASE`
 - `PAYMENT_PROVIDER`
-- `PAYDUNYA_MODE`
-- `PAYDUNYA_MASTER_KEY`
-- `PAYDUNYA_PRIVATE_KEY`
-- `PAYDUNYA_PUBLIC_KEY`
-- `PAYDUNYA_TOKEN`
+- `PAYTECH_MODE`
+- `PAYTECH_API_KEY`
+- `PAYTECH_API_SECRET`
+- `PAYTECH_TARGET_PAYMENT`
 
 ### Frontend
 
