@@ -8,6 +8,15 @@ import { formatXof } from "../lib/currency";
 import { usePageSeo } from "../lib/usePageSeo";
 import type { FundraiserSummary } from "../types";
 
+const CAUSES = [
+  { label: "Éducation", description: "Écoles, fournitures, bourses", icon: "📚", param: "education" },
+  { label: "Dara", description: "Écoles coraniques & taalibés", icon: "🕌", param: "dara" },
+  { label: "Santé", description: "Soins, médicaments, handicap", icon: "🏥", param: "sante" },
+  { label: "Association", description: "Projets communautaires", icon: "🤝", param: "association" },
+  { label: "Hajj & Oumra", description: "Pèlerinage à La Mecque", icon: "✈️", param: "hajj" },
+  { label: "Solidarité", description: "Aide d'urgence et soutien", icon: "💚", param: "solidarite" },
+];
+
 export function HomePage() {
   const auth = useAuth();
   const [fundraisers, setFundraisers] = useState<FundraiserSummary[]>([]);
@@ -73,9 +82,9 @@ export function HomePage() {
               contribution clair et rassurant.
             </p>
             <div className="home-hero__trustline">
-              <span>Validation humaine avant publication</span>
-              <span>PayTech, Orange Money, Wave, carte</span>
-              <span>0% de commission plateforme</span>
+              <span>✓ Validation humaine avant publication</span>
+              <span>✓ PayTech, Orange Money, Wave, carte</span>
+              <span>✓ 0% de commission plateforme</span>
             </div>
             <div className="home-hero__actions">
               <Link
@@ -110,10 +119,30 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="page-section">
+        <SectionHeading
+          eyebrow="Toutes les causes"
+          title="Par quoi souhaitez-vous aider ?"
+        />
+        <div className="causes-grid">
+          {CAUSES.map((cause) => (
+            <Link
+              key={cause.param}
+              to={`/cagnottes?categorie=${cause.param}`}
+              className="cause-card"
+            >
+              <span className="cause-card__icon">{cause.icon}</span>
+              <span className="cause-card__label">{cause.label}</span>
+              <span className="cause-card__desc">{cause.description}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <section className="page-section page-section--home-featured">
         <SectionHeading
           eyebrow="En ce moment"
-          title="Trois campagnes mises en avant"
+          title="Campagnes mises en avant"
         />
         {!loading && !error && totalPublished > 0 ? (
           <div className="home-section-bar">
