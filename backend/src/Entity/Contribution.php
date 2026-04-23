@@ -50,7 +50,7 @@ class Contribution
     private ?string $message = null;
 
     #[ORM\Column(length: 50)]
-    private string $paymentProvider = 'paydunya';
+    private string $paymentProvider = 'paytech';
 
     #[ORM\Column(length: 120, name: 'payment_reference')]
     private string $paymentReference;

@@ -10,18 +10,14 @@ services:
     depends_on:
       - php
     ports:
-      - "80:80"
-      - "443:443"
+      - "127.0.0.1:8080:80"
     environment:
-      ENABLE_TLS: ${ENABLE_TLS:-0}
+      ENABLE_TLS: "0"
       NGINX_SERVER_NAME: "${NGINX_SERVER_NAME:-sunu-cagnotte.org www.sunu-cagnotte.org}"
       NGINX_CANONICAL_HOST: ${NGINX_CANONICAL_HOST:-sunu-cagnotte.org}
-      SSL_CERT_PATH: ${SSL_CERT_PATH:-/etc/nginx/certs/fullchain.pem}
-      SSL_CERT_KEY_PATH: ${SSL_CERT_KEY_PATH:-/etc/nginx/certs/privkey.pem}
     restart: unless-stopped
     volumes:
       - ./backend/public:/srv/backend/public:ro
-      - ${SSL_CERTS_HOST_PATH:-./infra/nginx/certs}:/etc/nginx/certs:ro
     networks:
       - cagnotte
 
@@ -43,13 +39,10 @@ services:
       CONTACT_RECIPIENT: ${CONTACT_RECIPIENT}
       JWT_PASSPHRASE: ${JWT_PASSPHRASE}
       PAYMENT_PROVIDER: ${PAYMENT_PROVIDER}
-      PAYDUNYA_MODE: ${PAYDUNYA_MODE}
-      PAYDUNYA_MASTER_KEY: ${PAYDUNYA_MASTER_KEY}
-      PAYDUNYA_PRIVATE_KEY: ${PAYDUNYA_PRIVATE_KEY}
-      PAYDUNYA_PUBLIC_KEY: ${PAYDUNYA_PUBLIC_KEY}
-      PAYDUNYA_TOKEN: ${PAYDUNYA_TOKEN}
-      PAYDUNYA_STORE_NAME: ${PAYDUNYA_STORE_NAME}
-      PAYDUNYA_STORE_TAGLINE: ${PAYDUNYA_STORE_TAGLINE}
+      PAYTECH_MODE: ${PAYTECH_MODE}
+      PAYTECH_API_KEY: ${PAYTECH_API_KEY}
+      PAYTECH_API_SECRET: ${PAYTECH_API_SECRET}
+      PAYTECH_TARGET_PAYMENT: ${PAYTECH_TARGET_PAYMENT}
     volumes:
       - ./backend/public/uploads:/app/public/uploads
       - ./backend/var:/app/var

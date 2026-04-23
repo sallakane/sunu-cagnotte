@@ -41,8 +41,8 @@ security:
     - { path: ^/api/fundraisers/.+/contributions/initiate$, roles: PUBLIC_ACCESS, methods: [POST] }
     - { path: ^/api/fundraisers/.+$, roles: PUBLIC_ACCESS, methods: [GET] }
     - { path: ^/api/contact$, roles: PUBLIC_ACCESS, methods: [POST] }
-    - { path: ^/api/payments/paydunya/ipn$, roles: PUBLIC_ACCESS, methods: [POST] }
-    - { path: ^/api/payments/paydunya/return$, roles: PUBLIC_ACCESS, methods: [GET] }
+    - { path: ^/api/payments/ipn$, roles: PUBLIC_ACCESS, methods: [POST] }
+    - { path: ^/api/payments/return$, roles: PUBLIC_ACCESS, methods: [GET] }
     - { path: ^/api/admin, roles: ROLE_ADMIN }
     - { path: ^/api/me, roles: ROLE_USER }
     - { path: ^/api/fundraisers$, roles: ROLE_USER, methods: [POST] }

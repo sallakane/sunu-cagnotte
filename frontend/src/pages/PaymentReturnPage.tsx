@@ -37,7 +37,7 @@ export function PaymentReturnPage() {
       : `reference=${encodeURIComponent(reference ?? "")}`;
 
     apiRequest<{ item: PaymentContributionStatus }>(
-      `/payments/paydunya/return?${query}`,
+      `/payments/return?${query}`,
     )
       .then((response) => {
         if (active) {
@@ -73,10 +73,6 @@ export function PaymentReturnPage() {
         <div className="section-heading">
           <span>Paiement</span>
           <h1>Retour du parcours de paiement</h1>
-          <p>
-            Le statut affiché ici vient du serveur. Il dépend de la
-            confirmation reçue et non du seul retour navigateur.
-          </p>
         </div>
 
         {loading ? <article className="panel">Vérification du paiement...</article> : null}
@@ -106,7 +102,7 @@ export function PaymentReturnPage() {
                   to={`/paiement/test/${item.paymentReference}`}
                   className="button button--ghost"
                 >
-                  Revenir au simulateur de test
+                  Revenir au simulateur local
                 </Link>
               ) : null}
             </div>

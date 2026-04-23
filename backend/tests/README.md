@@ -7,5 +7,4 @@ Priorite de la prochaine iteration :
 - auth register/login ;
 - creation, soumission et publication de cagnotte ;
 - initiation et confirmation de paiement ;
-- webhook PayDunya idempotent.
-
+- webhook PayTech idempotent.

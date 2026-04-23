@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PaymentController extends AbstractController
 {
-    #[Route('/api/payments/paydunya/ipn', name: 'api_paydunya_ipn', methods: ['POST'])]
+    #[Route('/api/payments/ipn', name: 'api_payment_ipn', methods: ['POST'])]
     public function ipn(
         Request $request,
         ContributionRepository $contributionRepository,
@@ -44,7 +44,7 @@ class PaymentController extends AbstractController
             (new PaymentLog())
                 ->setContribution($contribution)
                 ->setProvider($contribution->getPaymentProvider())
-                ->setEventType((string) ($payload['event'] ?? 'ipn_received'))
+                ->setEventType($this->extractEventType($payload))
                 ->setPayload($payload),
         );
 
@@ -54,7 +54,7 @@ class PaymentController extends AbstractController
             $entityManager->flush();
 
             return $this->json([
-                'message' => 'Verification PayDunya impossible.',
+                'message' => 'Verification du paiement impossible.',
                 'detail' => $exception->getMessage(),
             ], Response::HTTP_BAD_GATEWAY);
         }
@@ -81,7 +81,7 @@ class PaymentController extends AbstractController
         ]);
     }
 
-    #[Route('/api/payments/paydunya/return', name: 'api_paydunya_return', methods: ['GET'])]
+    #[Route('/api/payments/return', name: 'api_payment_return', methods: ['GET'])]
     public function paymentReturn(
         Request $request,
         ContributionRepository $contributionRepository,
@@ -174,38 +174,98 @@ class PaymentController extends AbstractController
      */
     private function findContribution(array $payload, ContributionRepository $contributionRepository): ?Contribution
     {
-        $token = $payload['token']
-            ?? $payload['data']['invoice']['token']
-            ?? $payload['invoice']['token']
-            ?? null;
+        $token = $this->extractToken($payload);
 
-        if (is_string($token)) {
-            $token = trim($token);
+        if ($token !== null) {
+            $contribution = $contributionRepository->findOneByProviderTransactionId($token);
 
-            if ($token !== '') {
-                $contribution = $contributionRepository->findOneByProviderTransactionId($token);
-
-                if ($contribution !== null) {
-                    return $contribution;
-                }
+            if ($contribution !== null) {
+                return $contribution;
             }
         }
 
-        $reference = $payload['reference']
-            ?? $payload['data']['custom_data']['reference']
-            ?? $payload['custom_data']['reference']
-            ?? null;
+        $reference = $this->extractReference($payload);
 
-        if (!is_string($reference)) {
-            return null;
-        }
-
-        $reference = trim($reference);
-
-        if ($reference === '') {
+        if ($reference === null) {
             return null;
         }
 
         return $contributionRepository->findOneByPaymentReference($reference);
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     */
+    private function extractEventType(array $payload): string
+    {
+        $eventType = $payload['type_event'] ?? $payload['event'] ?? 'ipn_received';
+
+        return is_string($eventType) && trim($eventType) !== ''
+            ? trim($eventType)
+            : 'ipn_received';
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     */
+    private function extractToken(array $payload): ?string
+    {
+        $token = $payload['token']
+            ?? $payload['token_payment']
+            ?? $payload['data']['invoice']['token']
+            ?? $payload['invoice']['token']
+            ?? $payload['payment']['token']
+            ?? $payload['payment']['token_payment']
+            ?? null;
+
+        if (!is_string($token)) {
+            return null;
+        }
+
+        $token = trim($token);
+
+        return $token !== '' ? $token : null;
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     */
+    private function extractReference(array $payload): ?string
+    {
+        $reference = $payload['reference']
+            ?? $payload['ref_command']
+            ?? $payload['data']['custom_data']['reference']
+            ?? $payload['custom_data']['reference']
+            ?? null;
+
+        if (is_string($reference) && trim($reference) !== '') {
+            return trim($reference);
+        }
+
+        $customField = $payload['custom_field'] ?? null;
+
+        if (!is_string($customField) || trim($customField) === '') {
+            return null;
+        }
+
+        foreach ([trim($customField), base64_decode(trim($customField), true)] as $candidate) {
+            if (!is_string($candidate) || trim($candidate) === '') {
+                continue;
+            }
+
+            try {
+                $decoded = json_decode($candidate, true, 512, JSON_THROW_ON_ERROR);
+            } catch (\JsonException) {
+                continue;
+            }
+
+            $decodedReference = $decoded['reference'] ?? null;
+
+            if (is_string($decodedReference) && trim($decodedReference) !== '') {
+                return trim($decodedReference);
+            }
+        }
+
+        return null;
     }
 }

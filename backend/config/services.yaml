@@ -21,15 +21,12 @@ services:
       - '../src/Entity/'
       - '../src/Kernel.php'
 
-  App\Service\Payment\PayDunya\PayDunyaProvider:
+  App\Service\Payment\PayTech\PayTechProvider:
     arguments:
-      $mode: '%env(string:PAYDUNYA_MODE)%'
-      $masterKey: '%env(string:PAYDUNYA_MASTER_KEY)%'
-      $privateKey: '%env(string:PAYDUNYA_PRIVATE_KEY)%'
-      $publicKey: '%env(string:PAYDUNYA_PUBLIC_KEY)%'
-      $token: '%env(string:PAYDUNYA_TOKEN)%'
-      $storeName: '%env(string:PAYDUNYA_STORE_NAME)%'
-      $storeTagline: '%env(string:PAYDUNYA_STORE_TAGLINE)%'
+      $mode: '%env(string:PAYTECH_MODE)%'
+      $apiKey: '%env(string:PAYTECH_API_KEY)%'
+      $apiSecret: '%env(string:PAYTECH_API_SECRET)%'
+      $targetPayment: '%env(string:PAYTECH_TARGET_PAYMENT)%'
 
   App\Service\Payment\PaymentProviderRegistry:
     arguments:

@@ -64,6 +64,11 @@ class ContributionController extends AbstractController
         }
 
         $paymentReference = $contributionReferenceGenerator->generate();
+        $paymentReturnUrl = sprintf(
+            '%s/paiement/retour?reference=%s',
+            rtrim($this->frontendBaseUrl, '/'),
+            rawurlencode($paymentReference),
+        );
         $contribution = (new Contribution())
             ->setFundraiser($fundraiser)
             ->setFirstName($validation['firstName'])
@@ -93,9 +98,9 @@ class ContributionController extends AbstractController
                 customerName: trim(sprintf('%s %s', $validation['firstName'], $validation['lastName'])),
                 customerEmail: $validation['email'],
                 customerPhone: $validation['phone'],
-                returnUrl: sprintf('%s/paiement/retour', rtrim($this->frontendBaseUrl, '/')),
+                returnUrl: $paymentReturnUrl,
                 callbackUrl: sprintf(
-                    '%s/api/payments/paydunya/ipn',
+                    '%s/api/payments/ipn',
                     rtrim($this->appBaseUrl, '/'),
                 ),
             ));
