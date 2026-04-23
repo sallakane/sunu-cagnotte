@@ -54,7 +54,7 @@ const FAQ_SECTIONS = [
       {
         question: "Quels moyens de paiement sont proposés ?",
         answer:
-          "Le paiement passe par PayTech avec les moyens actuellement affichés dans le parcours : Orange Money, Wave, carte bancaire et Free Money selon les disponibilités proposées par le prestataire.",
+          "Le paiement passe par PayTech avec les moyens actuellement affichés dans le parcours : Orange Money, Wave et Free Money selon les disponibilités proposées par le prestataire.",
       },
       {
         question: "Peut-on participer anonymement ?",

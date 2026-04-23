@@ -30,7 +30,7 @@ export function HomePage() {
   usePageSeo({
     title: "Accueil",
     description:
-      "Plateforme de cagnottes solidaires au Sénégal pour créer, publier et soutenir des campagnes vérifiées avec paiement mobile et carte bancaire.",
+      "Plateforme de cagnottes solidaires au Sénégal pour créer, publier et soutenir des campagnes vérifiées avec paiement mobile.",
     canonicalPath: "/",
     image: "/banner/banniere.png",
   });
@@ -83,7 +83,7 @@ export function HomePage() {
             </p>
             <div className="home-hero__trustline">
               <span>✓ Validation humaine avant publication</span>
-              <span>✓ PayTech, Orange Money, Wave, carte</span>
+              <span>✓ Orange Money, Wave, Free Money</span>
               <span>✓ 0% de commission plateforme</span>
             </div>
             <div className="home-hero__actions">

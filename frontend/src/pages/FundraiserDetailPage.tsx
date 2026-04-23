@@ -7,7 +7,7 @@ import { formatLongDate } from "../lib/dates";
 import { usePageSeo } from "../lib/usePageSeo";
 import type { FundraiserDetail } from "../types";
 
-const PAYMENT_METHODS = ["Orange Money", "Wave", "Carte bancaire", "Free Money"];
+const PAYMENT_METHODS = ["Orange Money", "Wave", "Free Money"];
 const DESCRIPTION_COLLAPSE_THRESHOLD = 340;
 
 export function FundraiserDetailPage() {
@@ -368,7 +368,7 @@ export function FundraiserDetailPage() {
               className="button button--payment"
               disabled={submitting}
             >
-              <span className="button__eyebrow">Orange Money, Wave, carte bancaire</span>
+              <span className="button__eyebrow">Orange Money, Wave, Free Money</span>
               <strong>{submitting ? "Redirection sécurisée..." : "Continuer vers le paiement sécurisé"}</strong>
             </button>
           </form>
