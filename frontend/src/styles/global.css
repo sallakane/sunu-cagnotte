@@ -1840,6 +1840,33 @@ select:focus {
   margin-top: 16px;
 }
 
+.admin-edit-box {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+.admin-edit-box__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.button--danger {
+  background: #c0392b;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(192, 57, 43, 0.25);
+}
+
+.button--danger:hover {
+  background: #a93226;
+  box-shadow: 0 4px 16px rgba(192, 57, 43, 0.3);
+}
+
 .admin-filter-bar {
   margin-bottom: 20px;
   max-width: 320px;

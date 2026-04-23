@@ -117,6 +117,97 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/fundraisers/{id}', name: 'api_admin_fundraiser_edit', methods: ['PUT'])]
+    public function edit(
+        string $id,
+        Request $request,
+        FundraiserRepository $fundraiserRepository,
+        EntityManagerInterface $entityManager,
+        AdminFundraiserViewFactory $adminFundraiserViewFactory,
+    ): JsonResponse
+    {
+        $fundraiser = $fundraiserRepository->findOneById($id);
+
+        if (!$fundraiser instanceof Fundraiser) {
+            return $this->json([
+                'message' => 'Cagnotte introuvable.',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $payload = json_decode($request->getContent() ?: '{}', true);
+
+        if (isset($payload['title']) && is_string($payload['title']) && trim($payload['title']) !== '') {
+            $fundraiser->setTitle(trim($payload['title']));
+        }
+        if (isset($payload['description']) && is_string($payload['description']) && trim($payload['description']) !== '') {
+            $fundraiser->setDescription(trim($payload['description']));
+        }
+        if (array_key_exists('category', $payload)) {
+            $category = is_string($payload['category']) ? trim($payload['category']) : null;
+            $fundraiser->setCategory($category !== '' ? $category : null);
+        }
+        if (isset($payload['targetAmount']) && is_numeric($payload['targetAmount'])) {
+            $fundraiser->setTargetAmount((string) $payload['targetAmount']);
+        }
+        if (isset($payload['endDate']) && is_string($payload['endDate'])) {
+            try {
+                $fundraiser->setEndDate(new \DateTimeImmutable($payload['endDate']));
+            } catch (\Exception) {
+                return $this->json([
+                    'message' => 'Date de fin invalide.',
+                ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }
+
+        $entityManager->flush();
+
+        return $this->json([
+            'message' => 'Cagnotte modifiée.',
+            'item' => $adminFundraiserViewFactory->build($fundraiser),
+        ]);
+    }
+
+    #[Route('/fundraisers/{id}/invalidate', name: 'api_admin_fundraiser_invalidate', methods: ['PATCH'])]
+    public function invalidate(
+        string $id,
+        Request $request,
+        FundraiserRepository $fundraiserRepository,
+        EntityManagerInterface $entityManager,
+        AdminFundraiserViewFactory $adminFundraiserViewFactory,
+    ): JsonResponse
+    {
+        $fundraiser = $fundraiserRepository->findOneById($id);
+
+        if (!$fundraiser instanceof Fundraiser) {
+            return $this->json([
+                'message' => 'Cagnotte introuvable.',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $invalidatableStatuses = [FundraiserStatus::Published, FundraiserStatus::Completed];
+        if (!in_array($fundraiser->getStatus(), $invalidatableStatuses, true)) {
+            return $this->json([
+                'message' => 'Seules les cagnottes publiées ou terminées peuvent être invalidées.',
+            ], Response::HTTP_CONFLICT);
+        }
+
+        $payload = json_decode($request->getContent() ?: '{}', true);
+        $comment = trim((string) ($payload['comment'] ?? ''));
+
+        $fundraiser
+            ->setStatus(FundraiserStatus::Archived)
+            ->setAdminValidationStatus(AdminValidationStatus::Rejected)
+            ->setAdminValidationComment($comment !== '' ? $comment : null)
+            ->setPublishedAt(null);
+
+        $entityManager->flush();
+
+        return $this->json([
+            'message' => 'Cagnotte invalidée et dépubliée.',
+            'item' => $adminFundraiserViewFactory->build($fundraiser),
+        ]);
+    }
+
     #[Route('/contributions', name: 'api_admin_contributions', methods: ['GET'])]
     public function contributions(): JsonResponse
     {

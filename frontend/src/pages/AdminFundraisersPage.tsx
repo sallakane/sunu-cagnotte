@@ -16,6 +16,18 @@ type AdminFundraiser = FundraiserSummary & {
   };
 };
 
+type EditForm = {
+  title: string;
+  description: string;
+  category: string;
+  targetAmount: string;
+  endDate: string;
+};
+
+function toDateInputValue(isoDate: string): string {
+  return isoDate.slice(0, 10);
+}
+
 export function AdminFundraisersPage() {
   const auth = useAuth();
   const [items, setItems] = useState<AdminFundraiser[]>([]);
@@ -23,8 +35,17 @@ export function AdminFundraisersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [rejectingId, setRejectingId] = useState<string | null>(null);
+  const [invalidatingId, setInvalidatingId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [comment, setComment] = useState("");
+  const [editForm, setEditForm] = useState<EditForm>({
+    title: "",
+    description: "",
+    category: "",
+    targetAmount: "",
+    endDate: "",
+  });
 
   async function loadItems(currentFilter: string) {
     if (!auth.token) {
@@ -58,6 +79,19 @@ export function AdminFundraisersPage() {
   useEffect(() => {
     void loadItems(filter);
   }, [auth.token, filter]);
+
+  function openEdit(item: AdminFundraiser) {
+    setEditingId(item.id);
+    setRejectingId(null);
+    setInvalidatingId(null);
+    setEditForm({
+      title: item.title,
+      description: item.description ?? "",
+      category: item.category ?? "",
+      targetAmount: String(item.targetAmount),
+      endDate: toDateInputValue(item.endDate),
+    });
+  }
 
   async function approve(id: string) {
     if (!auth.token) {
@@ -97,9 +131,7 @@ export function AdminFundraisersPage() {
       await apiRequest(`/admin/fundraisers/${id}/reject`, {
         method: "PATCH",
         token: auth.token,
-        body: {
-          comment,
-        },
+        body: { comment },
       });
       setRejectingId(null);
       setComment("");
@@ -109,6 +141,67 @@ export function AdminFundraisersPage() {
         requestError instanceof ApiError
           ? requestError.message
           : "Refus impossible.",
+      );
+    } finally {
+      setProcessingId(null);
+    }
+  }
+
+  async function invalidate(id: string) {
+    if (!auth.token) {
+      return;
+    }
+
+    setProcessingId(id);
+    setError(null);
+
+    try {
+      await apiRequest(`/admin/fundraisers/${id}/invalidate`, {
+        method: "PATCH",
+        token: auth.token,
+        body: { comment },
+      });
+      setInvalidatingId(null);
+      setComment("");
+      await loadItems(filter);
+    } catch (requestError) {
+      setError(
+        requestError instanceof ApiError
+          ? requestError.message
+          : "Invalidation impossible.",
+      );
+    } finally {
+      setProcessingId(null);
+    }
+  }
+
+  async function saveEdit(id: string) {
+    if (!auth.token) {
+      return;
+    }
+
+    setProcessingId(id);
+    setError(null);
+
+    try {
+      await apiRequest(`/admin/fundraisers/${id}`, {
+        method: "PUT",
+        token: auth.token,
+        body: {
+          title: editForm.title,
+          description: editForm.description,
+          category: editForm.category || null,
+          targetAmount: parseFloat(editForm.targetAmount),
+          endDate: editForm.endDate,
+        },
+      });
+      setEditingId(null);
+      await loadItems(filter);
+    } catch (requestError) {
+      setError(
+        requestError instanceof ApiError
+          ? requestError.message
+          : "Modification impossible.",
       );
     } finally {
       setProcessingId(null);
@@ -184,28 +277,64 @@ export function AdminFundraisersPage() {
                 </p>
               ) : null}
 
-              {item.status === "pending_review" || item.status === "rejected" ? (
-                <div className="button-row">
+              <div className="button-row">
+                {item.status === "pending_review" || item.status === "rejected" ? (
+                  <>
+                    <button
+                      type="button"
+                      className="button"
+                      onClick={() => void approve(item.id)}
+                      disabled={processingId === item.id}
+                    >
+                      Approuver et publier
+                    </button>
+                    <button
+                      type="button"
+                      className="button button--ghost"
+                      disabled={processingId === item.id}
+                      onClick={() => {
+                        setRejectingId((current) => (current === item.id ? null : item.id));
+                        setInvalidatingId(null);
+                        setEditingId(null);
+                        setComment("");
+                      }}
+                    >
+                      Refuser
+                    </button>
+                  </>
+                ) : null}
+
+                {item.status === "published" || item.status === "completed" ? (
                   <button
                     type="button"
-                    className="button"
-                    onClick={() => void approve(item.id)}
+                    className="button button--danger"
                     disabled={processingId === item.id}
+                    onClick={() => {
+                      setInvalidatingId((current) => (current === item.id ? null : item.id));
+                      setRejectingId(null);
+                      setEditingId(null);
+                      setComment("");
+                    }}
                   >
-                    Approuver et publier
+                    Invalider
                   </button>
-                  <button
-                    type="button"
-                    className="button button--ghost"
-                    disabled={processingId === item.id}
-                    onClick={() =>
-                      setRejectingId((current) => (current === item.id ? null : item.id))
+                ) : null}
+
+                <button
+                  type="button"
+                  className="button button--ghost"
+                  disabled={processingId === item.id}
+                  onClick={() => {
+                    if (editingId === item.id) {
+                      setEditingId(null);
+                    } else {
+                      openEdit(item);
                     }
-                  >
-                    Refuser
-                  </button>
-                </div>
-              ) : null}
+                  }}
+                >
+                  Modifier
+                </button>
+              </div>
 
               {rejectingId === item.id ? (
                 <div className="admin-reject-box">
@@ -223,6 +352,95 @@ export function AdminFundraisersPage() {
                   >
                     Confirmer le refus
                   </button>
+                </div>
+              ) : null}
+
+              {invalidatingId === item.id ? (
+                <div className="admin-reject-box">
+                  <p className="admin-fundraiser-card__meta">
+                    La cagnotte sera dépubliée et masquée du public.
+                  </p>
+                  <textarea
+                    rows={3}
+                    placeholder="Motif d'invalidation (optionnel)"
+                    value={comment}
+                    onChange={(event) => setComment(event.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="button button--danger"
+                    disabled={processingId === item.id}
+                    onClick={() => void invalidate(item.id)}
+                  >
+                    Confirmer l'invalidation
+                  </button>
+                </div>
+              ) : null}
+
+              {editingId === item.id ? (
+                <div className="admin-edit-box">
+                  <div className="form-group">
+                    <label>Titre</label>
+                    <input
+                      type="text"
+                      value={editForm.title}
+                      onChange={(e) => setEditForm((f) => ({ ...f, title: e.target.value }))}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Description</label>
+                    <textarea
+                      rows={5}
+                      value={editForm.description}
+                      onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))}
+                    />
+                  </div>
+                  <div className="admin-edit-box__row">
+                    <div className="form-group">
+                      <label>Catégorie</label>
+                      <input
+                        type="text"
+                        value={editForm.category}
+                        placeholder="(optionnel)"
+                        onChange={(e) => setEditForm((f) => ({ ...f, category: e.target.value }))}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Objectif (XOF)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={editForm.targetAmount}
+                        onChange={(e) => setEditForm((f) => ({ ...f, targetAmount: e.target.value }))}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Date de fin</label>
+                      <input
+                        type="date"
+                        value={editForm.endDate}
+                        onChange={(e) => setEditForm((f) => ({ ...f, endDate: e.target.value }))}
+                      />
+                    </div>
+                  </div>
+                  <div className="button-row">
+                    <button
+                      type="button"
+                      className="button"
+                      disabled={processingId === item.id}
+                      onClick={() => void saveEdit(item.id)}
+                    >
+                      Enregistrer
+                    </button>
+                    <button
+                      type="button"
+                      className="button button--ghost"
+                      disabled={processingId === item.id}
+                      onClick={() => setEditingId(null)}
+                    >
+                      Annuler
+                    </button>
+                  </div>
                 </div>
               ) : null}
             </article>
