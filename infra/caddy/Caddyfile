@@ -1,0 +1,13 @@
+# sunu-cagnotte.org — redirige www vers le domaine principal
+www.sunu-cagnotte.org {
+    redir https://sunu-cagnotte.org{uri} permanent
+}
+
+sunu-cagnotte.org {
+    reverse_proxy localhost:8080
+}
+
+# Exemple pour un deuxième projet — décommente et adapte quand tu achètes le domaine
+# mon-autre-domaine.com {
+#     reverse_proxy localhost:8081
+# }
