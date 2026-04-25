@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ApiError, apiRequest, getApiValidationMessages } from "../lib/api";
 import { ProgressDonut } from "../components/ProgressDonut";
@@ -6,6 +6,13 @@ import { FormatXof } from "../components/FormatXof";
 import { formatLongDate } from "../lib/dates";
 import { usePageSeo } from "../lib/usePageSeo";
 import type { FundraiserDetail } from "../types";
+
+function buildSiteUrl(path: string) {
+  const base =
+    ((import.meta.env.VITE_SITE_URL as string | undefined)?.trim() ?? "").replace(/\/+$/, "") ||
+    window.location.origin;
+  return `${base}${path}`;
+}
 
 const PAYMENT_METHODS = ["Orange Money", "Wave", "Free Money"];
 const DESCRIPTION_COLLAPSE_THRESHOLD = 340;
@@ -35,6 +42,59 @@ export function FundraiserDetailPage() {
       ? `${seoDescriptionSource.slice(0, 155).trim()}...`
       : seoDescriptionSource || "Consultez le détail de cette cagnotte solidaire et participez en ligne.";
 
+  const structuredData = useMemo(() => {
+    if (!fundraiser || !slug) return undefined;
+
+    const pageUrl = buildSiteUrl(`/cagnottes/${slug}`);
+    const imageUrl = fundraiser.coverImage
+      ? fundraiser.coverImage.startsWith("http")
+        ? fundraiser.coverImage
+        : buildSiteUrl(fundraiser.coverImage)
+      : buildSiteUrl("/banner/banniere.png");
+    const startDate = fundraiser.publishedAt ?? fundraiser.createdAt;
+
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Accueil", item: buildSiteUrl("/") },
+            { "@type": "ListItem", position: 2, name: "Cagnottes", item: buildSiteUrl("/cagnottes") },
+            { "@type": "ListItem", position: 3, name: fundraiser.title, item: pageUrl },
+          ],
+        },
+        {
+          "@type": "Event",
+          name: fundraiser.title,
+          description: seoDescriptionSource || fundraiser.description,
+          image: imageUrl,
+          url: pageUrl,
+          startDate,
+          endDate: fundraiser.endDate,
+          eventStatus: "https://schema.org/EventScheduled",
+          eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+          location: {
+            "@type": "VirtualLocation",
+            url: pageUrl,
+          },
+          organizer: {
+            "@type": "Organization",
+            name: "Sunu Cagnotte",
+            url: buildSiteUrl("/"),
+          },
+          offers: {
+            "@type": "Offer",
+            price: 200,
+            priceCurrency: fundraiser.currency || "XOF",
+            url: pageUrl,
+            availability: "https://schema.org/InStock",
+          },
+        },
+      ],
+    };
+  }, [fundraiser, slug, seoDescriptionSource]);
+
   usePageSeo({
     title: fundraiser?.title || "Détail de la cagnotte",
     description: seoDescription,
@@ -42,6 +102,7 @@ export function FundraiserDetailPage() {
     image: fundraiser?.coverImage || "/banner/banniere.png",
     robots: error && !loading ? "noindex,nofollow" : "index,follow",
     type: "article",
+    structuredData,
   });
 
   useEffect(() => {
