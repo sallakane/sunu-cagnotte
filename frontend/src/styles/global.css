@@ -2490,3 +2490,123 @@ select:focus {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ── About page ───────────────────────────────────── */
+
+.about-value-card {
+  display: grid;
+  gap: 10px;
+}
+
+.about-value-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(26, 92, 69, 0.1);
+  color: var(--green);
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  font-family: "DM Serif Display", serif;
+}
+
+.about-value-card strong {
+  font-size: 1rem;
+  display: block;
+}
+
+.about-value-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.about-nonprofit {
+  display: grid;
+  gap: 32px;
+  padding: 40px;
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  border-radius: var(--radius-lg);
+  color: white;
+}
+
+.about-nonprofit__copy {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.about-nonprofit__copy .tag {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.about-nonprofit__copy h2 {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.15;
+  margin: 0;
+  color: white;
+}
+
+.about-nonprofit__copy p {
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.about-nonprofit__aside {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.about-stat {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: 4px;
+}
+
+.about-stat strong {
+  font-size: 1rem;
+  color: white;
+  font-weight: 700;
+}
+
+.about-stat span {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.about-cta {
+  text-align: center;
+}
+
+.about-cta h2 {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  margin: 0 0 12px;
+}
+
+.about-cta p {
+  max-width: 520px;
+  margin: 0 auto 24px;
+}
+
+.about-cta .hero__actions {
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .about-nonprofit {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+  }
+}
