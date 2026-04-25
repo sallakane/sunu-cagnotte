@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteHeader } from "../components/SiteHeader";
+import { TopBar } from "../components/TopBar";
 
 export function PublicLayout() {
   return (
     <div className="shell">
+      <TopBar />
       <SiteHeader />
       <main className="shell__main">
         <Outlet />

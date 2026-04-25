@@ -2626,3 +2626,79 @@ select:focus {
     align-items: center;
   }
 }
+
+/* ── Top bar ──────────────────────────────────────── */
+
+.topbar {
+  background: #0d2418;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.topbar__inner {
+  width: var(--container);
+  margin: 0 auto;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar__payments {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  white-space: nowrap;
+}
+
+.topbar__logo {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.topbar__logo--wave {
+  height: 20px;
+  width: auto;
+}
+
+.topbar__logo--orange-money {
+  height: 14px;
+  width: auto;
+}
+
+.topbar__social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar__social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.topbar__social-btn:hover {
+  background: #1877f2;
+  border-color: #1877f2;
+  color: white;
+}
