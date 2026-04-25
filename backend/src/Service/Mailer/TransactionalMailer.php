@@ -52,6 +52,21 @@ final class TransactionalMailer
         $this->mailer->send($email);
     }
 
+    public function sendFundraiserCreatedAdminNotification(Fundraiser $fundraiser): void
+    {
+        $email = (new TemplatedEmail())
+            ->to($this->contactRecipient)
+            ->subject(sprintf('[Nouvelle cagnotte] %s — à valider', $fundraiser->getTitle()))
+            ->htmlTemplate('emails/fundraiser_created_admin.html.twig')
+            ->context($this->withBranding([
+                'fundraiser' => $fundraiser,
+                'owner' => $fundraiser->getOwner(),
+                'adminUrl' => rtrim($this->frontendBaseUrl, '/').'/admin',
+            ]));
+
+        $this->mailer->send($email);
+    }
+
     public function sendContactNotification(ContactMessage $contactMessage): void
     {
         $email = (new TemplatedEmail())

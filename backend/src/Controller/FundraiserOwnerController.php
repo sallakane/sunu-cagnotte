@@ -99,6 +99,15 @@ class FundraiserOwnerController extends AbstractController
             ]);
         }
 
+        try {
+            $transactionalMailer->sendFundraiserCreatedAdminNotification($fundraiser);
+        } catch (\Throwable $exception) {
+            $logger->error('Impossible d envoyer la notification admin de creation de cagnotte.', [
+                'exception' => $exception,
+                'fundraiserId' => $fundraiser->getId()->toRfc4122(),
+            ]);
+        }
+
         return $this->json([
             'message' => 'Cagnotte creee en brouillon.',
             'item' => $fundraiserViewFactory->buildOwnerSummary($fundraiser),
