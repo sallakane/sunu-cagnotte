@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../app/AuthProvider";
-import { apiRequest, ApiError } from "../lib/api";
+import { apiRequest, ApiError, getApiValidationMessages } from "../lib/api";
 import { usePageSeo } from "../lib/usePageSeo";
 
 export function RegisterPage() {
@@ -13,6 +13,7 @@ export function RegisterPage() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   usePageSeo({
@@ -30,17 +31,12 @@ export function RegisterPage() {
     event.preventDefault();
     setLoading(true);
     setError(null);
+    setValidationErrors([]);
 
     try {
       await apiRequest("/auth/register", {
         method: "POST",
-        body: {
-          firstName,
-          lastName,
-          email,
-          phone,
-          password,
-        },
+        body: { firstName, lastName, email, phone, password },
       });
 
       navigate("/connexion", {
@@ -50,6 +46,7 @@ export function RegisterPage() {
     } catch (requestError) {
       if (requestError instanceof ApiError) {
         setError(requestError.message);
+        setValidationErrors(getApiValidationMessages(requestError));
       } else {
         setError("Une erreur est survenue.");
       }
@@ -67,33 +64,49 @@ export function RegisterPage() {
         </div>
 
         <form className="panel form-stack" onSubmit={handleSubmit}>
-          {error ? <div className="alert alert--error">{error}</div> : null}
+          {error ? (
+            <div className="alert alert--error">
+              <strong>{error}</strong>
+              {validationErrors.length > 0 ? (
+                <ul className="error-list">
+                  {validationErrors.map((message) => (
+                    <li key={message}>{message}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ) : null}
           <div className="two-columns">
             <input
+              required
               placeholder="Prénom"
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
             />
             <input
+              required
               placeholder="Nom"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
             />
           </div>
           <input
+            required
             type="email"
             placeholder="Email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
           <input
-            placeholder="Téléphone"
+            type="tel"
+            placeholder="Téléphone (optionnel)"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
           />
           <input
+            required
             type="password"
-            placeholder="Mot de passe"
+            placeholder="Mot de passe (8 caractères minimum)"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />

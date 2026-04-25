@@ -62,10 +62,6 @@ class AuthController extends AbstractController
             $errors['email'] = 'Cette adresse email est deja utilisee.';
         }
 
-        if ($phone === '') {
-            $errors['phone'] = 'Le telephone est obligatoire.';
-        }
-
         if (mb_strlen($password) < 8) {
             $errors['password'] = 'Le mot de passe doit contenir au moins 8 caracteres.';
         }
