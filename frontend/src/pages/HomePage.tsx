@@ -81,7 +81,7 @@ export function HomePage() {
         <div className="home-hero__copy">
           <div className="home-hero__content">
             <span className="hero__eyebrow">Solidarité locale, confiance numérique</span>
-            <h1>Des cagnottes utiles, crédibles et ancrées dans le Sénégal</h1>
+            <h1>Parce que la solidarité, c'est dans notre culture — Sunu Cagnotte la rend plus facile.</h1>
             <p>
               Une plateforme à but non lucratif pour financer des besoins réels,
               mobiliser la diaspora et offrir à chacun un parcours de
