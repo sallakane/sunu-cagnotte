@@ -6,8 +6,10 @@ import { TopBar } from "../components/TopBar";
 export function PublicLayout() {
   return (
     <div className="shell">
-      <TopBar />
-      <SiteHeader />
+      <div className="site-sticky">
+        <TopBar />
+        <SiteHeader />
+      </div>
       <main className="shell__main">
         <Outlet />
       </main>
