@@ -65,11 +65,17 @@ export function HomePage() {
     <div className="page page--home">
       <section className="home-hero">
         <div className="home-hero__media">
-          <img
-            className="home-hero__image"
-            src="/banner/banniere.png"
-            alt="Communauté réunie autour d'une cagnotte solidaire"
-          />
+          <picture>
+            <source srcSet="/banner/banniere.webp" type="image/webp" />
+            <img
+              className="home-hero__image"
+              src="/banner/banniere.png"
+              alt="Communauté réunie autour d'une cagnotte solidaire"
+              fetchPriority="high"
+              width="1280"
+              height="853"
+            />
+          </picture>
         </div>
 
         <div className="home-hero__copy">

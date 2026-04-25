@@ -10,7 +10,7 @@ type BrandProps = {
   hideText?: boolean;
 };
 
-const LOGO_CANDIDATES = ["/branding/logo.svg", "/branding/logo.png"];
+const LOGO_CANDIDATES = ["/branding/logo.svg", "/branding/logo.webp", "/branding/logo.png"];
 
 export function Brand({
   title,

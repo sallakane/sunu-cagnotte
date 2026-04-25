@@ -18,6 +18,7 @@ export function FundraiserCard({ fundraiser }: FundraiserCardProps) {
             className="fundraiser-card__image"
             src={fundraiser.coverImage}
             alt={fundraiser.title}
+            loading="lazy"
           />
         ) : (
           <div className="fundraiser-card__placeholder">Cagnotte solidaire</div>

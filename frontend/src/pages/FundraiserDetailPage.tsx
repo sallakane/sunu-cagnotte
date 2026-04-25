@@ -229,7 +229,7 @@ export function FundraiserDetailPage() {
       <section className="detail-hero">
         <div className="detail-hero__media">
           {fundraiser.coverImage ? (
-            <img src={fundraiser.coverImage} alt={fundraiser.title} />
+            <img src={fundraiser.coverImage} alt={fundraiser.title} fetchPriority="high" />
           ) : (
             <div className="detail-placeholder">Cagnotte solidaire</div>
           )}

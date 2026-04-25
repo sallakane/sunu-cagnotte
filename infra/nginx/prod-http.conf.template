@@ -11,6 +11,12 @@ server {
 
     client_max_body_size 12m;
 
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+    gzip_comp_level 6;
+    gzip_min_length 1000;
+    gzip_vary on;
+
     location = /health {
         root /srv/backend/public;
         try_files $uri /index.php$is_args$args;
