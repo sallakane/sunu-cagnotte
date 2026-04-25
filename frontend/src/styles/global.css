@@ -2379,3 +2379,114 @@ select:focus {
     top: 0;
   }
 }
+
+/* ── Contact page ─────────────────────────────────── */
+
+.contact-intro .section-heading {
+  max-width: 640px;
+}
+
+.contact-intro__cards {
+  display: grid;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.contact-reason-card {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 8px;
+}
+
+.contact-reason-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(26, 92, 69, 0.1);
+  color: var(--green);
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.contact-reason-card--accent {
+  background: linear-gradient(135deg, rgba(26, 92, 69, 0.06) 0%, rgba(26, 92, 69, 0.02) 100%);
+  border-color: rgba(26, 92, 69, 0.2);
+}
+
+.contact-reason-card--accent .contact-reason-card__icon {
+  background: var(--green);
+  color: white;
+}
+
+.contact-reason-card strong {
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.contact-reason-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.contact-type-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contact-type-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.contact-type-btn:hover {
+  background: rgba(26, 92, 69, 0.07);
+  border-color: rgba(26, 92, 69, 0.25);
+  color: var(--green-dark);
+}
+
+.contact-type-btn--active {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+.contact-type-btn--active:hover {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: white;
+}
+
+.contact-hint {
+  margin: 0;
+  padding: 12px 16px;
+  background: rgba(26, 92, 69, 0.07);
+  border: 1px solid rgba(26, 92, 69, 0.18);
+  border-radius: var(--radius-sm);
+  color: var(--green-dark);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .contact-intro__cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
