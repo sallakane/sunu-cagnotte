@@ -2,162 +2,237 @@ import { Link } from "react-router-dom";
 import { SectionHeading } from "../components/SectionHeading";
 import { usePageSeo } from "../lib/usePageSeo";
 
-const FAQ_SECTIONS = [
+const DONOR_STEPS = [
   {
-    title: "Comment fonctionne une campagne ?",
-    items: [
-      {
-        question: "Qu'est-ce qu'une campagne sur la plateforme ?",
-        answer:
-          "Une campagne est une cagnotte solidaire publiée pour financer un besoin précis. Chaque page affiche son objectif, son échéance, sa progression et les dons publics récents quand le donateur choisit de les rendre visibles.",
-      },
-      {
-        question: "Que se passe-t-il avant la publication ?",
-        answer:
-          "La campagne est d'abord enregistrée puis relue avant publication. Cette vérification permet d'écarter les contenus incomplets, trompeurs ou non conformes au cadre de la plateforme.",
-      },
-      {
-        question: "Que voit le public une fois la campagne publiée ?",
-        answer:
-          "Les visiteurs voient uniquement les campagnes publiées. Ils peuvent consulter le titre, le contexte, la catégorie, la date de fin, le montant collecté, l'objectif et, selon les choix des contributeurs, les derniers dons publics.",
-      },
-    ],
+    emoji: "🔍",
+    title: "Trouvez la cagnotte",
+    desc: "Parcourez les cagnottes publiées et choisissez celle que vous souhaitez soutenir.",
   },
   {
-    title: "Comment créer une cagnotte ?",
-    items: [
-      {
-        question: "Quelles informations faut-il renseigner ?",
-        answer:
-          "Pour créer une cagnotte, il faut au minimum un titre clair, une description suffisamment détaillée, un montant cible et une date de fin. Une catégorie et une image de couverture peuvent aussi être ajoutées.",
-      },
-      {
-        question: "Peut-on enregistrer sans publier tout de suite ?",
-        answer:
-          "Oui. La création permet d'enregistrer une campagne avant de la soumettre. Cela laisse le temps de relire le contenu, d'ajuster le montant cible ou d'améliorer la présentation avant validation.",
-      },
-      {
-        question: "Quand la campagne devient-elle visible ?",
-        answer:
-          "Elle devient visible uniquement après validation et publication. Tant que cette étape n'est pas terminée, elle n'apparaît pas dans la liste publique des cagnottes.",
-      },
-    ],
+    emoji: "📋",
+    title: "Remplissez le formulaire",
+    desc: "Indiquez votre prénom, votre montant et, si vous le souhaitez, un message d'encouragement.",
   },
   {
-    title: "Comment participer ?",
-    items: [
-      {
-        question: "Faut-il un compte pour faire un don ?",
-        answer:
-          "Non. Le parcours de participation est conçu pour rester simple. Le donateur renseigne ses informations utiles, son montant, un message s'il le souhaite, puis continue vers le paiement sécurisé.",
-      },
-      {
-        question: "Quels moyens de paiement sont proposés ?",
-        answer:
-          "Le paiement passe par PayTech avec les moyens actuellement affichés dans le parcours : Orange Money, Wave et Free Money selon les disponibilités proposées par le prestataire.",
-      },
-      {
-        question: "Peut-on participer anonymement ?",
-        answer:
-          "Oui. Le donateur peut choisir de masquer publiquement son nom sur la liste des dons. Les informations nécessaires au traitement du paiement restent toutefois utilisées pour la transaction.",
-      },
-    ],
+    emoji: "💳",
+    title: "Validez le paiement",
+    desc: "Payez en toute sécurité via Orange Money, Wave ou Free Money. Vous pouvez rester anonyme.",
   },
   {
-    title: "Comment fonctionnent les commissions ?",
-    items: [
-      {
-        question: "La plateforme prend-elle une commission sur les dons ?",
-        answer:
-          "La promesse actuelle de la plateforme est de ne pas ajouter de commission propre au service sur le montant du don. Le donateur paie donc le montant qu'il choisit, hors frais éventuels liés au prestataire de paiement.",
-      },
-      {
-        question: "Y a-t-il des frais de paiement ?",
-        answer:
-          "Des frais peuvent exister du côté du prestataire de paiement selon le moyen utilisé. Ces frais ne correspondent pas à une commission plateforme, mais aux coûts techniques du traitement du paiement.",
-      },
-      {
-        question: "Comment cette information est-elle présentée ?",
-        answer:
-          "La page de campagne et le parcours de participation doivent rester explicites sur ce point : ce qui relève du don, ce qui relève du paiement, et l'absence de marge cachée prélevée par la plateforme.",
-      },
-    ],
+    emoji: "✅",
+    title: "C'est tout !",
+    desc: "Votre don est confirmé immédiatement. Aucun compte, aucune inscription.",
+  },
+];
+
+const CREATOR_STEPS = [
+  {
+    emoji: "👤",
+    title: "Créez votre compte",
+    desc: "Inscrivez-vous gratuitement avec votre adresse email. Cela ne prend qu'une minute.",
+  },
+  {
+    emoji: "✏️",
+    title: "Rédigez votre cagnotte",
+    desc: "Renseignez le titre, la description, l'objectif en F CFA, la date de fin et une photo de couverture.",
+  },
+  {
+    emoji: "📤",
+    title: "Soumettez à validation",
+    desc: "D'un clic, envoyez votre cagnotte à la modération. Vous pouvez aussi la sauvegarder en brouillon.",
+  },
+  {
+    emoji: "⏱️",
+    title: "Validation en moins de 3h",
+    desc: "L'administrateur examine votre cagnotte et la publie dans les 3 heures maximum.",
+  },
+  {
+    emoji: "🌐",
+    title: "Votre cagnotte est en ligne",
+    desc: "Elle apparaît sur la plateforme, visible par tous. Les dons peuvent commencer à affluer.",
+  },
+  {
+    emoji: "💰",
+    title: "Réception des fonds",
+    desc: "À la date de fin, le modérateur vous transfère l'intégralité des fonds collectés.",
+  },
+];
+
+const FAQ_ITEMS = [
+  {
+    question: "Quels moyens de paiement sont acceptés ?",
+    answer:
+      "Les paiements sont traités par PayTech. Les moyens disponibles sont Orange Money, Wave et Free Money selon votre opérateur. Le parcours de paiement est entièrement sécurisé.",
+  },
+  {
+    question: "Y a-t-il des frais ou une commission sur les dons ?",
+    answer:
+      "Sunu Cagnotte ne prélève aucune commission sur les dons. Des frais techniques minimes peuvent s'appliquer selon le moyen de paiement utilisé par le prestataire PayTech, mais il n'y a aucune marge cachée prélevée par la plateforme.",
+  },
+  {
+    question: "Puis-je faire un don sans que mon nom soit visible ?",
+    answer:
+      "Oui. Dans le formulaire de don, cochez simplement \"Rester anonyme\". Votre nom n'apparaîtra pas sur la page publique de la cagnotte. Vos informations restent néanmoins utilisées pour traiter le paiement.",
+  },
+  {
+    question: "Comment savoir quand ma cagnotte est validée ?",
+    answer:
+      "Vous recevez un email de confirmation dès que l'administrateur publie votre cagnotte. Vous pouvez aussi suivre son statut en temps réel depuis votre espace créateur.",
+  },
+  {
+    question: "Que se passe-t-il si l'objectif n'est pas atteint à la date de fin ?",
+    answer:
+      "Les fonds collectés vous sont transmis dans tous les cas. Il n'y a pas de seuil minimum à atteindre. Chaque don compte, quelle que soit la somme totale collectée.",
+  },
+  {
+    question: "Comment clôturer ma cagnotte avant la date prévue ?",
+    answer:
+      "Envoyez un message depuis la page Contact en précisant le titre de votre cagnotte. Le modérateur clôturera votre cagnotte et organisera le transfert des fonds collectés jusqu'à ce moment.",
+  },
+  {
+    question: "Combien de temps pour recevoir les fonds après la clôture ?",
+    answer:
+      "Le modérateur prend en charge le transfert des fonds à la date de fin ou dès la clôture anticipée. Les délais dépendent ensuite du moyen de virement retenu.",
+  },
+  {
+    question: "Puis-je modifier ma cagnotte après sa publication ?",
+    answer:
+      "Certaines informations (titre, description, objectif, date de fin) peuvent être ajustées depuis votre espace créateur. Tout changement majeur reste soumis à la relecture de l'administrateur.",
   },
 ];
 
 export function FaqPage() {
   usePageSeo({
-    title: "FAQ",
+    title: "Comment ça marche",
     description:
-      "Questions fréquentes sur le fonctionnement d'une campagne, sa création, la participation, les moyens de paiement et les commissions.",
-    canonicalPath: "/faq",
+      "Découvrez comment faire un don ou créer une cagnotte sur Sunu Cagnotte. Parcours simple, paiement sécurisé, validation rapide.",
+    canonicalPath: "/comment-ca-marche",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: FAQ_SECTIONS.flatMap((section) =>
-        section.items.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.answer,
-          },
-        })),
-      ),
+      mainEntity: FAQ_ITEMS.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
     },
   });
 
   return (
-    <div className="page faq-page">
+    <div className="page how-page">
       <section className="page-section">
         <SectionHeading
-          eyebrow="FAQ"
-          title="Questions fréquentes"
-          description="Le fonctionnement d'une campagne, sa création, la participation, les moyens de paiement et la question des commissions."
+          eyebrow="Plateforme solidaire"
+          title="Comment ça marche ?"
+          description="Que vous souhaitiez soutenir une cause ou lancer votre propre collecte, tout est conçu pour être simple et rapide."
         />
 
-        <div className="faq-intro panel">
-          <div className="faq-intro__copy">
-            <strong>Tout ce qu'il faut comprendre avant de lancer ou soutenir une cagnotte.</strong>
-            <p>
-              Cette page rassemble les réponses essentielles pour expliquer
-              clairement le parcours d'une campagne, de sa création jusqu'au don.
-            </p>
-          </div>
-          <div className="faq-intro__actions">
-            <Link to="/inscription" className="button">
-              Créer une cagnotte
-            </Link>
-            <Link to="/cagnottes" className="button button--ghost">
+        <div className="how-tracks">
+          <div className="panel how-track">
+            <div className="how-track__head">
+              <span className="how-track__icon">🤝</span>
+              <div>
+                <span className="tag">Donateurs</span>
+                <h2 className="how-track__title">Je veux faire un don</h2>
+                <p className="how-track__subtitle">
+                  Aucun compte requis. Quelques minutes suffisent.
+                </p>
+              </div>
+            </div>
+
+            <div className="how-steps">
+              {DONOR_STEPS.map((step, i) => (
+                <div className="how-step" key={step.title}>
+                  <div className="how-step__num">
+                    <span className="how-step__num-inner">{i + 1}</span>
+                  </div>
+                  <div className="how-step__body">
+                    <p className="how-step__title">
+                      <span className="how-step__emoji">{step.emoji}</span>{" "}
+                      {step.title}
+                    </p>
+                    <p className="how-step__desc">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="how-track__note">
+              💡 <span>Pas besoin de créer un compte. Le parcours de don est ouvert à tous.</span>
+            </div>
+
+            <Link to="/cagnottes" className="button">
               Voir les cagnottes
+            </Link>
+          </div>
+
+          <div className="panel how-track">
+            <div className="how-track__head">
+              <span className="how-track__icon">🚀</span>
+              <div>
+                <span className="tag">Créateurs</span>
+                <h2 className="how-track__title">Je veux créer une cagnotte</h2>
+                <p className="how-track__subtitle">
+                  Inscription gratuite. Validation sous 3h.
+                </p>
+              </div>
+            </div>
+
+            <div className="how-steps">
+              {CREATOR_STEPS.map((step, i) => (
+                <div className="how-step" key={step.title}>
+                  <div className="how-step__num">
+                    <span className="how-step__num-inner">{i + 1}</span>
+                  </div>
+                  <div className="how-step__body">
+                    <p className="how-step__title">
+                      <span className="how-step__emoji">{step.emoji}</span>{" "}
+                      {step.title}
+                    </p>
+                    <p className="how-step__desc">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="how-track__note">
+              📩 <span>Vous souhaitez clôturer avant la date de fin ?{" "}
+                <strong>
+                  <Link to="/contact">Contactez le modérateur</Link>
+                </strong>{" "}
+                et les fonds vous seront transférés rapidement.
+              </span>
+            </div>
+
+            <Link to="/inscription" className="button">
+              Créer mon compte
             </Link>
           </div>
         </div>
 
-        <div className="faq-sections">
-          {FAQ_SECTIONS.map((section, sectionIndex) => (
-            <section className="faq-section" key={section.title}>
-              <div className="faq-section__header">
-                <span className="tag">Thème {sectionIndex + 1}</span>
-                <h2>{section.title}</h2>
-              </div>
+        <div className="faq-section">
+          <div className="faq-section__header">
+            <span className="tag">Questions fréquentes</span>
+            <h2>Tout ce qu'il faut savoir</h2>
+          </div>
 
-              <div className="faq-list">
-                {section.items.map((item, itemIndex) => (
-                  <details
-                    className="faq-item"
-                    key={item.question}
-                    open={sectionIndex === 0 && itemIndex === 0}
-                  >
-                    <summary className="faq-item__summary">{item.question}</summary>
-                    <div className="faq-item__content">
-                      <p>{item.answer}</p>
-                    </div>
-                  </details>
-                ))}
-              </div>
-            </section>
-          ))}
+          <div className="faq-list">
+            {FAQ_ITEMS.map((item, i) => (
+              <details
+                className="faq-item"
+                key={item.question}
+                open={i === 0}
+              >
+                <summary className="faq-item__summary">{item.question}</summary>
+                <div className="faq-item__content">
+                  <p>{item.answer}</p>
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
     </div>

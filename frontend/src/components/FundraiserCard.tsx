@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { formatXof } from "../lib/currency";
+import { FormatXof } from "./FormatXof";
 import type { FundraiserSummary } from "../types";
 import { ProgressBar } from "./ProgressBar";
 
@@ -33,8 +33,8 @@ export function FundraiserCard({ fundraiser }: FundraiserCardProps) {
         </h3>
         <p>{fundraiser.excerpt}</p>
         <div className="fundraiser-card__stats">
-          <strong>{formatXof(fundraiser.collectedAmount)}</strong>
-          <span>sur {formatXof(fundraiser.targetAmount)}</span>
+          <strong><FormatXof amount={fundraiser.collectedAmount} /></strong>
+          <span>sur <FormatXof amount={fundraiser.targetAmount} /></span>
         </div>
         <ProgressBar value={fundraiser.progressPercentage} />
         <div className="fundraiser-card__footer">

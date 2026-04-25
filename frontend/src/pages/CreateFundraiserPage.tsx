@@ -194,7 +194,7 @@ export function CreateFundraiserPage() {
             required
             min={1}
             type="number"
-            placeholder="Montant cible en XOF"
+            placeholder="Montant cible en F CFA"
             value={targetAmount}
             onChange={(event) => setTargetAmount(event.target.value)}
           />

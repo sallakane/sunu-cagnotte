@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ApiError, apiRequest, getApiValidationMessages } from "../lib/api";
 import { ProgressDonut } from "../components/ProgressDonut";
-import { formatXof } from "../lib/currency";
+import { FormatXof } from "../components/FormatXof";
 import { formatLongDate } from "../lib/dates";
 import { usePageSeo } from "../lib/usePageSeo";
 import type { FundraiserDetail } from "../types";
@@ -197,13 +197,13 @@ export function FundraiserDetailPage() {
               <div className="detail-progress-card__content">
                 <span className="detail-progress-card__eyebrow">Progression actuelle</span>
                 <strong className="detail-progress-card__amount">
-                  {formatXof(fundraiser.collectedAmount)}
+                  <FormatXof amount={fundraiser.collectedAmount} />
                 </strong>
                 <p>
-                  déjà collectés sur un objectif de {formatXof(fundraiser.targetAmount)}.
+                  déjà collectés sur un objectif de <FormatXof amount={fundraiser.targetAmount} />.
                 </p>
                 <div className="detail-progress-card__footer">
-                  <span>{formatXof(remainingAmount)} restants</span>
+                  <span><FormatXof amount={remainingAmount} /> restants</span>
                   <span>{fundraiser.daysRemaining} jours restants</span>
                 </div>
               </div>
@@ -224,7 +224,7 @@ export function FundraiserDetailPage() {
               </article>
               <article className="detail-stat">
                 <span className="detail-stat__label">Objectif</span>
-                <strong>{formatXof(fundraiser.targetAmount)}</strong>
+                <strong><FormatXof amount={fundraiser.targetAmount} /></strong>
               </article>
             </div>
           </div>
@@ -260,7 +260,7 @@ export function FundraiserDetailPage() {
         <aside className="panel panel--sticky panel--contribution" id="contribution-panel">
           <div className="detail-section__meta">
             <span className="tag">Participer</span>
-            <span className="detail-chip">Minimum 200 XOF</span>
+            <span className="detail-chip">Minimum 200 F CFA</span>
           </div>
           <h2>Faire un don</h2>
           <p className="panel__intro">
@@ -336,7 +336,7 @@ export function FundraiserDetailPage() {
               min={200}
               type="number"
               inputMode="decimal"
-              placeholder="Montant libre en XOF (minimum 200)"
+              placeholder="Montant libre en F CFA (minimum 200)"
               value={form.amount}
               onChange={(event) => updateField("amount", event.target.value)}
             />
@@ -388,7 +388,7 @@ export function FundraiserDetailPage() {
               <article className="donor-card" key={donation.id}>
                 <div className="donor-card__meta">
                   <strong className="donor-card__name">{donation.displayName}</strong>
-                  <span className="donor-card__amount">{formatXof(donation.amount)}</span>
+                  <span className="donor-card__amount"><FormatXof amount={donation.amount} /></span>
                 </div>
                 {donation.message ? (
                   <p className="donor-card__message">{donation.message}</p>

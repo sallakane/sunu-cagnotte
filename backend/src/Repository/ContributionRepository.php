@@ -98,4 +98,42 @@ class ContributionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return array<int, Contribution>
+     */
+    public function findAllForAdmin(?string $status = null, ?string $fundraiserId = null): array
+    {
+        $qb = $this->createQueryBuilder('contribution')
+            ->leftJoin('contribution.fundraiser', 'fundraiser')
+            ->addSelect('fundraiser')
+            ->orderBy('contribution.createdAt', 'DESC');
+
+        if ($status !== null) {
+            $statusEnum = ContributionStatus::tryFrom($status);
+            if ($statusEnum !== null) {
+                $qb->andWhere('contribution.status = :status')
+                    ->setParameter('status', $statusEnum);
+            }
+        }
+
+        if ($fundraiserId !== null) {
+            $qb->andWhere('contribution.fundraiser = :fundraiserId')
+                ->setParameter('fundraiserId', $fundraiserId);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findOneById(string $id): ?Contribution
+    {
+        return $this->createQueryBuilder('contribution')
+            ->leftJoin('contribution.fundraiser', 'fundraiser')
+            ->addSelect('fundraiser')
+            ->andWhere('contribution.id = :id')
+            ->setParameter('id', $id)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

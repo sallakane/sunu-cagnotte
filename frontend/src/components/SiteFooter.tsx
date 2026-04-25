@@ -34,7 +34,7 @@ export function SiteFooter() {
           <span className="site-footer__title">Navigation</span>
           <div className="site-footer__links">
             <Link to="/cagnottes">Cagnottes</Link>
-            <Link to="/faq">FAQ</Link>
+            <Link to="/comment-ca-marche">Comment ça marche</Link>
             <Link to="/qui-sommes-nous">Qui sommes-nous</Link>
             <Link to="/contact">Contact</Link>
           </div>

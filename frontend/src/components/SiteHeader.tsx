@@ -5,7 +5,7 @@ import { Brand } from "./Brand";
 
 const navItems = [
   { to: "/cagnottes", label: "Cagnottes" },
-  { to: "/faq", label: "FAQ" },
+  { to: "/comment-ca-marche", label: "Comment ça marche" },
   { to: "/qui-sommes-nous", label: "Qui sommes-nous" },
   { to: "/contact", label: "Contact" },
 ];

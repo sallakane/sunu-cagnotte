@@ -1,8 +1,9 @@
-export function formatXof(amount: number): string {
-  return new Intl.NumberFormat("fr-SN", {
-    style: "currency",
-    currency: "XOF",
-    maximumFractionDigits: 0,
-  }).format(amount);
+export function formatXofAmount(amount: number): string {
+  return Math.round(amount)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
+export function formatXof(amount: number): string {
+  return `${formatXofAmount(amount)} F CFA`;
+}

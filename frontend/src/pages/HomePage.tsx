@@ -4,7 +4,7 @@ import { useAuth } from "../app/AuthProvider";
 import { FundraiserCard } from "../components/FundraiserCard";
 import { SectionHeading } from "../components/SectionHeading";
 import { apiRequest } from "../lib/api";
-import { formatXof } from "../lib/currency";
+import { FormatXof } from "../components/FormatXof";
 import { usePageSeo } from "../lib/usePageSeo";
 import type { FundraiserSummary } from "../types";
 
@@ -113,7 +113,7 @@ export function HomePage() {
           </article>
           <article className="home-stat">
             <span className="home-stat__label">Collectes</span>
-            <strong>{formatXof(totalCollected)}</strong>
+            <strong><FormatXof amount={totalCollected} /></strong>
             <span className="home-stat__meta">Montants publiés sur les campagnes en ligne</span>
           </article>
         </div>

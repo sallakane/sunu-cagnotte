@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../app/AuthProvider";
 import { apiRequest } from "../lib/api";
-import { formatXof } from "../lib/currency";
+import { FormatXof } from "../components/FormatXof";
 import type { FundraiserSummary } from "../types";
 
 export function DashboardHomePage() {
@@ -52,7 +52,7 @@ export function DashboardHomePage() {
           <span>Cagnottes suivies</span>
         </article>
         <article className="panel">
-          <strong>{formatXof(totalCollected)}</strong>
+          <strong><FormatXof amount={totalCollected} /></strong>
           <span>Total collecté</span>
         </article>
         <article className="panel">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../app/AuthProvider";
 import { apiRequest, ApiError } from "../lib/api";
-import { formatXof } from "../lib/currency";
+import { FormatXof } from "../components/FormatXof";
 import { formatStatusLabel } from "../lib/status";
 import type { FundraiserSummary } from "../types";
 import { ProgressBar } from "../components/ProgressBar";
@@ -256,8 +256,8 @@ export function AdminFundraisersPage() {
               </div>
 
               <div className="fundraiser-card__stats">
-                <strong>{formatXof(item.collectedAmount)}</strong>
-                <span>sur {formatXof(item.targetAmount)}</span>
+                <strong><FormatXof amount={item.collectedAmount} /></strong>
+                <span>sur <FormatXof amount={item.targetAmount} /></span>
               </div>
 
               <ProgressBar value={item.progressPercentage} />
@@ -406,7 +406,7 @@ export function AdminFundraisersPage() {
                       />
                     </div>
                     <div className="form-group">
-                      <label>Objectif (XOF)</label>
+                      <label>Objectif (F CFA)</label>
                       <input
                         type="number"
                         min="0"

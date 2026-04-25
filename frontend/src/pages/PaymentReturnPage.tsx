@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { apiRequest } from "../lib/api";
-import { formatXof } from "../lib/currency";
+import { FormatXof } from "../components/FormatXof";
 import { formatStatusLabel } from "../lib/status";
 import { usePageSeo } from "../lib/usePageSeo";
 import type { PaymentContributionStatus } from "../types";
@@ -83,7 +83,7 @@ export function PaymentReturnPage() {
             <div className={toneClass}>
               <strong>{formatStatusLabel(item.status)}</strong>
               <p>
-                Référence {item.paymentReference} · {formatXof(item.amountGross)}
+                Référence {item.paymentReference} · <FormatXof amount={item.amountGross} />
               </p>
             </div>
 

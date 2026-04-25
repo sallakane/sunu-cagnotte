@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Contribution;
 use App\Entity\Fundraiser;
 use App\Enum\AdminValidationStatus;
 use App\Enum\FundraiserStatus;
+use App\Repository\ContributionRepository;
 use App\Repository\FundraiserRepository;
+use App\Service\Admin\AdminContributionViewFactory;
 use App\Service\Admin\AdminFundraiserViewFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -209,9 +212,72 @@ class AdminController extends AbstractController
     }
 
     #[Route('/contributions', name: 'api_admin_contributions', methods: ['GET'])]
-    public function contributions(): JsonResponse
+    public function contributions(
+        Request $request,
+        ContributionRepository $contributionRepository,
+        AdminContributionViewFactory $adminContributionViewFactory,
+    ): JsonResponse
     {
-        return $this->json(['items' => []]);
+        $status = $request->query->get('status');
+        $fundraiserId = $request->query->get('fundraiserId');
+        $items = array_map(
+            $adminContributionViewFactory->build(...),
+            $contributionRepository->findAllForAdmin(
+                is_string($status) ? $status : null,
+                is_string($fundraiserId) ? $fundraiserId : null,
+            ),
+        );
+
+        return $this->json(['items' => $items]);
+    }
+
+    #[Route('/contributions/{id}', name: 'api_admin_contribution_edit', methods: ['PUT'])]
+    public function editContribution(
+        string $id,
+        Request $request,
+        ContributionRepository $contributionRepository,
+        EntityManagerInterface $entityManager,
+        AdminContributionViewFactory $adminContributionViewFactory,
+    ): JsonResponse
+    {
+        $contribution = $contributionRepository->findOneById($id);
+
+        if (!$contribution instanceof Contribution) {
+            return $this->json(['message' => 'Don introuvable.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $payload = json_decode($request->getContent() ?: '{}', true);
+
+        if (isset($payload['firstName']) && is_string($payload['firstName']) && trim($payload['firstName']) !== '') {
+            $contribution->setFirstName(trim($payload['firstName']));
+        }
+        if (isset($payload['lastName']) && is_string($payload['lastName']) && trim($payload['lastName']) !== '') {
+            $contribution->setLastName(trim($payload['lastName']));
+        }
+        if (isset($payload['email']) && is_string($payload['email']) && trim($payload['email']) !== '') {
+            $contribution->setEmail(trim($payload['email']));
+        }
+        if (isset($payload['phone']) && is_string($payload['phone'])) {
+            $contribution->setPhone(trim($payload['phone']));
+        }
+        if (array_key_exists('publicDisplayName', $payload)) {
+            $name = is_string($payload['publicDisplayName']) ? trim($payload['publicDisplayName']) : null;
+            $contribution->setPublicDisplayName($name !== '' ? $name : null);
+        }
+        if (array_key_exists('message', $payload)) {
+            $message = is_string($payload['message']) ? trim($payload['message']) : null;
+            $contribution->setMessage($message !== '' ? $message : null);
+        }
+        if (array_key_exists('isAnonymous', $payload) && is_bool($payload['isAnonymous'])) {
+            $contribution->setIsAnonymous($payload['isAnonymous']);
+        }
+
+        $entityManager->flush();
+
+        return $this->json([
+            'message' => 'Don modifié.',
+            'item' => $adminContributionViewFactory->build($contribution),
+        ]);
     }
 
     #[Route('/contact-messages', name: 'api_admin_contact_messages', methods: ['GET'])]

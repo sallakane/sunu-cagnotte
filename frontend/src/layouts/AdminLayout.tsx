@@ -4,6 +4,7 @@ import { Brand } from "../components/Brand";
 
 const adminLinks = [
   { to: "/admin", label: "Validation cagnottes" },
+  { to: "/admin/donateurs", label: "Donateurs et dons" },
 ];
 
 export function AdminLayout() {

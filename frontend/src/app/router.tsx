@@ -4,6 +4,7 @@ import { RequireAuth } from "../components/RequireAuth";
 import { AdminLayout } from "../layouts/AdminLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout";
+import { AdminContributorsPage } from "../pages/AdminContributorsPage";
 import { AdminFundraisersPage } from "../pages/AdminFundraisersPage";
 import { AboutPage } from "../pages/AboutPage";
 import { ContactPage } from "../pages/ContactPage";
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
       { path: "mot-de-passe-oublie", element: <ForgotPasswordPage /> },
       { path: "reinitialiser-mot-de-passe", element: <ResetPasswordPage /> },
       { path: "qui-sommes-nous", element: <AboutPage /> },
-      { path: "faq", element: <FaqPage /> },
+      { path: "comment-ca-marche", element: <FaqPage /> },
       { path: "contact", element: <ContactPage /> },
       {
         path: "mentions-legales",
@@ -88,6 +89,9 @@ export const router = createBrowserRouter([
         <AdminLayout />
       </RequireAdmin>
     ),
-    children: [{ index: true, element: <AdminFundraisersPage /> }],
+    children: [
+      { index: true, element: <AdminFundraisersPage /> },
+      { path: "donateurs", element: <AdminContributorsPage /> },
+    ],
   },
 ]);
