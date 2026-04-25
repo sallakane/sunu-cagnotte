@@ -1,5 +1,8 @@
+import { useLocation } from "react-router-dom";
+
 export function TopBar() {
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const location = useLocation();
+  const shareUrl = window.location.origin + location.pathname;
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
 
   return (
