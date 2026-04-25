@@ -413,6 +413,16 @@ select {
   box-shadow: inset 0 0 0 1.5px rgba(26, 92, 69, 0.4);
 }
 
+.button--wa {
+  gap: 7px;
+}
+
+.button--wa:hover {
+  background: rgba(37, 211, 102, 0.1);
+  box-shadow: inset 0 0 0 1.5px rgba(37, 211, 102, 0.5);
+  color: #128c3e;
+}
+
 .hero {
   display: grid;
   gap: 28px;
