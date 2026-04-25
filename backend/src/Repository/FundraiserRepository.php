@@ -21,6 +21,19 @@ class FundraiserRepository extends ServiceEntityRepository
     /**
      * @return array<int, Fundraiser>
      */
+    public function findAllPublished(): array
+    {
+        return $this->createQueryBuilder('fundraiser')
+            ->andWhere('fundraiser.status = :status')
+            ->setParameter('status', FundraiserStatus::Published->value)
+            ->orderBy('fundraiser.publishedAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return array<int, Fundraiser>
+     */
     public function findPublicPublished(?string $search = null, ?string $category = null): array
     {
         $queryBuilder = $this->createQueryBuilder('fundraiser')

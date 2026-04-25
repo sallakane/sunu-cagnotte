@@ -33,6 +33,11 @@ server {
         try_files $uri /index.php$is_args$args;
     }
 
+    location = /sitemap.xml {
+        root /srv/backend/public;
+        try_files $uri /index.php$is_args$args;
+    }
+
     location /api {
         root /srv/backend/public;
         try_files $uri /index.php$is_args$args;
