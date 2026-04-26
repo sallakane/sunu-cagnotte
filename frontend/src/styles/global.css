@@ -1502,14 +1502,6 @@ select {
   overflow: hidden;
 }
 
-.detail-story__content::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 56px;
-  background: linear-gradient(180deg, rgba(255, 253, 247, 0), rgba(255, 253, 247, 1));
-  pointer-events: none;
-}
 
 .detail-story__content p {
   margin: 0;
@@ -1523,9 +1515,6 @@ select {
   overflow: hidden;
 }
 
-.detail-story__content--expanded::after {
-  display: none;
-}
 
 .detail-story__toggle {
   justify-self: start;
