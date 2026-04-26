@@ -4,8 +4,24 @@ Operational notes for future Codex sessions on this repository.
 
 ## Production safety rules
 
-- Do not run `php bin/console cache:clear --env=prod` as `root` inside the `php` container.
-- For production cache operations, always use:
+### ⛔ JAMAIS cache:clear en root — règle absolue
+
+**NE JAMAIS exécuter `cache:clear` ou `cache:warmup` sans `-u www-data`.**
+Exécuter ces commandes en root casse les permissions de `/app/var/cache/prod/doctrine/orm/Proxies`
+et met toute l'API en 500, y compris les routes GET publiques.
+
+Toujours utiliser :
+
+```bash
+docker compose -f docker-compose.prod.yml exec -u www-data php php bin/console cache:clear
+docker compose -f docker-compose.prod.yml exec -u www-data php php bin/console cache:warmup
+```
+
+Ne jamais faire :
+```bash
+# ❌ INTERDIT — casse les permissions
+docker compose -f docker-compose.prod.yml exec php php bin/console cache:clear
+```
 
 ```bash
 docker compose -f docker-compose.prod.yml exec -u www-data php php bin/console cache:clear --env=prod
