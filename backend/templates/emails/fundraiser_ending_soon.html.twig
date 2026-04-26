@@ -1,29 +1,53 @@
 {% extends 'emails/base.html.twig' %}
 
-{% set eyebrow = 'Échéance proche' %}
-{% set intro = 'Votre campagne approche de sa date de clôture. Voici un rappel rapide pour suivre sa progression.' %}
+{% set eyebrow = 'Échéance dans 2 jours' %}
+{% set intro = "Votre cagnotte se termine dans 2 jours. Vous pouvez encore recevoir des dons ou prolonger la durée si vous le souhaitez." %}
 
-{% block title %}Votre cagnotte se termine bientôt{% endblock %}
+{% block title %}Votre cagnotte se termine dans 2 jours{% endblock %}
 
 {% block content %}
   <p style="margin:0 0 18px;font-size:16px;line-height:1.7;color:#334155;">
     Bonjour {{ owner.firstName }},
   </p>
 
-  <p style="margin:0 0 18px;font-size:15px;line-height:1.7;color:#334155;">
-    La cagnotte <strong style="color:#0f172a;">{{ fundraiser.title }}</strong> arrive bientôt à échéance.
+  <div style="margin-bottom:22px;padding:18px 20px;border-radius:20px;background:#fff7ed;border:1px solid #fed7aa;">
+    <p style="margin:0 0 6px;font-size:13px;line-height:1.5;color:#c2410c;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;">
+      ⏳ Se termine le {{ fundraiser.endDate|date('d/m/Y') }}
+    </p>
+    <p style="margin:0 0 10px;font-size:22px;line-height:1.3;color:#0f172a;font-weight:700;">
+      {{ fundraiser.title }}
+    </p>
+    <p style="margin:0;font-size:15px;line-height:1.5;color:#334155;">
+      Montant collecté : <strong>{{ fundraiser.collectedAmount|number_format(0, ',', ' ') }} F CFA</strong>
+    </p>
+  </div>
+
+  <p style="margin:0 0 22px;font-size:15px;line-height:1.7;color:#334155;">
+    Si votre collecte n'est pas encore terminée, vous pouvez <strong>prolonger la date de clôture</strong> depuis votre espace créateur en quelques secondes.
   </p>
 
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:22px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
     <tr>
-      <td style="padding:16px 18px;border:1px solid #dbe7e5;border-radius:18px;background:#ffffff;">
-        <p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#475569;"><strong style="color:#0f172a;">Date de fin :</strong> {{ fundraiser.endDate|date('d/m/Y') }}</p>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:#475569;"><strong style="color:#0f172a;">Montant collecté :</strong> {{ fundraiser.collectedAmount|number_format(0, ',', ' ') }} {{ fundraiser.currency }}</p>
+      <td style="border-radius:999px;background:{{ brandPrimaryColor }};">
+        <a href="{{ editUrl }}" style="display:inline-block;padding:14px 22px;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;">
+          Prolonger ma cagnotte
+        </a>
       </td>
     </tr>
   </table>
 
-  <a href="{{ dashboardUrl }}" style="display:inline-block;padding:14px 18px;border-radius:999px;background:{{ brandPrimaryColor }};color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;">
-    Voir ma cagnotte
-  </a>
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+    <tr>
+      <td style="border-radius:999px;background:#f1f5f9;border:1px solid #dbe7e5;">
+        <a href="{{ dashboardUrl }}" style="display:inline-block;padding:13px 22px;color:{{ brandPrimaryColor }};text-decoration:none;font-size:14px;font-weight:700;">
+          Voir mon espace créateur
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0;font-size:14px;line-height:1.7;color:#64748b;">
+    Merci pour votre engagement,<br>
+    <strong>L'équipe Sunu Cagnotte</strong>
+  </p>
 {% endblock %}

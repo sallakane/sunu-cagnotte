@@ -28,7 +28,7 @@ class SendFundraiserEndingSoonAlertsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $fundraisers = $this->fundraiserRepository->findPublishedEndingSoonNeedingAlert(3);
+        $fundraisers = $this->fundraiserRepository->findPublishedEndingSoonNeedingAlert(2);
 
         foreach ($fundraisers as $fundraiser) {
             $this->transactionalMailer->sendFundraiserEndingSoon($fundraiser);

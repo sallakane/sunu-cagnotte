@@ -126,6 +126,7 @@ final class TransactionalMailer
                 'fundraiser' => $fundraiser,
                 'owner' => $fundraiser->getOwner(),
                 'dashboardUrl' => rtrim($this->frontendBaseUrl, '/').'/espace/cagnottes',
+                'editUrl' => rtrim($this->frontendBaseUrl, '/').'/espace/cagnottes/'.$fundraiser->getId()->toRfc4122().'/modifier',
             ]));
 
         $this->mailer->send($email);
