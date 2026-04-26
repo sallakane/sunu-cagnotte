@@ -10,10 +10,17 @@ export function CreateFundraiserPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const isEditMode = Boolean(id);
+
+  const defaultEndDate = (() => {
+    const d = new Date();
+    d.setMonth(d.getMonth() + 2);
+    return d.toISOString().slice(0, 10);
+  })();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [endDate, setEndDate] = useState(isEditMode ? "" : defaultEndDate);
   const [category, setCategory] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [coverImageUploadError, setCoverImageUploadError] = useState<string | null>(null);
