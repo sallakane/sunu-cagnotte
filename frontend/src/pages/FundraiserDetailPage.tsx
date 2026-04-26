@@ -234,7 +234,7 @@ export function FundraiserDetailPage() {
           {fundraiser.coverImage ? (
             <img src={fundraiser.coverImage} alt={fundraiser.title} fetchPriority="high" />
           ) : (
-            <div className="detail-placeholder">Cagnotte solidaire</div>
+            <img src="/branding/placeholder-cagnotte.png" alt="Cagnotte solidaire" fetchPriority="high" />
           )}
         </div>
 

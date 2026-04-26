@@ -21,7 +21,12 @@ export function FundraiserCard({ fundraiser }: FundraiserCardProps) {
             loading="lazy"
           />
         ) : (
-          <div className="fundraiser-card__placeholder">Cagnotte solidaire</div>
+          <img
+            className="fundraiser-card__image"
+            src="/branding/placeholder-cagnotte.png"
+            alt="Cagnotte solidaire"
+            loading="lazy"
+          />
         )}
       </Link>
       <div className="fundraiser-card__content">
