@@ -80,6 +80,22 @@ final class TransactionalMailer
         $this->mailer->send($email);
     }
 
+    public function sendFundraiserApproved(Fundraiser $fundraiser): void
+    {
+        $email = (new TemplatedEmail())
+            ->to($fundraiser->getOwner()->getEmail())
+            ->subject(sprintf('🎉 Votre cagnotte est en ligne : %s', $fundraiser->getTitle()))
+            ->htmlTemplate('emails/fundraiser_approved.html.twig')
+            ->context($this->withBranding([
+                'fundraiser' => $fundraiser,
+                'owner' => $fundraiser->getOwner(),
+                'fundraiserUrl' => rtrim($this->frontendBaseUrl, '/').'/cagnottes/'.$fundraiser->getSlug(),
+                'editUrl' => rtrim($this->frontendBaseUrl, '/').'/espace/cagnottes/'.$fundraiser->getId().'/modifier',
+            ]));
+
+        $this->mailer->send($email);
+    }
+
     public function sendFundraiserEndingSoon(Fundraiser $fundraiser): void
     {
         $email = (new TemplatedEmail())

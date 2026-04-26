@@ -10,6 +10,7 @@ use App\Repository\ContributionRepository;
 use App\Repository\FundraiserRepository;
 use App\Service\Admin\AdminContributionViewFactory;
 use App\Service\Admin\AdminFundraiserViewFactory;
+use App\Service\Mailer\TransactionalMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -50,6 +51,7 @@ class AdminController extends AbstractController
         FundraiserRepository $fundraiserRepository,
         EntityManagerInterface $entityManager,
         AdminFundraiserViewFactory $adminFundraiserViewFactory,
+        TransactionalMailer $mailer,
     ): JsonResponse
     {
         $fundraiser = $fundraiserRepository->findOneById($id);
@@ -73,6 +75,7 @@ class AdminController extends AbstractController
             ->setPublishedAt(new \DateTimeImmutable());
 
         $entityManager->flush();
+        $mailer->sendFundraiserApproved($fundraiser);
 
         return $this->json([
             'message' => 'Cagnotte approuvee et publiee.',
