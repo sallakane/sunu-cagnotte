@@ -314,7 +314,7 @@ export function FundraiserDetailPage() {
           <h2>Pourquoi cette cagnotte</h2>
           <div
             className={
-              isDescriptionExpanded
+              !canCollapseDescription || isDescriptionExpanded
                 ? "detail-story__content detail-story__content--expanded"
                 : "detail-story__content"
             }
