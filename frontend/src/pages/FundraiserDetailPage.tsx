@@ -15,7 +15,7 @@ function buildSiteUrl(path: string) {
 }
 
 const PAYMENT_METHODS = ["Orange Money", "Wave", "Free Money"];
-const DESCRIPTION_COLLAPSE_THRESHOLD = 340;
+const DESCRIPTION_COLLAPSE_THRESHOLD = 1000;
 
 export function FundraiserDetailPage() {
   const { slug } = useParams();
