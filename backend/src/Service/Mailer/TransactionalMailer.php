@@ -80,6 +80,26 @@ final class TransactionalMailer
         $this->mailer->send($email);
     }
 
+    public function sendContributionReceivedToOwner(Contribution $contribution): void
+    {
+        $fundraiser = $contribution->getFundraiser();
+        $owner = $fundraiser->getOwner();
+
+        $email = (new TemplatedEmail())
+            ->to($owner->getEmail())
+            ->subject(sprintf('💰 Nouveau don reçu sur "%s"', $fundraiser->getTitle()))
+            ->htmlTemplate('emails/contribution_received_owner.html.twig')
+            ->context($this->withBranding([
+                'contribution' => $contribution,
+                'fundraiser' => $fundraiser,
+                'owner' => $owner,
+                'fundraiserUrl' => rtrim($this->frontendBaseUrl, '/').'/cagnottes/'.$fundraiser->getSlug(),
+                'dashboardUrl' => rtrim($this->frontendBaseUrl, '/').'/espace/cagnottes',
+            ]));
+
+        $this->mailer->send($email);
+    }
+
     public function sendFundraiserApproved(Fundraiser $fundraiser): void
     {
         $email = (new TemplatedEmail())

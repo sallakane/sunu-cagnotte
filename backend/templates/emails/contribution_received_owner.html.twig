@@ -1,0 +1,69 @@
+{% extends 'emails/base.html.twig' %}
+
+{% set eyebrow = 'Nouveau don reçu' %}
+{% set intro = "Quelqu'un vient de contribuer à votre cagnotte. Félicitations !" %}
+
+{% block title %}Nouveau don sur votre cagnotte 💰{% endblock %}
+
+{% block content %}
+  <p style="margin:0 0 18px;font-size:16px;line-height:1.7;color:#334155;">
+    Bonjour {{ owner.firstName }},
+  </p>
+
+  <div style="margin-bottom:22px;padding:18px 20px;border-radius:20px;background:#f0fdf4;border:1px solid #bbf7d0;">
+    <p style="margin:0 0 4px;font-size:13px;line-height:1.5;color:#15803d;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;">
+      Montant reçu
+    </p>
+    <p style="margin:0 0 10px;font-size:32px;line-height:1.2;color:#0f172a;font-weight:700;">
+      {{ contribution.amountGross|number_format(0, ',', ' ') }} F CFA
+    </p>
+    <p style="margin:0;font-size:14px;line-height:1.5;color:#334155;">
+      de la part de <strong>{{ contribution.publicName }}</strong>
+    </p>
+    {% if contribution.message %}
+      <div style="margin-top:12px;padding:10px 14px;background:#ffffff;border-radius:10px;border:1px solid #bbf7d0;">
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#334155;font-style:italic;">
+          "{{ contribution.message }}"
+        </p>
+      </div>
+    {% endif %}
+  </div>
+
+  <div style="margin-bottom:22px;padding:14px 18px;border-radius:16px;background:#f8fafc;border:1px solid #dbe7e5;">
+    <p style="margin:0 0 4px;font-size:12px;line-height:1.4;color:#64748b;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;">
+      Cagnotte
+    </p>
+    <p style="margin:0;font-size:16px;line-height:1.4;color:#0f172a;font-weight:700;">
+      {{ fundraiser.title }}
+    </p>
+  </div>
+
+  <p style="margin:0 0 22px;font-size:15px;line-height:1.7;color:#334155;">
+    N'oubliez pas de partager votre cagnotte à vos contacts pour continuer à recevoir des dons !
+  </p>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+    <tr>
+      <td style="border-radius:999px;background:{{ brandPrimaryColor }};">
+        <a href="{{ fundraiserUrl }}" style="display:inline-block;padding:14px 22px;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;">
+          Voir ma cagnotte
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+    <tr>
+      <td style="border-radius:999px;background:#f1f5f9;border:1px solid #dbe7e5;">
+        <a href="{{ dashboardUrl }}" style="display:inline-block;padding:13px 22px;color:{{ brandPrimaryColor }};text-decoration:none;font-size:14px;font-weight:700;">
+          Mon espace créateur
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0;font-size:14px;line-height:1.7;color:#64748b;">
+    Merci pour votre engagement,<br>
+    <strong>L'équipe Sunu Cagnotte</strong>
+  </p>
+{% endblock %}

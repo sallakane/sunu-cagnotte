@@ -73,6 +73,15 @@ class PaymentController extends AbstractController
                     'contributorEmail' => $contribution->getEmail(),
                 ]);
             }
+            try {
+                $transactionalMailer->sendContributionReceivedToOwner($contribution);
+            } catch (\Throwable $exception) {
+                $logger->error('Impossible d envoyer la notif de don au porteur de cagnotte.', [
+                    'exception' => $exception,
+                    'contributionId' => $contribution->getId()->toRfc4122(),
+                    'fundraiserId' => $contribution->getFundraiser()->getId()->toRfc4122(),
+                ]);
+            }
         }
 
         return $this->json([
@@ -129,6 +138,15 @@ class PaymentController extends AbstractController
                             'contributionId' => $contribution->getId()->toRfc4122(),
                             'fundraiserId' => $contribution->getFundraiser()->getId()->toRfc4122(),
                             'contributorEmail' => $contribution->getEmail(),
+                        ]);
+                    }
+                    try {
+                        $transactionalMailer->sendContributionReceivedToOwner($contribution);
+                    } catch (\Throwable $exception) {
+                        $logger->error('Impossible d envoyer la notif de don au porteur de cagnotte au retour paiement.', [
+                            'exception' => $exception,
+                            'contributionId' => $contribution->getId()->toRfc4122(),
+                            'fundraiserId' => $contribution->getFundraiser()->getId()->toRfc4122(),
                         ]);
                     }
                 }
