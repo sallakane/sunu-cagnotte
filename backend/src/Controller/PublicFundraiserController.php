@@ -22,12 +22,14 @@ class PublicFundraiserController extends AbstractController
     {
         $search = trim((string) $request->query->get('q', ''));
         $category = trim((string) $request->query->get('category', ''));
+        $sort = trim((string) $request->query->get('sort', ''));
 
         $fundraisers = array_map(
             $fundraiserViewFactory->buildPublicSummary(...),
             $fundraiserRepository->findPublicPublished(
                 $search !== '' ? $search : null,
                 $category !== '' ? $category : null,
+                $sort === 'top',
             ),
         );
 

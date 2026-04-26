@@ -38,7 +38,7 @@ export function HomePage() {
   useEffect(() => {
     let active = true;
 
-    apiRequest<{ items: FundraiserSummary[]; meta: { total: number } }>("/fundraisers")
+    apiRequest<{ items: FundraiserSummary[]; meta: { total: number } }>("/fundraisers?sort=top")
       .then((response) => {
         if (active) {
           setFundraisers(response.items);

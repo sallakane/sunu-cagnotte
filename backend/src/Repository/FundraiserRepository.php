@@ -34,15 +34,23 @@ class FundraiserRepository extends ServiceEntityRepository
     /**
      * @return array<int, Fundraiser>
      */
-    public function findPublicPublished(?string $search = null, ?string $category = null): array
+    public function findPublicPublished(?string $search = null, ?string $category = null, bool $sortByTop = false): array
     {
         $queryBuilder = $this->createQueryBuilder('fundraiser')
             ->andWhere('fundraiser.status = :status')
             ->andWhere('fundraiser.endDate >= :today')
             ->setParameter('status', FundraiserStatus::Published->value)
-            ->setParameter('today', new \DateTimeImmutable('today'))
-            ->orderBy('fundraiser.publishedAt', 'DESC')
-            ->addOrderBy('fundraiser.createdAt', 'DESC');
+            ->setParameter('today', new \DateTimeImmutable('today'));
+
+        if ($sortByTop) {
+            $queryBuilder
+                ->orderBy('fundraiser.collectedAmount', 'DESC')
+                ->addOrderBy('fundraiser.publishedAt', 'DESC');
+        } else {
+            $queryBuilder
+                ->orderBy('fundraiser.publishedAt', 'DESC')
+                ->addOrderBy('fundraiser.createdAt', 'DESC');
+        }
 
         if ($search !== null && $search !== '') {
             $queryBuilder
